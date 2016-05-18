@@ -1,0 +1,10 @@
+# node files will be downloaded and installed as required
+node_modules/
+
+#visual studio folders and files
+obj/
+bin/
+d2d-client.njsproj
+d2d-client.sln
+.ntvs_analysis.dat
+.vs/
