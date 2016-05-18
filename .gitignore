@@ -1,3 +1,10 @@
+# typings
+typings/
+
+# javascript
+app/**/*.js
+app/**/*.js.map
+
 # node files will be downloaded and installed as required
 node_modules/
 
@@ -6,5 +13,4 @@ obj/
 bin/
 d2d-client.njsproj
 d2d-client.sln
-.ntvs_analysis.dat
 .vs/
