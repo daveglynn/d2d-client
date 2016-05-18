@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router-deprecated', './navbar.component', './home.component', './users/users.component', './users/user-form.component', './posts/posts.component', './not-found.component'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router-deprecated', './navbar.component', './home.component', './users/users.component', './users/user-form.component', './posts/posts.component', './auth/authentication.component', './not-found.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router-deprecated', './navbar.compon
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_deprecated_1, navbar_component_1, home_component_1, users_component_1, user_form_component_1, posts_component_1, not_found_component_1;
+    var core_1, router_deprecated_1, navbar_component_1, home_component_1, users_component_1, user_form_component_1, posts_component_1, authentication_component_1, not_found_component_1;
     var AppComponent;
     return {
         setters:[
@@ -35,6 +35,9 @@ System.register(['@angular/core', '@angular/router-deprecated', './navbar.compon
             function (posts_component_1_1) {
                 posts_component_1 = posts_component_1_1;
             },
+            function (authentication_component_1_1) {
+                authentication_component_1 = authentication_component_1_1;
+            },
             function (not_found_component_1_1) {
                 not_found_component_1 = not_found_component_1_1;
             }],
@@ -49,6 +52,7 @@ System.register(['@angular/core', '@angular/router-deprecated', './navbar.compon
                         { path: '/users/:id', name: 'EditUser', component: user_form_component_1.UserFormComponent },
                         { path: '/users/new', name: 'NewUser', component: user_form_component_1.UserFormComponent },
                         { path: '/posts', name: 'Posts', component: posts_component_1.PostsComponent },
+                        { path: '/auth/...', name: 'Auth', component: authentication_component_1.AuthenticationComponent },
                         { path: '/not-found', name: 'NotFound', component: not_found_component_1.NotFoundComponent },
                         { path: '/*other', name: 'Other', redirectTo: ['Home'] }
                     ]),

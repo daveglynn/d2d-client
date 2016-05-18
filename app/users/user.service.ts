@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UserService {
-	private _url = "http://jsonplaceholder.typicode.com/users";
+    private _url = "http://d2d-demo.herokuapp.com/users/all";
 
 	constructor(private _http: Http){
 	}

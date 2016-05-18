@@ -13,7 +13,7 @@ import {User} from './user';
 export class UserFormComponent implements OnInit, CanDeactivate {
 	form: ControlGroup;
     title: string;
-    user = new User();
+    user = new User("","","","");
 
 	constructor(
         fb: FormBuilder,
@@ -62,10 +62,10 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     save(){
         var result;
         
-        if (this.user.id) 
+         //if (this.user.id) 
             result = this._userService.updateUser(this.user);
-        else
-            result = this._userService.addUser(this.user)
+       //  else
+       //     result = this._userService.addUser(this.user)
             
 		result.subscribe(x => {
             // Ideally, here we'd want:
