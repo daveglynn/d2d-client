@@ -5,11 +5,7 @@ import { AuthService } from "./auth.service";
 
 @Component({
     selector: 'my-logout',
-    template: `
-        <section class="col-md-8 col-md-offset-2">
-            <button class="btn btn-danger" (click)="onLogout()">Logout</button>
-        </section>
-    `
+    templateUrl: './app/auth/logout.component.html'
 })
 export class LogoutComponent {
     constructor(private _authService: AuthService, private _router: Router) { }
