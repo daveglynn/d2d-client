@@ -1,21 +1,62 @@
-﻿<section class="col-md-8 col-md-offset-2">
-    <form [ngFormModel]="myForm" (ngSubmit)="onSubmit()">
+﻿
+<section class="col-md-8 col-md-offset-2">
+
+    <form [ngFormModel]="form" (ngSubmit)="signup()">
+
         <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input [ngFormControl]="myForm.find('firstName')" type="text" id="firstName" class="form-control">
+            <label for="firstName">First name</label>
+            <input id="firstName" type="text" class="form-control" ngControl="firstName" #firstName="ngForm">
+            <div *ngIf="firstName.touched && firstName.errors">
+                <div *ngIf="firstName.errors.required" class="alert alert-danger">
+                    First name is required
+                </div>
+            </div>
         </div>
+
         <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input [ngFormControl]="myForm.find('lastName')" type="text" id="lastName" class="form-control">
+            <label for="lastName">Last name</label>
+            <input id="lastName" type="text" class="form-control" ngControl="lastName" #lastName="ngForm">
+            <div *ngIf="lastName.touched && lastName.errors">
+                <div *ngIf="lastName.errors.required" class="alert alert-danger">
+                    Last name is required
+                </div>
+            </div>
         </div>
+
         <div class="form-group">
-            <label for="email">Mail</label>
-            <input [ngFormControl]="myForm.find('email')" type="email" id="email" class="form-control">
+            <label for="email">Email</label>
+            <input id="email" type="text" class="form-control" ngControl="email" #email="ngForm">
+            <div *ngIf="email.control.pending">Checking for Uniqueness...</div>
+            <div *ngIf="email.touched && email.errors">
+                <div *ngIf="email.errors.invalidLogin" class="alert alert-danger">
+                    Email or Password is invalid
+                </div>
+                <div *ngIf="email.errors.required" class="alert alert-danger">
+                    Email is required
+                </div>
+                <div *ngIf="email.errors.containsSpace" class="alert alert-danger">
+                    Email cannot contain space
+                </div>
+                <div *ngIf="email.errors.invalidEmailAddress" class="alert alert-danger">
+                    Invalid Email Address
+                </div>
+                <div *ngIf="email.errors.shouldBeUnique" class="alert alert-danger">
+                    Email already taken
+                </div>
+            </div>
         </div>
+
         <div class="form-group">
             <label for="password">Password</label>
-            <input [ngFormControl]="myForm.find('password')" type="password" id="password" class="form-control">
+            <input id="password" type="text" class="form-control" ngControl="password" #password="ngForm">
+            <div *ngIf="password.touched && password.errors">
+                <div *ngIf="password.errors.required" class="alert alert-danger">
+                    Password is required
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Sign Up</button>
+
+        <button class="btn btn-primary" type="submit">Sign Up</button>
+
     </form>
 </section>

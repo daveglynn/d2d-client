@@ -1,5 +1,5 @@
 ﻿<section class="col-md-8 col-md-offset-2">
-    <form [ngFormModel]="myForm" (ngSubmit)="onSubmit()">
+    <form [ngFormModel]="form" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="email">Mail</label>
             <input [ngFormControl]="myForm.find('email')" type="email" id="email" class="form-control">

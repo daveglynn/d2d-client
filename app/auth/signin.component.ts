@@ -10,12 +10,12 @@ import { AuthService } from "./auth.service";
     templateUrl: './app/auth/signin.component.html'
 })
 export class SigninComponent implements OnInit {
-    myForm: ControlGroup;
+    form: ControlGroup;
 
     constructor(private _fb: FormBuilder, private _authService: AuthService, private _router: Router) { }
 
     onSubmit() {
-        const user = new User(this.myForm.value.email, this.myForm.value.password);
+        const user = new User(this.form.value.email, this.form.value.password);
         this._authService.signin(user)
             .subscribe(
             data => {
@@ -28,7 +28,7 @@ export class SigninComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.myForm = this._fb.group({
+        this.form = this._fb.group({
             email: ['', Validators.compose([
                 Validators.required,
                 this.isEmail
