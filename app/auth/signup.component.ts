@@ -5,10 +5,12 @@ import { User } from "../users/user";
 import { AuthService } from "./auth.service";
 import {AuthValidators} from './auth.validators';
 
+import {FocusDirective} from '../shared/directives/focus.directive';
 
 @Component({
     selector: 'my-signup',
-    templateUrl: './app/auth/signup.component.html'
+    templateUrl: './app/auth/signup.component.html',
+    directives: [FocusDirective]
 })
 
 export class SignupComponent implements OnInit {

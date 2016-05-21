@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { ControlGroup, FormBuilder, Validators, Control } from "@angular/common";
 import {Router} from '@angular/router-deprecated';
-
+  
 import { User } from '../users/user';
 import { AuthService } from "./auth.service";
 
