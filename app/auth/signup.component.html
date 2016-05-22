@@ -1,7 +1,7 @@
 ﻿
 <section class="col-md-8 col-md-offset-2">
 
-    <form [ngFormModel]="form" (ngSubmit)="signup()">
+    <form [ngFormModel]="form" (ngSubmit)="onSubmit()">
 
         <div class="form-group">
             <label for="firstName">First name</label>
@@ -29,9 +29,6 @@
             <input id="email" type="text" class="form-control" placeholder="Required" ngControl="email" #email="ngForm"     focus>
             <div *ngIf="email.control.pending">Checking for Uniqueness...</div>
             <div *ngIf="email.touched && email.errors">
-                <div *ngIf="email.errors.invalidLogin" class="alert alert-danger">
-                    Email or Password is invalid
-                </div>
                 <div *ngIf="email.errors.required" class="alert alert-danger">
                     Email is required
                 </div>
@@ -54,10 +51,13 @@
                 <div *ngIf="password.errors.required" class="alert alert-danger">
                     Password is required
                 </div>
+                <div *ngIf="password.errors.invalidPassword" class="alert alert-danger">
+                    Must be between 6 to 10 characters containing One Uppercase, One Lowercase and One Digit
+                </div>
             </div>
-        </div>
+        </div> 
 
-        <button class="btn btn-primary" type="submit">Sign Up</button>
+        <button class="btn btn-primary" [disabled]="!form.valid"  type="submit">Sign Up</button>
 
     </form>
 </section>

@@ -21,22 +21,28 @@ export class SignupComponent implements OnInit {
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             email: ['', Validators.compose([
-                Validators.required,
-                AuthValidators.containsSpace,
-                AuthValidators.invalidEmailAddress
-            ]), AuthValidators.shouldBeUnique],
-            password: ['', Validators.required]
+                        Validators.required,
+                        AuthValidators.containsSpace,
+                        AuthValidators.invalidEmailAddress
+            ]),
+            AuthValidators.shouldBeUnique],
+            password: ['',  Validators.compose([
+                            Validators.required,
+                            AuthValidators.invalidPassword
+                            ])],
         });
     }
 
     onSubmit() {
+        debugger;
         const user = new User(this.form.value.email, this.form.value.password, this.form.value.firstName, this.form.value.lastName);
         console.log(user);
         this._authService.signup(user)
             .subscribe(
             data => console.log(data),
-            error => console.error(error)
-            )
+            error => console.error(error),
+             )
+        //this._Router.navigate(['Posts']);
     }
 
     ngOnInit() {

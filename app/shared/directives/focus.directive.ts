@@ -13,12 +13,10 @@ export class FocusDirective {
     constructor(private cs:  ConstantsService,private el: ElementRef,private renderer: Renderer) { }
 
     onFocus() {
-        debugger;
         this.renderer.setElementStyle(this.el.nativeElement, "background-color", this.cs.onFocusInputBackColor);
     }
 
     onBlur() {
-        debugger;
         this.renderer.setElementStyle(this.el.nativeElement, "background-color", this.cs.defaultInputBackColor);
     }
 }

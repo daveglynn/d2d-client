@@ -10,6 +10,7 @@ export class AuthService {
     constructor(private _http: Http) { }
 
     signup(user: User) {
+        debugger;
         const body = JSON.stringify(user);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         return this._http.post('http://d2d-demo.herokuapp.com/users', body, { headers: headers })
