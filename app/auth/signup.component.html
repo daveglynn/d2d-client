@@ -6,7 +6,6 @@
         <div class="form-group">
             <label for="firstName">First name</label>
             <input id="firstName" type="text" class="form-control"  placeholder="Required" ngControl="firstName" #firstName="ngForm"   focus  >
-             
             <div *ngIf="firstName.touched && firstName.errors">
                 <div *ngIf="firstName.errors.required" class="alert alert-danger">
                     First name is required 
@@ -26,7 +25,7 @@
 
         <div class="form-group">
             <label for="email">Email</label>
-            <input id="email" type="text" class="form-control" placeholder="Required" ngControl="email" #email="ngForm"     focus>
+            <input id="email" type="text" class="form-control" placeholder="Required" ngControl="email" #email="ngForm"   focus>
             <div *ngIf="email.control.pending">Checking for Uniqueness...</div>
             <div *ngIf="email.touched && email.errors">
                 <div *ngIf="email.errors.required" class="alert alert-danger">
@@ -38,7 +37,7 @@
                 <div *ngIf="email.errors.invalidEmailAddress" class="alert alert-danger">
                     Invalid Email Address
                 </div>
-                <div *ngIf="email.errors.shouldBeUnique" class="alert alert-danger">
+                <div *ngIf="email.errors.alreadyExists" class="alert alert-danger">
                     Email already taken
                 </div>
             </div>

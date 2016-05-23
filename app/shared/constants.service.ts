@@ -9,5 +9,6 @@ export class ConstantsService {
      onFocusInputBackColor: string = '#E4FFE0';
 
      redirectAfterSignup: string = "/auth/signin";
+     redirectAfterSignin: string = "/"
 
 }

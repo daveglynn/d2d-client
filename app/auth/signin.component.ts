@@ -1,18 +1,34 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { ControlGroup, FormBuilder, Validators, Control } from "@angular/common";
-import {Router} from '@angular/router-deprecated';
-  
 import { User } from '../users/user';
 import { AuthService } from "./auth.service";
+import { AuthValidators} from './auth.validators';
+import { FocusDirective } from '../shared/directives/focus.directive';
+import { ConstantsService } from   '../shared/constants.service';
 
 @Component({
     selector: 'my-signin',
-    templateUrl: './app/auth/signin.component.html'
+    templateUrl: './app/auth/signin.component.html',
+    directives: [FocusDirective]
 })
 export class SigninComponent implements OnInit {
     form: ControlGroup;
 
-    constructor(private _fb: FormBuilder, private _authService: AuthService, private _router: Router) { }
+    constructor(private _fb: FormBuilder, private _authService: AuthService, private cs: ConstantsService) {
+
+        this.form = _fb.group({
+            email: ['', Validators.compose([
+                Validators.required,
+                AuthValidators.containsSpace,
+                AuthValidators.invalidEmailAddress
+            ]),
+                AuthValidators.invalidSignin],
+            password: ['', Validators.compose([
+                Validators.required,
+                AuthValidators.invalidPassword
+            ])],
+        });
+    }
 
     onSubmit() {
         const user = new User(this.form.value.email, this.form.value.password);
@@ -21,20 +37,14 @@ export class SigninComponent implements OnInit {
             data => {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('userId', data.userId);
-                this._router.navigateByUrl('/');
             },
             error => console.error(error)
             );
+        window.location.href = this.cs.redirectAfterSignin;
     }
 
     ngOnInit() {
-        this.form = this._fb.group({
-            email: ['', Validators.compose([
-                Validators.required,
-                this.isEmail
-            ])],
-            password: ['', Validators.required]
-        });
+      
     }
 
     private isEmail(control: Control): { [s: string]: boolean } {

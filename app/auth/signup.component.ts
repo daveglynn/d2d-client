@@ -2,9 +2,9 @@
 import { FormBuilder, ControlGroup, Validators, Control } from "@angular/common";
 import { User } from "../users/user";
 import { AuthService } from "./auth.service";
-import {AuthValidators} from './auth.validators';
-import {FocusDirective} from '../shared/directives/focus.directive';
-import {ConstantsService} from   '../shared/constants.service';
+import { AuthValidators } from './auth.validators';
+import { FocusDirective } from '../shared/directives/focus.directive';
+import { ConstantsService } from   '../shared/constants.service';
 
 @Component({
     selector: 'my-signup',
@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit {
                         AuthValidators.containsSpace,
                         AuthValidators.invalidEmailAddress
             ]),
-            AuthValidators.shouldBeUnique],
+            AuthValidators.alreadyExists],
             password: ['',  Validators.compose([
                             Validators.required,
                             AuthValidators.invalidPassword

@@ -1,13 +1,40 @@
 ﻿<section class="col-md-8 col-md-offset-2">
     <form [ngFormModel]="form" (ngSubmit)="onSubmit()">
+        
         <div class="form-group">
-            <label for="email">Mail</label>
-            <input [ngFormControl]="myForm.find('email')" type="email" id="email" class="form-control">
+            <label for="email">Email</label>
+            <input id="email" type="text" class="form-control" placeholder="Required" ngControl="email" #email="ngForm" focus>
+            <div *ngIf="email.control.pending">Checking for Uniqueness...</div>
+            <div *ngIf="email.touched && email.errors">
+                <div *ngIf="email.errors.required" class="alert alert-danger">
+                    Email is required
+                </div>
+                <div *ngIf="email.errors.containsSpace" class="alert alert-danger">
+                    Email cannot contain space
+                </div>
+                <div *ngIf="email.errors.invalidEmailAddress" class="alert alert-danger">
+                    Invalid Email Address
+                </div>
+                <div *ngIf="email.errors.invalidSignin" class="alert alert-danger">
+                    Email and Password combination are  incorrect
+                </div>
+            </div>
         </div>
+
         <div class="form-group">
             <label for="password">Password</label>
-            <input [ngFormControl]="myForm.find('password')" type="password" id="password" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Sign Up</button>
+            <input id="password" type="password" class="form-control" placeholder="Required" ngControl="password" #password="ngForm" focus>
+            <div *ngIf="password.touched && password.errors">
+                <div *ngIf="password.errors.required" class="alert alert-danger">
+                    Password is required
+                </div>
+                <div *ngIf="password.errors.invalidPassword" class="alert alert-danger">
+                    Must be between 6 to 10 characters containing One Uppercase, One Lowercase and One Digit
+                </div>
+            </div>
+        </div> 
+
+        <button class="btn btn-primary" [disabled]="!form.valid" type="submit">Sign In</button>
+    
     </form>
 </section>

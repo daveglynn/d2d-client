@@ -4,7 +4,7 @@
 export class AuthValidators {
 
     static containsSpace(control: Control) {
-        if (control.value.trim() != "") {
+          if (control.value.trim() != "") {
             if (control.value.trim().indexOf(' ') >= 0)
                 return { containsSpace: true };
             return null;
@@ -40,15 +40,27 @@ export class AuthValidators {
     }
 
     
-    static shouldBeUnique(control: Control) {
+    static alreadyExists(control: Control) {
         return new Promise((resolve, reject) => {
             setTimeout(function () {
                 if (control.value == "dave@dave.com")
-                    resolve({ shouldBeUnique: true });
+                    resolve({ alreadyExists: true });
                 else
                     resolve(null);
             }, 1000);
         });
     }
+
+    static invalidSignin(control: Control) {
+        return new Promise((resolve, reject) => {
+            setTimeout(function () {
+                if (control.value == "dave@dave.com")
+                    resolve({ invalidSignin: true });
+                else
+                    resolve(null);
+            }, 1000);
+        });
+    }
+
     
 }
