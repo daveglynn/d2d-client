@@ -21,12 +21,12 @@ export class SigninComponent implements OnInit {
                 Validators.required,
                 AuthValidators.containsSpace,
                 AuthValidators.invalidEmailAddress
-            ]),
-                AuthValidators.invalidSignin],
+            ])],
             password: ['', Validators.compose([
                 Validators.required,
                 AuthValidators.invalidPassword
-            ])],
+            ]),
+                AuthValidators.invalidCombination]
         });
     }
 
@@ -47,9 +47,5 @@ export class SigninComponent implements OnInit {
       
     }
 
-    private isEmail(control: Control): { [s: string]: boolean } {
-        if (!control.value.match("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
-            return { invalidMail: true };
-        }
-    }
+
 }

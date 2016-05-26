@@ -51,16 +51,16 @@ export class AuthValidators {
         });
     }
 
-    static invalidSignin(control: Control) {
+
+    static invalidCombination(control: Control) {
         return new Promise((resolve, reject) => {
             setTimeout(function () {
-                if (control.value == "dave@dave.com")
-                    resolve({ invalidSignin: true });
+                if (control.value == "Password1")
+                    resolve({ invalidCombination: true });
                 else
                     resolve(null);
             }, 1000);
         });
     }
-
-    
+        
 }
