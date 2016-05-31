@@ -6,4 +6,7 @@ import {AppComponent} from './app.component';
 import {AuthService} from './auth/auth.service';
 import {ConstantsService} from   './shared/constants.service';
 
-bootstrap(AppComponent, [ROUTER_PROVIDERS, HTTP_PROVIDERS, AuthService, ConstantsService]);
+import { ErrorService } from "./errors/error.service";
+
+
+bootstrap(AppComponent, [ROUTER_PROVIDERS, HTTP_PROVIDERS, AuthService, ErrorService,ConstantsService]);

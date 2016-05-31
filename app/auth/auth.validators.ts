@@ -1,7 +1,10 @@
 ﻿import {Control} from '@angular/common';
+ 
 
+ 
+ export class AuthValidators {
 
-export class AuthValidators {
+    constructor(   ) { }
 
     static containsSpace(control: Control) {
           if (control.value.trim() != "") {
@@ -39,17 +42,45 @@ export class AuthValidators {
         }
     }
 
-    
-    static alreadyExists(control: Control) {
-        return new Promise((resolve, reject) => {
-            setTimeout(function () {
-                if (control.value == "dave@dave.com")
-                    resolve({ alreadyExists: true });
-                else
-                    resolve(null);
-            }, 1000);
-        });
-    }
+
+    //static alreadyExists(control: Control) {
+    //   
+    //    return new Promise((resolve, reject) => {
+    //        setTimeout(function () {
+    //            if (control.value == "dave@dave.com")
+    //                resolve({ alreadyExists: true });
+    //            else
+    //                resolve(null);
+    //        }, 1000);
+    //    });
+    // }
+
+    //static alreadyExists(test: string, http: Http) {
+     //    return new Promise((resolve, reject) => {
+    //         //var _http = require('http');
+    //          http.get("http://d2d-demo.herokuapp.com/users/email/" + test)
+    //            .subscribe(data => {
+    //                data = data
+    //                if (data) {
+   //                     resolve({ alreadyExists: true })
+    //                } else {
+    //                    resolve(null);
+    //                }
+    //            });
+    //    });
+    // }
+
+   
+    //static alreadyExists(control: Control) {
+    //    return new Promise((resolve, reject) => {
+    //        setTimeout(function () {
+    //            if (control.value == "dave@dave.com")
+    //                resolve({ alreadyExists: true });
+    //            else
+    //                resolve(null);
+    //        }, 1000);
+    //    });
+    // }
 
 
     static invalidCombination(control: Control) {
@@ -62,5 +93,8 @@ export class AuthValidators {
             }, 1000);
         });
     }
-        
+
+
+
+
 }

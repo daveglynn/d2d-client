@@ -7,6 +7,8 @@ import {UserFormComponent} from './users/user-form.component';
 import {PostsComponent} from './posts/posts.component';
 import {AuthenticationComponent} from './auth/authentication.component';
 import {NotFoundComponent} from './not-found.component';
+import { ErrorComponent } from "./errors/error.component";
+
 
 @RouteConfig([
     { path: '/', name: 'Home', component: HomeComponent },
@@ -25,7 +27,8 @@ import {NotFoundComponent} from './not-found.component';
         <div class="container">
             <router-outlet></router-outlet>
         </div>
+        <my-error></my-error>
     `,
-    directives: [NavBarComponent, ROUTER_DIRECTIVES]
+    directives: [NavBarComponent, ROUTER_DIRECTIVES,ErrorComponent]
 })
 export class AppComponent { }

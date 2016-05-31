@@ -2,18 +2,18 @@
 import { Http, Headers } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/Rx';
-
+import {ConstantsService} from   '../shared/constants.service';
 import { User } from '../users/user';
 
 @Injectable()
 export class AuthService {
-    constructor(private _http: Http) { }
+    constructor(private cs: ConstantsService,private _http: Http) { }
+    private _url = this.cs.serverUrl;
 
     signup(user: User) {
-        debugger;
         const body = JSON.stringify(user);
         const headers = new Headers({ 'Content-Type': 'application/json' });
-        return this._http.post('http://d2d-demo.herokuapp.com/users', body, { headers: headers })
+        return this._http.post(this._url +'/users', body, { headers: headers })
             .map(response => response.json())
             .catch(error => Observable.throw(error.json()));
     }
@@ -21,7 +21,7 @@ export class AuthService {
     signin(user: User) {
         const body = JSON.stringify(user);
         const headers = new Headers({ 'Content-Type': 'application/json' });
-        return this._http.post('http://d2d-demo.herokuapp.com/users/login', body, { headers: headers })
+        return this._http.post(this._url + '/users/login', body, { headers: headers })
             .map(response => response.json())
             .catch(error => Observable.throw(error.json()));
     }
@@ -33,4 +33,6 @@ export class AuthService {
     isLoggedIn() {
         return localStorage.getItem('token') !== null;
     }
+
+
 }
