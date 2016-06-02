@@ -5,6 +5,7 @@ import { AuthService } from "./auth.service";
 import { AuthValidators} from './auth.validators';
 import { FocusDirective } from '../shared/directives/focus.directive';
 import { ConstantsService } from   '../shared/constants.service';
+import { ErrorService } from ".././errors/error.service";
 
 @Component({
     selector: 'my-signin',
@@ -14,7 +15,7 @@ import { ConstantsService } from   '../shared/constants.service';
 export class SigninComponent implements OnInit {
     form: ControlGroup;
 
-    constructor(private _fb: FormBuilder, private _authService: AuthService, private cs: ConstantsService) {
+    constructor(private _fb: FormBuilder, private _authService: AuthService, private cs: ConstantsService, private _errorService: ErrorService ) {
 
         this.form = _fb.group({
             email: ['', Validators.compose([
@@ -38,7 +39,7 @@ export class SigninComponent implements OnInit {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('userId', data.userId);
             },
-            error => console.error(error)
+            error => this._errorService.handleError(error)
             );
         window.location.href = this.cs.redirectAfterSignin;
     }

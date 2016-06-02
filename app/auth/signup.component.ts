@@ -56,7 +56,7 @@ export class SignupComponent implements OnInit {
         //      res =>   res.json(),
         //      error => console.log(error)
         //      );
-
+          
         const user = new User(this.form.value.email, this.form.value.password, this.form.value.firstName, this.form.value.lastName);
         console.log(user);
 
