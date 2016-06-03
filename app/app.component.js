@@ -61,7 +61,7 @@ System.register(['@angular/core', '@angular/router-deprecated', './navbar.compon
                     ]),
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n        <navbar></navbar>\n        <div class=\"container\">\n            <router-outlet></router-outlet>\n        </div>\n        <my-error></my-error>\n    ",
+                        template: "\n        <navbar></navbar>\n        <div class=\"container\">\n            <router-outlet></router-outlet>\n              <my-error></my-error>\n        </div>\n     \n    ",
                         directives: [navbar_component_1.NavBarComponent, router_deprecated_1.ROUTER_DIRECTIVES, error_component_1.ErrorComponent]
                     }), 
                     __metadata('design:paramtypes', [])

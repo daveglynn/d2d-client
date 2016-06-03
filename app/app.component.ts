@@ -26,8 +26,9 @@ import { ErrorComponent } from "./errors/error.component";
         <navbar></navbar>
         <div class="container">
             <router-outlet></router-outlet>
+              <my-error></my-error>
         </div>
-        <my-error></my-error>
+     
     `,
     directives: [NavBarComponent, ROUTER_DIRECTIVES,ErrorComponent]
 })

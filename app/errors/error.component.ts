@@ -10,10 +10,12 @@ import {ErrorService} from "./error.service";
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" aria-label="Close" (click)="onErrorHandled()"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">{{errorData?.title}}</h4>
+                        <h3 class="modal-title">Message from the D2D Service</h3>
                     </div>
                     <div class="modal-body">
+                    <div class="alert alert-danger" > 
                      <p>{{errorData?.message}}</p>
+                     </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" (click)="onErrorHandled()">Close</button>
