@@ -1,6 +1,5 @@
 ﻿import {Control} from '@angular/common';
  
-
  
  export class AuthValidators {
 
@@ -22,6 +21,7 @@
             return null;
         }
     }
+
 
     static invalidPassword(control: Control) {
         if (control.value.trim() != "") {

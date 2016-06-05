@@ -2,7 +2,7 @@
 <section class="col-md-8 col-md-offset-2">
 
     <form [ngFormModel]="form" (ngSubmit)="onSubmit()">
-
+        <br />
         <div class="form-group">
             <label for="firstName">First name</label>
             <input id="firstName" type="text" class="form-control"  placeholder="Required" ngControl="firstName" #firstName="ngForm"   focus  >
@@ -56,11 +56,10 @@
 
             </div>
         </div> 
-
-  
- 
-            <button class="btn btn-primary" [disabled]="!form.valid" type="submit">Sign Up</button>
-
+         
+        <br />
+        <button class="btn btn-primary" [disabled]="!form.valid" type="submit">Sign Up</button>
+        <spinner [visible]="signingUp"></spinner>
  
 
 

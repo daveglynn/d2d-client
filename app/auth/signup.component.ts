@@ -6,29 +6,23 @@ import { AuthValidators } from './auth.validators';
 import { FocusDirective } from '../shared/directives/focus.directive';
 import { ConstantsService } from   '../shared/constants.service';
 import { ErrorService } from ".././errors/error.service";
+
+import {SpinnerComponent} from '../shared/spinner.component';
  
-// error 
-
-
-//required for Server validation
-//import { Http, Headers } from "@angular/http";
-//import { AuthAsyncValidators } from './auth.async.validators';
-//import { Observable } from "rxjs/Observable";
-//import {ViewChild} from '@angular/core';
-
+ 
 
 @Component({
     selector: 'my-signup',
     templateUrl: './app/auth/signup.component.html',
-    directives: [FocusDirective]
+    directives: [SpinnerComponent,FocusDirective]
 })
 
 export class SignupComponent implements OnInit {
-   // @ViewChild('email') email;
-    form: ControlGroup;
 
+    signingUp;
+    form: ControlGroup;
  
-    constructor(private _fb: FormBuilder, private _authService: AuthService, private cs: ConstantsService, private  _errorService: ErrorService  )  {
+    constructor(private _fb: FormBuilder, private _authService: AuthService, private cs: ConstantsService, private _errorService: ErrorService )  {
         this.form = _fb.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
@@ -45,28 +39,19 @@ export class SignupComponent implements OnInit {
     } 
     
     onSubmit() {
-
-       // var authAsyncValidators = new AuthAsyncValidators(this._http);
-        //var errors = authAsyncValidators.alreadyExists(this.form.controls.email);
-         
-        //debugger;
-       // console.log(this.email);
-        //this._http.get("http://d2d-demo.herokuapp.com/users/email/" + this.email.value)
-        //      .subscribe(
-        //      res =>   res.json(),
-        //      error => console.log(error)
-        //      );
-          
+        this.signingUp = true; 
         const user = new User(this.form.value.email, this.form.value.password, this.form.value.firstName, this.form.value.lastName);
         console.log(user);
 
         this._authService.signup(user)
             .subscribe(
             data => console.log(data),
-            error => this._errorService.handleError(error)
+            error => this._errorService.handleError(error),
+            function () {
+                  this.signingUp = false;
+                  window.location.href = "/auth/signin";
+                }
            )
-        //this._router.navigate(["./Users"]);
-        //window.location.href = this.cs.redirectAfterSignup;
     }
 
     ngOnInit() {
