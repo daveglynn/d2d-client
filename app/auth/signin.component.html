@@ -1,6 +1,7 @@
 ﻿<section class="col-md-8 col-md-offset-2">
     <form [ngFormModel]="form" (ngSubmit)="onSubmit()">
-        
+        <br />
+
         <div class="form-group">
             <label for="email">Email</label>
             <input id="email" type="text" class="form-control" placeholder="Required" ngControl="email" #email="ngForm" focus>
@@ -28,13 +29,12 @@
                 <div *ngIf="password.errors.invalidPassword" class="alert alert-danger">
                     Must be between 6 to 10 characters containing One Uppercase, One Lowercase and One Digit
                 </div>
-                <div *ngIf="password.errors.invalidCombination" class="alert alert-danger">
-                    Email and Password combination are  incorrect
-                </div>
             </div>
-        </div> 
-
+        </div>
+         
+        <br />
         <button class="btn btn-primary" [disabled]="!form.valid" type="submit">Sign In</button>
-    
+        <spinner [visible]="signingIn"></spinner>
+
     </form>
 </section>

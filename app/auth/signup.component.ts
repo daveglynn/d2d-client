@@ -6,7 +6,6 @@ import { AuthValidators } from './auth.validators';
 import { FocusDirective } from '../shared/directives/focus.directive';
 import { ConstantsService } from   '../shared/constants.service';
 import { ErrorService } from ".././errors/error.service";
-
 import {SpinnerComponent} from '../shared/spinner.component';
  
  
@@ -42,17 +41,30 @@ export class SignupComponent implements OnInit {
         this.signingUp = true; 
         const user = new User(this.form.value.email, this.form.value.password, this.form.value.firstName, this.form.value.lastName);
         console.log(user);
-
         this._authService.signup(user)
             .subscribe(
-            data => console.log(data),
-            error => this._errorService.handleError(error),
-            function () {
-                  this.signingUp = false;
-                  window.location.href = "/auth/signin";
-                }
-           )
+            data => this.handleData(data),
+            error => this.handleError(error),
+            () => this.handleSuccess() 
+            )
     }
+
+    handleError(error: any) {
+        console.log("handle error");
+        this.signingUp = false; 
+        this._errorService.handleError(error);
+    }
+
+    handleData(data: any) {
+        console.log("handle data");
+        console.log(data);
+    }
+
+    handleSuccess() {
+        console.log("handle success");
+        this.signingUp = false;
+        window.location.href = "/auth/signin";
+   }
 
     ngOnInit() {
         

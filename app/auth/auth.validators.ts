@@ -83,16 +83,16 @@
     // }
 
 
-    static invalidCombination(control: Control) {
-        return new Promise((resolve, reject) => {
-            setTimeout(function () {
-                if (control.value == "Password1")
-                    resolve({ invalidCombination: true });
-                else
-                    resolve(null);
-            }, 1000);
-        });
-    }
+ //   static invalidCombination(control: Control) {
+ //       return new Promise((resolve, reject) => {
+ //           setTimeout(function () {
+ //               if (control.value == "Password1")
+ //                   resolve({ invalidCombination: true });
+ //               else
+ //                   resolve(null);
+ //           }, 1000);
+ //       });
+ //   }
 
 
 
