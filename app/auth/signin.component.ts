@@ -46,25 +46,21 @@ export class SigninComponent implements OnInit {
     }
 
     handleError(error: any) {
-        debugger;
         console.log("handle error");
         this.signingIn = false;
         this._errorService.handleError(error);
     }
 
     handleData(data: any) {
-        debugger;
         console.log("handle data");
         localStorage.setItem('token', data.token);
         localStorage.setItem('userId', data.user.userId);
         localStorage.setItem('firstName', data.user.firstName);
         localStorage.setItem('lastName', data.user.lastName);
         localStorage.setItem('email', data.user.email);
-        this.signingIn = false;
     }
 
     handleSuccess() {
-        debugger;
         console.log("handle success");
         this.signingIn = false;
         window.location.href = "/home";

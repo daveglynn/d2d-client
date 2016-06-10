@@ -1,17 +1,45 @@
 ﻿import { Component } from "@angular/core";
-import {Router} from '@angular/router-deprecated';
+import { ErrorService } from ".././errors/error.service";
+import { SpinnerComponent } from '../shared/spinner.component';
 
 import { AuthService } from "./auth.service";
 
 @Component({
     selector: 'my-logout',
-    templateUrl: './app/auth/logout.component.html'
+    templateUrl: './app/auth/logout.component.html',
+    directives: [SpinnerComponent]
 })
 export class LogoutComponent {
-    constructor(private _authService: AuthService, private _router: Router) { }
+    loggingOut;
+
+    constructor(private _authService: AuthService, private _errorService: ErrorService) { }
 
     onLogout() {
-        this._authService.logout();
-        this._router.navigate(['/auth/signin']);
+        this.loggingOut = true;
+        this._authService.logout()
+            .subscribe(
+            data => this.handleData(data),
+            error => this.handleError(error),
+            () => this.handleSuccess()
+            )
+    }
+
+    handleError(error: any) {
+        debugger;
+        console.log("handle error");
+        this.loggingOut = false;
+        this._errorService.handleError(error);
+    }
+
+    handleData(data: any) {
+        console.log("handle data");
+        localStorage.clear();
+    }
+
+    handleSuccess() {
+        debugger;
+        console.log("handle success");
+        this.loggingOut = false;
+        window.location.href = "/home";
     }
 }

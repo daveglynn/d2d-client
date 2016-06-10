@@ -57,7 +57,6 @@ export class SignupComponent implements OnInit {
 
     handleData(data: any) {
         console.log("handle data");
-        console.log(data);
     }
 
     handleSuccess() {
