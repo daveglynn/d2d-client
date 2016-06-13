@@ -7,6 +7,8 @@ import { FocusDirective } from '../shared/directives/focus.directive';
 import { ConstantsService } from   '../shared/constants.service';
 import { ErrorService } from ".././errors/error.service";
 import { SpinnerComponent } from '../shared/spinner.component';
+import { LocalData } from '../shared/common';
+import { CommonService } from   '../shared/common.service';
 
 @Component({
     selector: 'my-signin',
@@ -17,7 +19,7 @@ export class SigninComponent implements OnInit {
     signingIn;
     form: ControlGroup;
 
-    constructor(private _fb: FormBuilder, private _authService: AuthService, private cs: ConstantsService, private _errorService: ErrorService ) {
+    constructor(private _fb: FormBuilder, private _authService: AuthService, private _cs: ConstantsService, private _commonService: CommonService, private _errorService: ErrorService ) {
 
         this.form = _fb.group({
             email: ['', Validators.compose([
@@ -52,13 +54,10 @@ export class SigninComponent implements OnInit {
 
     handleData(data: any) {
         console.log("handle data");
-       debugger;
-        localStorage.clear();
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('userId', data.user.id);
-        localStorage.setItem('firstName', data.user.firstName);
-        localStorage.setItem('lastName', data.user.lastName);
-        localStorage.setItem('email', data.user.email);
+        debugger;
+        var localData = new LocalData(data.token, data.user.id, data.user.firstName, data.user.lastName, data.user.email);
+        this._commonService.clearLocalStorage();
+        this._commonService.setLocalStorage(localData);
     }
 
     handleSuccess() {

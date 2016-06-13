@@ -6,8 +6,8 @@ import { AuthValidators } from './auth.validators';
 import { FocusDirective } from '../shared/directives/focus.directive';
 import { ConstantsService } from   '../shared/constants.service';
 import { ErrorService } from ".././errors/error.service";
-import {SpinnerComponent} from '../shared/spinner.component';
- 
+import { SpinnerComponent } from '../shared/spinner.component';
+import { CommonService } from   '../shared/common.service'; 
  
 
 @Component({
@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit {
     signingUp;
     form: ControlGroup;
  
-    constructor(private _fb: FormBuilder, private _authService: AuthService, private cs: ConstantsService, private _errorService: ErrorService )  {
+    constructor(private _fb: FormBuilder, private _authService: AuthService, private _cs: ConstantsService, private _commonService: CommonService,private _errorService: ErrorService )  {
         this.form = _fb.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
@@ -62,7 +62,7 @@ export class SignupComponent implements OnInit {
     handleSuccess() {
         console.log("handle success");
         this.signingUp = false;
-        localStorage.clear();
+         this._commonService.clearLocalStorage();
         window.location.href = "/auth/signin";
    }
 

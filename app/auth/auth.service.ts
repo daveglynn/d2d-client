@@ -3,14 +3,15 @@ import { Http, Headers } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/Rx';
 import {ConstantsService} from   '../shared/constants.service';
+import {CommonService} from   '../shared/common.service';
 import { User, Login } from '../users/user';
 
 import {URLSearchParams} from '@angular/http';
 
 @Injectable()
 export class AuthService {
-    constructor(private cs: ConstantsService,private _http: Http) { }
-    private _url = this.cs.serverUrl;
+    constructor(private _cs: ConstantsService, private commonService: CommonService,private _http: Http) { }
+    private _url = this._cs.serverUrl;
 
     signup(user: User) {
         const body = JSON.stringify(user);
@@ -29,11 +30,7 @@ export class AuthService {
     } 
        
     logout() {
- 
-        let params: URLSearchParams = new URLSearchParams();
-        params.set('Auth', localStorage.getItem('token'));
-        debugger;
-        return this._http.delete(this._url + '/users/login', {search: params} )
+        return this._http.delete(this._url + '/users/login', { search: this.commonService.getToken()} )
            .map(response => response.json())
            .catch(error => Observable.throw(error.json()))
     }

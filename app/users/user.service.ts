@@ -6,9 +6,9 @@ import {ConstantsService} from   '../shared/constants.service';
 @Injectable()
 export class UserService {
 
-    private _url = this.cs.serverUrl;
+    private _url = this._cs.serverUrl;
   
-    constructor(private cs: ConstantsService,private _http: Http){
+    constructor(private _cs: ConstantsService,private _http: Http){
 	}
 
 	getUsers(){

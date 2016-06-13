@@ -1,8 +1,8 @@
 ﻿import { Component } from "@angular/core";
 import { ErrorService } from ".././errors/error.service";
 import { SpinnerComponent } from '../shared/spinner.component';
-
 import { AuthService } from "./auth.service";
+import { CommonService } from   '../shared/common.service'; 
 
 @Component({
     selector: 'my-logout',
@@ -12,7 +12,7 @@ import { AuthService } from "./auth.service";
 export class LogoutComponent {
     loggingOut;
 
-    constructor(private _authService: AuthService, private _errorService: ErrorService) { }
+    constructor(private _authService: AuthService, private _commonService: CommonService, private _errorService: ErrorService) { }
 
     onLogout() {
         this.loggingOut = true;
@@ -25,7 +25,7 @@ export class LogoutComponent {
 
     handleError(error: any) {
         console.log("handle error");
-        localStorage.clear();
+        this._commonService.clearLocalStorage();
         this.loggingOut = false;
         this._errorService.handleError(error);
     }
@@ -33,7 +33,7 @@ export class LogoutComponent {
     handleSuccess() {
         console.log("handle success");
         this.loggingOut = false;
-        localStorage.clear();
+        this._commonService.clearLocalStorage();
         window.location.href = "/home";
     }
 }
