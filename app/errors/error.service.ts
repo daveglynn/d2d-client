@@ -2,9 +2,8 @@
 import {Error} from "./error";
 export class ErrorService {
  
-    errorOccurred = new EventEmitter<Error>()
-    handleError(error: any) {
-debugger;
+        errorOccurred = new EventEmitter<Error>()
+        handleError(error: any) {
         var errorData = new Error("Error", "An Error occurred proccessing your request");
         //error.errors[0].message
         if (error.name != 'undefined') {

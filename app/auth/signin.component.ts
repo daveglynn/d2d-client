@@ -54,7 +54,6 @@ export class SigninComponent implements OnInit {
 
     handleData(data: any) {
         console.log("handle data");
-        debugger;
         var localData = new LocalData(data.token, data.user.id, data.user.firstName, data.user.lastName, data.user.email);
         this._commonService.clearLocalStorage();
         this._commonService.setLocalStorage(localData);
