@@ -18,28 +18,22 @@ export class LogoutComponent {
         this.loggingOut = true;
         this._authService.logout()
             .subscribe(
-            data => this.handleData(data),
             error => this.handleError(error),
             () => this.handleSuccess()
             )
     }
 
     handleError(error: any) {
-        debugger;
         console.log("handle error");
+        localStorage.clear();
         this.loggingOut = false;
         this._errorService.handleError(error);
     }
 
-    handleData(data: any) {
-        console.log("handle data");
-        localStorage.clear();
-    }
-
     handleSuccess() {
-        debugger;
         console.log("handle success");
         this.loggingOut = false;
+        localStorage.clear();
         window.location.href = "/home";
     }
 }

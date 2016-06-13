@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import { ControlGroup, FormBuilder, Validators, Control } from "@angular/common";
-import { User } from '../users/user';
-import { Login } from '../users/user';
+import { User, Login } from '../users/user';
 import { AuthService } from "./auth.service";
 import { AuthValidators} from './auth.validators';
 import { FocusDirective } from '../shared/directives/focus.directive';
@@ -53,8 +52,10 @@ export class SigninComponent implements OnInit {
 
     handleData(data: any) {
         console.log("handle data");
+       debugger;
+        localStorage.clear();
         localStorage.setItem('token', data.token);
-        localStorage.setItem('userId', data.user.userId);
+        localStorage.setItem('userId', data.user.id);
         localStorage.setItem('firstName', data.user.firstName);
         localStorage.setItem('lastName', data.user.lastName);
         localStorage.setItem('email', data.user.email);

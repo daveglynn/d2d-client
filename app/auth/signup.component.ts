@@ -62,6 +62,7 @@ export class SignupComponent implements OnInit {
     handleSuccess() {
         console.log("handle success");
         this.signingUp = false;
+        localStorage.clear();
         window.location.href = "/auth/signin";
    }
 

@@ -4,7 +4,9 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/Rx';
 import {ConstantsService} from   '../shared/constants.service';
 import { User, Login } from '../users/user';
- 
+
+import {URLSearchParams} from '@angular/http';
+
 @Injectable()
 export class AuthService {
     constructor(private cs: ConstantsService,private _http: Http) { }
@@ -16,23 +18,24 @@ export class AuthService {
          return this._http.post(this._url + '/users', body, { headers: headers })
             .map(response => response.json())
             .catch(error => Observable.throw(error.json()));
-    }
+    } 
 
     signin(login: Login) {
         const body = JSON.stringify(login);
         const headers = new Headers({ 'Content-Type': 'application/json' });
+        return this._http.post(this._url + '/users/login', body, { headers: headers })
             .map(response => response.json())
             .catch(error => Observable.throw(error.json()));
-    }
-
+    } 
+       
     logout() {
-        const token = localStorage.getItem('token');
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        this._http.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-        headers.append('Auth', token);
-        return this._http.delete(this._url + '/users/login',  { headers: headers } )
-            .map(response => response.json())
-            .catch(error => Observable.throw(error.json()))
+ 
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('Auth', localStorage.getItem('token'));
+        debugger;
+        return this._http.delete(this._url + '/users/login', {search: params} )
+           .map(response => response.json())
+           .catch(error => Observable.throw(error.json()))
     }
 
     isLoggedIn() {
