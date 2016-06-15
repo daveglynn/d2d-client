@@ -1,12 +1,5 @@
-/**
-export class Address {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;    
-}
-
  
+/**
 
 export class User {
     id: number;
@@ -20,8 +13,14 @@ export class User {
 }
 */
 export class User {
-    constructor(public email: string, public password: string, public firstName?: string, public lastName?: string) { }
-  
+    constructor(public email: string,
+        public password: string,
+        public firstName?: string,
+        public lastName?: string,
+        public addressLine1?: string,
+        public addressLine2?: string,
+        public addressLine3?: string,
+        public addressLine4?: string  ) { }
 }
 
 export class Login {

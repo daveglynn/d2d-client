@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, ControlGroup, Validators} from '@angular/common';
 import {CanDeactivate, Router, RouteParams} from '@angular/router-deprecated';
+import { ErrorService } from ".././errors/error.service";
 
 import {BasicValidators} from '../shared/basicValidators';
 import {UserService} from './user.service';
@@ -13,23 +14,26 @@ import {User} from './user';
 export class UserFormComponent implements OnInit, CanDeactivate {
 	form: ControlGroup;
     title: string;
-    user = new User("","","","");
-
+ 
+    user = new User("", "", "", "", "", "", "", "");
+ 
 	constructor(
         fb: FormBuilder,
         private _router: Router,
         private _routeParams: RouteParams,
-        private _userService: UserService
+        private _userService: UserService,
+        private _errorService: ErrorService
     ) {
 		this.form = fb.group({
-			name: ['', Validators.required],
+            firstName: [''],
+            lastName: [''],
 			email: ['', BasicValidators.email],
 			phone: [],
 			address: fb.group({
-				street: [],
-				suite: [],
-				city: [],
-				zipcode: []
+				addressLine1: [],
+                addressLine2: [],
+                addressLine3: [],
+                addressLine4: []
 			})
 		});
 	}
@@ -41,15 +45,13 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         
         if (!id)
 			return;
-            
+        debugger;
         this._userService.getUser(id)
-			.subscribe(
-                user => this.user = user,
-                response => {
-                    if (response.status == 404) {
-                        this._router.navigate(['NotFound']);
-                    }
-                });
+            .subscribe(
+                data => this.handleData(data),
+                error => this.handleError(error),
+                () => this.handleSuccess()
+            );
     }
     
     routerCanDeactivate(){
@@ -72,5 +74,27 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             // this.form.markAsPristine();
             this._router.navigate(['Users']);
         });
-	}
+    } 
+
+
+    handleError(error: any) {
+        debugger;
+        console.log("handle error");
+        this._errorService.handleError(error);
+    }
+
+    handleData(data: any) {
+        debugger;
+        console.log("handle data");
+        console.log(data);
+        this.user = data;
+
+    }
+
+    handleSuccess() {
+        debugger;
+        console.log("handle success");
+    }
+
+
 }

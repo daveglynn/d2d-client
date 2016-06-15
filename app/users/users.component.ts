@@ -16,8 +16,13 @@ export class UsersComponent implements OnInit {
 
 	ngOnInit(){
 		this._service.getUsers()
-			.subscribe(users => this.users = users);
-	} 
+            //.subscribe(users => this.users = users);
+            .subscribe(
+                    data => this.handleData(data),
+                    error => this.handleError(error),
+                    () => this.handleSuccess()
+                )
+        	} 
     
     deleteUser(user){
         if (confirm("Are you sure you want to delete " + user.firstName + user.lastName +"?")) {
@@ -36,5 +41,23 @@ export class UsersComponent implements OnInit {
 						this.users.splice(index, 0, user);
 					});
 		}
-	}
+    }
+
+
+    handleError(error: any) {
+        console.log("handle error");
+        //this._errorService.handleError(error);
+    }
+
+    handleData(data: any) {
+        console.log("handle data");
+        console.log(data);
+        this.users = data;
+ 
+    }
+
+    handleSuccess() {
+        console.log("handle success");
+    }
+
 }

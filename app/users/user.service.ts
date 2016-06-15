@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
+
 import { ConstantsService } from   '../shared/constants.service';
 import { CommonService } from   '../shared/common.service';
 
@@ -14,14 +15,15 @@ export class UserService {
 
 	getUsers(){
         return this._http.get(this._url + "/users/all")
-			.map(res => res.json());
+            .map(res => res.json());
+
 	}
     
     getUser(userId) {
         debugger;
         //return this._http.get(this._url + "/" + userId
         return this._http.get(this._url + "/users/" + userId, { search: this._commonService.getToken() })
-			.map(res => res.json());
+            .map(res => res.json());
 	}
 
     addUser(user){
