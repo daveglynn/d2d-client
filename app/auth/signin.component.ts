@@ -1,37 +1,46 @@
-﻿import { Component, OnInit } from "@angular/core";
+﻿// standard for all components
+import { Component, OnInit } from "@angular/core";
 import { ControlGroup, FormBuilder, Validators, Control } from "@angular/common";
-import { User, Login } from '../users/user';
-import { AuthService } from "./auth.service";
-import { AuthValidators} from './auth.validators';
+import { ClientValidators } from '../shared/validators/client.validators';
 import { FocusDirective } from '../shared/directives/focus.directive';
-import { ConstantsService } from   '../shared/constants.service';
+import { ConstantsService } from   '../shared/helpers/constants.service';
 import { ErrorService } from ".././errors/error.service";
-import { SpinnerComponent } from '../shared/spinner.component';
-import { LocalData } from '../shared/common';
-import { CommonService } from   '../shared/common.service';
+import { SpinnerComponent } from '../shared/helpers/spinner.component';
+import { CommonService } from   '../shared/helpers/common.service';
+
+// required for this component
+import { AuthService } from "./auth.service";
+import { User, Login } from '../users/user';
+import { LocalData } from '../shared/helpers/common';
 
 @Component({
     selector: 'my-signin',
     templateUrl: './app/auth/signin.component.html',
     directives: [SpinnerComponent,FocusDirective]
 })
+
 export class SigninComponent implements OnInit {
     signingIn;
     form: ControlGroup;
 
-    constructor(private _fb: FormBuilder, private _authService: AuthService, private _cs: ConstantsService, private _commonService: CommonService, private _errorService: ErrorService ) {
+    constructor(private _fb: FormBuilder, private _authService: AuthService, private _cs: ConstantsService, private _commonService: CommonService, private _errorService: ErrorService)  {
 
-        this.form = _fb.group({
+    this.form = _fb.group({
             email: ['', Validators.compose([
                 Validators.required,
-                AuthValidators.containsSpace,
-                AuthValidators.invalidEmailAddress
+                ClientValidators.containsSpace,
+                ClientValidators.invalidEmailAddress
             ])],
             password: ['', Validators.compose([
                 Validators.required,
-                AuthValidators.invalidPassword
+                ClientValidators.invalidPassword
             ])]
         });
+    }
+
+
+    ngOnInit() {
+
     }
 
     onSubmit() {
@@ -64,10 +73,5 @@ export class SigninComponent implements OnInit {
         this.signingIn = false;
         window.location.href = "/home";
     }
-
-    ngOnInit() {
-      
-    }
-
 
 }

@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import { ConstantsService } from   '../shared/constants.service';
-import { CommonService } from   '../shared/common.service';
+import { ConstantsService } from   '../shared/helpers/constants.service';
+import { CommonService } from   '../shared/helpers/common.service';
 
 @Injectable()
 export class UserService {

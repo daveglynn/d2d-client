@@ -15,10 +15,22 @@
                     <input [(ngModel)]="user.lastName" #name="ngForm" ngControl="lastName" type="text" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input [(ngModel)]="user.email" #email="ngForm" ngControl="email" type="text" class="form-control">
-                    <div *ngIf="email.touched && !email.valid" class="alert alert-danger">
-                        Please type a valid email.
+                    <label for="email">Email</label>
+                    <input [(ngModel)]="user.email"  id="email" type="text" class="form-control" placeholder="Required" ngControl="email" #email="ngForm" focus>
+                    <div *ngIf="email.control.pending">Checking for Uniqueness...</div>
+                    <div *ngIf="email.touched && email.errors">
+                        <div *ngIf="email.errors.required" class="alert alert-danger">
+                            Email is required
+                        </div>
+                        <div *ngIf="email.errors.containsSpace" class="alert alert-danger">
+                            Email cannot contain space
+                        </div>
+                        <div *ngIf="email.errors.invalidEmailAddress" class="alert alert-danger">
+                            Invalid Email Address
+                        </div>
+                        <div *ngIf="email.errors.alreadyExists" class="alert alert-danger">
+                            Email already taken
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -28,10 +40,10 @@
             </fieldset>
             <fieldset ngControlGroup="address">
                 <legend>Address</legend>
-                    <div class="form-group">
-                        <label>Address Line1</label>
-                        <input [(ngModel)]="user.addressLine1" ngControl="addressLine1" type="text" class="form-control">
-                    </div>
+                <div class="form-group">
+                    <label>Address Line1</label>
+                    <input [(ngModel)]="user.addressLine1" ngControl="addressLine1" type="text" class="form-control">
+                </div>
                 <div class="form-group">
                     <label>Address Line2</label>
                     <input [(ngModel)]="user.addressLine2" ngControl="addressLine2" type="text" class="form-control">
@@ -51,4 +63,4 @@
             </button>
         </form>
     </div>
-</div>
+</div> 

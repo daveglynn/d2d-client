@@ -1,6 +1,9 @@
+// standard for all components
 import {Component, OnInit} from '@angular/core';
-import {RouterLink} from '@angular/router-deprecated';
+import { ErrorService } from ".././errors/error.service";
 
+// required for this component
+import {RouterLink} from '@angular/router-deprecated';
 import {UserService} from './user.service';
 
 @Component({
@@ -9,10 +12,13 @@ import {UserService} from './user.service';
     directives: [RouterLink]
 })
 export class UsersComponent implements OnInit {
+
     users: any[];
     
-    constructor(private _service: UserService){
-	}
+    constructor(
+        private _service: UserService,
+        private _errorService: ErrorService)
+        {}
 
 	ngOnInit(){
 		this._service.getUsers()

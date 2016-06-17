@@ -1,5 +1,5 @@
 ﻿import {Directive,ElementRef,Renderer} from '@angular/core';
-import {ConstantsService} from   '../../shared/constants.service';
+import {ConstantsService} from   '../../shared/helpers/constants.service';
 
 @Directive({
     selector: '[focus]',

@@ -1,3 +1,4 @@
+// required for this component
 import {Component} from '@angular/core';
 
 @Component({

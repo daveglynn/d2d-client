@@ -1,12 +1,13 @@
-import {Component} from '@angular/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
-import {NavBarComponent} from './navbar.component';
-import {HomeComponent} from './home.component';
-import {UsersComponent} from './users/users.component';
-import {UserFormComponent} from './users/user-form.component';
-import {PostsComponent} from './posts/posts.component';
-import {AuthenticationComponent} from './auth/authentication.component';
-import {NotFoundComponent} from './not-found.component';
+// required for this component
+import { Component } from '@angular/core';
+import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { NavBarComponent } from './navbar.component';
+import { HomeComponent } from './home.component';
+import { UsersComponent } from './users/users.component';
+import { UserFormComponent } from './users/user-form.component';
+import { PostsComponent } from './posts/posts.component';
+import { AuthenticationComponent } from './auth/auth.component';
+import { NotFoundComponent } from './not-found.component';
 import { ErrorComponent } from "./errors/error.component";
 
 

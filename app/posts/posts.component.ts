@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 import {PostService} from './post.service';
 import {UserService} from '../users/user.service';
-import {SpinnerComponent} from '../shared/spinner.component';
-import {PaginationComponent} from '../shared/pagination.component';
+import {SpinnerComponent} from '../shared/helpers/spinner.component';
+import {PaginationComponent} from '../shared/helpers/pagination.component';
 
 @Component({
     templateUrl: 'app/posts/posts.component.html',

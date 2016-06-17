@@ -1,12 +1,13 @@
-﻿import {Control} from '@angular/common';
+import {Control} from '@angular/common';
  
  
- export class AuthValidators {
+ 
+export class ClientValidators{
+   
 
-    constructor(   ) { }
 
     static containsSpace(control: Control) {
-          if (control.value.trim() != "") {
+        if (control.value.trim() != "") {
             if (control.value.trim().indexOf(' ') >= 0)
                 return { containsSpace: true };
             return null;
@@ -37,10 +38,11 @@
             if (!control.value.match("[a-z]")) {
                 return { invalidPassword: true };
             }
-            
+
             return null;
         }
     }
+
 
 
     //static alreadyExists(control: Control) {
@@ -70,7 +72,7 @@
     //    });
     // }
 
-   
+
     //static alreadyExists(control: Control) {
     //    return new Promise((resolve, reject) => {
     //        setTimeout(function () {
@@ -95,6 +97,6 @@
  //   }
 
 
-
-
 }
+
+ 

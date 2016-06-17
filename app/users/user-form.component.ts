@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, ControlGroup, Validators} from '@angular/common';
-import {CanDeactivate, Router, RouteParams} from '@angular/router-deprecated';
+// standard for all components
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, ControlGroup, Validators } from '@angular/common';
+import { CanDeactivate, Router, RouteParams } from '@angular/router-deprecated';
 import { ErrorService } from ".././errors/error.service";
 
-import {BasicValidators} from '../shared/basicValidators';
-import {UserService} from './user.service';
-import {User} from './user';
+// required for this component
+import { ClientValidators } from '../shared/validators/client.validators';
+import { UserService } from './user.service';
+import { User } from './user';
 
 @Component({
     templateUrl: 'app/users/user-form.component.html',
@@ -25,9 +27,13 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         private _errorService: ErrorService
     ) {
 		this.form = fb.group({
-            firstName: [''],
-            lastName: [''],
-			email: ['', BasicValidators.email],
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
+            email: ['', Validators.compose([
+                Validators.required,
+                ClientValidators.containsSpace,
+                ClientValidators.invalidEmailAddress
+            ])],
 			phone: [],
 			address: fb.group({
 				addressLine1: [],

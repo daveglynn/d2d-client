@@ -1,10 +1,13 @@
-﻿import { Component } from "@angular/core";
-import {RouteConfig, Router, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+﻿// required for this component
+import { Component, OnInit } from "@angular/core";
 
+// required for this component
+import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { SignupComponent } from "./signup.component";
 import { SigninComponent } from "./signin.component";
 import { LogoutComponent } from "./logout.component";
 import { AuthService } from "./auth.service";
+
 @Component({
     selector: 'my-auth',
     template: `
@@ -36,9 +39,15 @@ import { AuthService } from "./auth.service";
         { path: '/signup', name: 'Signup', component: SignupComponent, useAsDefault: true },
         { path: '/signin', name: 'Signin', component: SigninComponent },
         { path: '/logout', name: 'Logout', component: LogoutComponent },
-    ])
-export class AuthenticationComponent {
-    constructor(private _authService: AuthService) { }
+])
+
+export class AuthenticationComponent implements OnInit{
+
+    constructor(private _authService: AuthService) {}
+
+    ngOnInit() {
+
+    }
 
     isLoggedIn() {
         return this._authService.isLoggedIn();

@@ -2,8 +2,8 @@
 import { Http, Headers } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/Rx';
-import { ConstantsService } from   '../shared/constants.service';
-import { CommonService } from   '../shared/common.service';
+import { ConstantsService } from   '../shared/helpers/constants.service';
+import { CommonService } from   '../shared/helpers/common.service';
 import { User, Login } from '../users/user';
 
 import {URLSearchParams} from '@angular/http';
