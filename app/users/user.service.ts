@@ -20,7 +20,6 @@ export class UserService {
 	}
     
     getUser(userId) {
-        debugger;
         //return this._http.get(this._url + "/" + userId
         return this._http.get(this._url + "/users/" + userId, { search: this._commonService.getToken() })
             .map(res => res.json());
@@ -31,8 +30,9 @@ export class UserService {
 			.map(res => res.json());
 	}
     
-    updateUser(user){
-        return this._http.put(this._url + "/" + user.id, JSON.stringify(user))
+    updateUser(user) {
+        debugger;
+        return this._http.put(this._url + "/users/" + user.id, JSON.stringify(user), { search: this._commonService.getToken() })
 			.map(res => res.json());
 	}
     

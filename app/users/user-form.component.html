@@ -8,19 +8,38 @@
                 </legend>
                 <div class="form-group">
                     <label>First Name</label>
-                    <input [(ngModel)]="user.firstName" #name="ngForm" ngControl="firstName" type="text" class="form-control">
+                    <input [(ngModel)]="user.firstName" id="firstName" type="text" class="form-control" placeholder="Required" ngControl="firstName" #firstName="ngForm" focus>
+                    <div *ngIf="firstName.touched && firstName.errors">
+                        <div *ngIf="firstName.errors.isEmpty" class="alert alert-danger">
+                            First Name is required
+                        </div>
+                        <div *ngIf="firstName.errors.outOfRange50" class="alert alert-danger">
+                            First name must not be greater than 50 characters.
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Last Name</label>
-                    <input [(ngModel)]="user.lastName" #name="ngForm" ngControl="lastName" type="text" class="form-control">
+                    <input [(ngModel)]="user.lastName" id="lastName" type="text" class="form-control" placeholder="Required" ngControl="lastName" #lastName="ngForm" focus>
+                    <div *ngIf="lastName.touched && lastName.errors">
+                        <div *ngIf="lastName.errors.isEmpty" class="alert alert-danger">
+                            Last Name is required
+                        </div>
+                        <div *ngIf="lastName.errors.outOfRange50" class="alert alert-danger">
+                            Last name must not be greater than 50 characters.
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input [(ngModel)]="user.email"  id="email" type="text" class="form-control" placeholder="Required" ngControl="email" #email="ngForm" focus>
                     <div *ngIf="email.control.pending">Checking for Uniqueness...</div>
                     <div *ngIf="email.touched && email.errors">
-                        <div *ngIf="email.errors.required" class="alert alert-danger">
+                        <div *ngIf="email.errors.isEmpty" class="alert alert-danger">
                             Email is required
+                        </div>
+                        <div *ngIf="email.errors.outOfRange50" class="alert alert-danger">
+                            Email must not be greater than 50 characters.
                         </div>
                         <div *ngIf="email.errors.containsSpace" class="alert alert-danger">
                             Email cannot contain space
@@ -28,33 +47,55 @@
                         <div *ngIf="email.errors.invalidEmailAddress" class="alert alert-danger">
                             Invalid Email Address
                         </div>
-                        <div *ngIf="email.errors.alreadyExists" class="alert alert-danger">
-                            Email already taken
-                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Phone</label>
-                    <input [(ngModel)]="user.phone" ngControl="phone" type="text" class="form-control">
-                </div>
+                    <input [(ngModel)]="user.phone" id="phone" type="text" class="form-control" placeholder="Required" ngControl="phone" #phone="ngForm" focus>
+                    <div *ngIf="phone.touched && phone.errors">
+                        <div *ngIf="phone.errors.outOfRange50" class="alert alert-danger">
+                            Last name must not be greater than 50 characters.
+                        </div>
+                    </div>
+                </div>   
             </fieldset>
             <fieldset ngControlGroup="address">
                 <legend>Address</legend>
                 <div class="form-group">
                     <label>Address Line1</label>
-                    <input [(ngModel)]="user.addressLine1" ngControl="addressLine1" type="text" class="form-control">
+                    <input [(ngModel)]="user.addressLine1" id="addressLine1" type="text" class="form-control" ngControl="addressLine1" #addressLine1="ngForm" focus>
+                    <div *ngIf="addressLine1.touched && addressLine1.errors">
+                        <div *ngIf="addressLine1.errors.outOfRange50" class="alert alert-danger">
+                            Address Line1 must not be greater than 50 characters.
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Address Line2</label>
-                    <input [(ngModel)]="user.addressLine2" ngControl="addressLine2" type="text" class="form-control">
+                    <input [(ngModel)]="user.addressLine2" id="addressLine2" type="text" class="form-control" ngControl="addressLine2" #addressLine2="ngForm" focus>
+                    <div *ngIf="addressLine2.touched && addressLine2.errors">
+                        <div *ngIf="addressLine2.errors.outOfRange50" class="alert alert-danger">
+                            Address Line2 must not be greater than 50 characters.
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Address Line3</label>
-                    <input [(ngModel)]="user.addressLine3" ngControl="addressLine3" type="text" class="form-control">
+                    <input [(ngModel)]="user.addressLine3" id="addressLine3" type="text" class="form-control" ngControl="addressLine3" #addressLine3="ngForm" focus>
+                    <div *ngIf="addressLine3.touched && addressLine3.errors">
+                        <div *ngIf="addressLine3.errors.outOfRange50" class="alert alert-danger">
+                            Address Line3 must not be greater than 50 characters.
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Address Line4</label>
-                    <input [(ngModel)]="user.addressLine4" ngControl="addressLine4" type="text" class="form-control">
+                    <input [(ngModel)]="user.addressLine4" id="addressLine4" type="text" class="form-control" ngControl="addressLine4" #addressLine4="ngForm" focus>
+                    <div *ngIf="addressLine4.touched && addressLine4.errors">
+                        <div *ngIf="addressLine4.errors.outOfRange50" class="alert alert-danger">
+                            Address Line4 must not be greater than 50 characters.
+                        </div>
+                    </div>
                 </div>
 
             </fieldset>

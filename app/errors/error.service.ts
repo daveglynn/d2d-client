@@ -6,12 +6,14 @@ export class ErrorService {
         handleError(error: any) {
         var errorData = new Error("", "");
         //error.errors[0].message
-        debugger;
 
         if ((error.status != 'undefined') && (error.status != undefined)) {
             if (error.status == '401') {
                 errorData = new Error(error.status, "Authentication is required for this screen");
             }
+        }  
+        if ((errorData.title === "") && (JSON.parse(error._body).message != 'undefined') && (JSON.parse(error._body).message != undefined)) {
+            errorData = new Error(JSON.parse(error._body).title, JSON.parse(error._body).message);
         }  
         if ((errorData.title === "") && (error.message != 'undefined') && (error.message != undefined)) {
             errorData = new Error(error.title, error.message);

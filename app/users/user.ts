@@ -17,6 +17,7 @@ export class User {
         public password: string,
         public firstName?: string,
         public lastName?: string,
+        public phone?: string,
         public addressLine1?: string,
         public addressLine2?: string,
         public addressLine3?: string,

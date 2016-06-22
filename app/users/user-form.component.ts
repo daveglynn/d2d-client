@@ -2,7 +2,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ControlGroup, Validators } from '@angular/common';
 import { CanDeactivate, Router, RouteParams } from '@angular/router-deprecated';
+import { FocusDirective } from '../shared/directives/focus.directive';
+import { ConstantsService } from   '../shared/helpers/constants.service';
 import { ErrorService } from ".././errors/error.service";
+import { SpinnerComponent } from '../shared/helpers/spinner.component';
+import { CommonService } from   '../shared/helpers/common.service';
+
 
 // required for this component
 import { ClientValidators } from '../shared/validators/client.validators';
@@ -11,13 +16,14 @@ import { User } from './user';
 
 @Component({
     templateUrl: 'app/users/user-form.component.html',
-    providers: [UserService]
+    providers: [UserService],
+    directives: [SpinnerComponent, FocusDirective]
 })
 export class UserFormComponent implements OnInit, CanDeactivate {
 	form: ControlGroup;
     title: string;
  
-    user = new User("", "", "", "", "", "", "", "");
+    user = new User("", "","", "", "", "", "", "", "");
  
 	constructor(
         fb: FormBuilder,
@@ -27,19 +33,37 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         private _errorService: ErrorService
     ) {
 		this.form = fb.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
+
+            firstName: ['', Validators.compose([
+                ClientValidators.isEmpty,
+                ClientValidators.outOfRange50
+            ])],
+            lastName: ['', Validators.compose([
+                ClientValidators.isEmpty,
+                ClientValidators.outOfRange50
+            ])],
             email: ['', Validators.compose([
-                Validators.required,
+                ClientValidators.isEmpty,
+                ClientValidators.outOfRange50,
                 ClientValidators.containsSpace,
                 ClientValidators.invalidEmailAddress
             ])],
-			phone: [],
+            phone: ['', Validators.compose([
+                ClientValidators.outOfRange50
+            ])],
 			address: fb.group({
-				addressLine1: [],
-                addressLine2: [],
-                addressLine3: [],
-                addressLine4: []
+                addressLine1: ['', Validators.compose([
+                    ClientValidators.outOfRange50
+                ])],
+                addressLine2: ['', Validators.compose([
+                    ClientValidators.outOfRange50
+                ])],
+                addressLine3: ['', Validators.compose([
+                    ClientValidators.outOfRange50
+                ])],
+                addressLine4: ['', Validators.compose([
+                    ClientValidators.outOfRange50
+                ])],
 			})
 		});
 	}
@@ -51,7 +75,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         
         if (!id)
 			return;
-        debugger;
+
         this._userService.getUser(id)
             .subscribe(
                 data => this.handleData(data),
@@ -84,21 +108,17 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 
 
     handleError(error: any) {
-        debugger;
         console.log("handle error");
         this._errorService.handleError(error);
     }
 
     handleData(data: any) {
-        debugger;
         console.log("handle data");
         console.log(data);
         this.user = data;
-
     }
 
     handleSuccess() {
-        debugger;
         console.log("handle success");
     }
 

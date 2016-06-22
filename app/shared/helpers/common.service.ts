@@ -1,7 +1,7 @@
 ﻿'use strict'
 import {Injectable} from "@angular/core";
 import {URLSearchParams} from '@angular/http';
-import { LocalData } from '../shared/common';
+import { LocalData } from './common';
 
 @Injectable()
 
