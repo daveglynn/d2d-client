@@ -50,8 +50,23 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label>Password</label>
+                    <input [(ngModel)]="user.password" id="password" type="text" class="form-control" placeholder="Required" ngControl="password" #password="ngForm" focus>
+                    <div *ngIf="password.touched && password.errors">
+                        <div *ngIf="password.errors.required || password.errors.isEmpty" class="alert alert-danger">
+                            Password is required
+                        </div>
+                        <div *ngIf="password.errors.containsSpace" class="alert alert-danger">
+                            Password cannot contain a space
+                        </div>
+                        <div *ngIf="password.errors.invalidPassword" class="alert alert-danger">
+                            Must be between 6 to 10 characters containing One Uppercase, One Lowercase and One Digit
+                        </div>
+                    </div>
+                </div>   
+                <div class="form-group">
                     <label>Phone</label>
-                    <input [(ngModel)]="user.phone" id="phone" type="text" class="form-control" placeholder="Required" ngControl="phone" #phone="ngForm" focus>
+                    <input [(ngModel)]="user.phone" id="phone" type="text" class="form-control" ngControl="phone" #phone="ngForm" focus>
                     <div *ngIf="phone.touched && phone.errors">
                         <div *ngIf="phone.errors.outOfRange50" class="alert alert-danger">
                             Last name must not be greater than 50 characters.

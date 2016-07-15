@@ -6,9 +6,12 @@
             <label for="email">Email</label>
             <input id="email" type="text" class="form-control" placeholder="Required" ngControl="email" #email="ngForm" focus>
             <div *ngIf="email.control.pending">Checking for Uniqueness...</div>
-            <div *ngIf="email.touched && email.errors">
-                <div *ngIf="email.errors.required" class="alert alert-danger">
+            <div *ngIf="(email.touched || email.dirty  || !email.pristine ) && email.errors">
+                <div *ngIf="email.errors.required || email.errors.isEmpty" class="alert alert-danger">
                     Email is required
+                </div>
+                <div *ngIf="email.errors.outOfRange50" class="alert alert-danger">
+                    Email must not be greater than 50 characters.
                 </div>
                 <div *ngIf="email.errors.containsSpace" class="alert alert-danger">
                     Email cannot contain space
@@ -22,9 +25,15 @@
         <div class="form-group">
             <label for="password">Password</label>
             <input id="password" type="password" class="form-control" placeholder="Required" ngControl="password" #password="ngForm" focus>
-            <div *ngIf="password.touched && password.errors">
-                <div *ngIf="password.errors.required" class="alert alert-danger">
+            <div *ngIf="(password.touched || password.dirty  || !password.pristine ) && password.errors">
+                <div *ngIf="password.errors.required || password.errors.isEmpty" class="alert alert-danger">
                     Password is required
+                </div>
+                <div *ngIf="password.errors.outOfRange50" class="alert alert-danger">
+                    Email must not be greater than 50 characters.
+                </div>
+                <div *ngIf="password.errors.containsSpace" class="alert alert-danger">
+                    Password cannot contain a space
                 </div>
                 <div *ngIf="password.errors.invalidPassword" class="alert alert-danger">
                     Must be between 6 to 10 characters containing One Uppercase, One Lowercase and One Digit

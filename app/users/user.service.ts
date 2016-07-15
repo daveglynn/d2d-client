@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import { Http, Headers } from "@angular/http";
+import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 
 import { ConstantsService } from   '../shared/helpers/constants.service';
@@ -9,13 +10,15 @@ import { CommonService } from   '../shared/helpers/common.service';
 export class UserService {
 
     private _url = this._cs.serverUrl;
-  
+
     constructor(private _cs: ConstantsService, private _commonService: CommonService,private _http: Http){
 	}
 
-	getUsers(){
-        return this._http.get(this._url + "/users/all")
-            .map(res => res.json());
+    getUsers() {
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        return this._http.get(this._url + "/users/all", { search: this._commonService.getToken() })
+            .map(res => res.json())
+            .catch(error => Observable.throw(error.json()))
 
 	}
     
@@ -25,25 +28,34 @@ export class UserService {
             .map(res => res.json());
 	}
 
-    addUser(user){
-		return this._http.post(this._url, JSON.stringify(user))
-			.map(res => res.json());
+    addUser(user) {
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const body = JSON.stringify(user);
+        return this._http.post(this._url + "/users/", body, { headers: headers, search: this._commonService.getToken() })
+            .map(response => response.json())
+            .catch(error => Observable.throw(error.json()))
 	}
     
     updateUser(user) {
-        debugger;
-        return this._http.put(this._url + "/users/" + user.id, JSON.stringify(user), { search: this._commonService.getToken() })
-			.map(res => res.json());
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const body = JSON.stringify(user);
+        return this._http.put(this._url + "/users/" + user.id, body, { headers: headers, search: this._commonService.getToken() })
+            .map(response => response.json())
+            .catch(error => Observable.throw(error.json()))
 	}
     
-    deleteUser(userId){
-        return this._http.delete(this._url + "/" + userId)
-			.map(res => res.json());
-	}
+    deleteUser(userId) {
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        return this._http.delete(this._url + "/users/" + userId, { headers: headers, search: this._commonService.getToken() })
+            .map(response => response.json())
+            .catch(error => Observable.throw(error.json()))
 
-     getUserEmail(email) {
+    }
+
+    getUserEmail(email) {
         return this._http.get("/users/email/" + email)
-            .map(res => res.json());
+           .map(res => res.json())
+           .catch(error => Observable.throw(error.json()))
     }
    
 }

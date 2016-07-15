@@ -6,19 +6,25 @@
         <div class="form-group">
             <label for="firstName">First name</label>
             <input id="firstName" type="text" class="form-control"  placeholder="Required" ngControl="firstName" #firstName="ngForm"   focus  >
-            <div *ngIf="firstName.touched && firstName.errors">
-                <div *ngIf="firstName.errors.required" class="alert alert-danger">
-                    First name is required 
+                <div *ngIf="(firstName.touched || firstName.dirty  || !firstName.pristine ) && firstName.errors">
+                    <div *ngIf="firstName.errors.required || firstName.errors.isEmpty" class="alert alert-danger">
+                        First name is required
+                    </div>
+                    <div *ngIf="firstName.errors.outOfRange50" class="alert alert-danger">
+                        Cannot be greater than 50 characters.
+                    </div>
                 </div>
-            </div>
         </div> 
 
         <div class="form-group">
             <label for="lastName">Last name</label>
             <input id="lastName" type="text" class="form-control" placeholder="Required" ngControl="lastName" #lastName="ngForm"    focus>
-            <div *ngIf="lastName.touched && lastName.errors">
-                <div *ngIf="lastName.errors.required" class="alert alert-danger">
+            <div *ngIf="(lastName.touched || lastName.dirty  || !lastName.pristine ) && lastName.errors">
+                <div *ngIf="lastName.errors.required  || lastName.errors.isEmpty" class="alert alert-danger">
                     Last name is required
+                </div>
+                <div *ngIf="lastName.errors.outOfRange50" class="alert alert-danger">
+                    Cannot be greater than 50 characters.
                 </div>
             </div>
         </div>
@@ -27,9 +33,12 @@
             <label for="email">Email</label>
             <input id="email" type="text" class="form-control" placeholder="Required" ngControl="email" #email="ngForm"   focus>
             <div *ngIf="email.control.pending">Checking for Uniqueness...</div>
-            <div *ngIf="email.touched && email.errors">
-                <div *ngIf="email.errors.required" class="alert alert-danger">
+            <div *ngIf="(email.touched || email.dirty  || !email.pristine ) && email.errors">
+                <div *ngIf="email.errors.required || email.errors.isEmpty" class="alert alert-danger">
                     Email is required
+                </div>
+                <div *ngIf="email.errors.outOfRange50" class="alert alert-danger">
+                    Email must not be greater than 50 characters.
                 </div>
                 <div *ngIf="email.errors.containsSpace" class="alert alert-danger">
                     Email cannot contain space
@@ -37,23 +46,25 @@
                 <div *ngIf="email.errors.invalidEmailAddress" class="alert alert-danger">
                     Invalid Email Address
                 </div>
-                <div *ngIf="email.errors.alreadyExists" class="alert alert-danger">
-                    Email already taken
-                </div>
             </div>
         </div>
 
         <div class="form-group">
             <label for="password">Password</label>
             <input id="password"  type="password"  class="form-control" placeholder="Required" ngControl="password" #password="ngForm"  focus>
-            <div *ngIf="password.touched && password.errors">
-                <div *ngIf="password.errors.required" class="alert alert-danger">
+            <div *ngIf="(password.touched || password.dirty  || !password.pristine ) && password.errors">
+                <div *ngIf="password.errors.required || password.errors.isEmpty" class="alert alert-danger">
                     Password is required
+                </div>
+                <div *ngIf="password.errors.outOfRange50" class="alert alert-danger">
+                    Email must not be greater than 50 characters.
+                </div>
+                <div *ngIf="password.errors.containsSpace" class="alert alert-danger">
+                    Password cannot contain a space
                 </div>
                 <div *ngIf="password.errors.invalidPassword" class="alert alert-danger">
                     Must be between 6 to 10 characters containing One Uppercase, One Lowercase and One Digit
                 </div>
-
             </div>
         </div> 
          

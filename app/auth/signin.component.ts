@@ -28,13 +28,18 @@ export class SigninComponent implements OnInit {
     this.form = _fb.group({
             email: ['', Validators.compose([
                 Validators.required,
+                ClientValidators.isEmpty,
                 ClientValidators.containsSpace,
-                ClientValidators.invalidEmailAddress
+                ClientValidators.invalidEmailAddress,
+                ClientValidators.outOfRange50
             ])],
             password: ['', Validators.compose([
                 Validators.required,
+                ClientValidators.isEmpty,
+                ClientValidators.outOfRange50,
+                ClientValidators.containsSpace, 
                 ClientValidators.invalidPassword
-            ])]
+            ])],
         });
     }
 

@@ -18,7 +18,12 @@ import {Error} from "./error";
                     </div>
                     <div class="modal-body">
                     <div class="alert alert-danger" > 
-                     <p>{{errorData?.message}}</p>
+  
+                        <div class="multi_lines_text">{{ errorData?.message }}</div>
+                        <style>
+                        .multi_lines_text { white-space: pre-line; }
+                        </style>
+
                      </div>
                     </div>
                     <div class="modal-footer">

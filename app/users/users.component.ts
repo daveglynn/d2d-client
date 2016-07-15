@@ -1,10 +1,10 @@
 // standard for all components
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ErrorService } from ".././errors/error.service";
 
 // required for this component
-import {RouterLink} from '@angular/router-deprecated';
-import {UserService} from './user.service';
+import { RouterLink } from '@angular/router-deprecated';
+import { UserService } from './user.service';
 
 @Component({
     templateUrl: 'app/users/users.component.html',
@@ -16,53 +16,49 @@ export class UsersComponent implements OnInit {
     users: any[];
     
     constructor(
-        private _service: UserService,
+        private _userService: UserService,
         private _errorService: ErrorService)
         {}
 
 	ngOnInit(){
-		this._service.getUsers()
+		this._userService.getUsers()
             //.subscribe(users => this.users = users);
             .subscribe(
-                    data => this.handleData(data),
-                    error => this.handleError(error),
-                    () => this.handleSuccess()
+                    data => this.handleData('getUsers',data),
+                    error => this.handleError('getUsers',error,0,null),
+                    () => this.handleSuccess('getUsers')
                 )
         	} 
     
     deleteUser(user){
-        if (confirm("Are you sure you want to delete " + user.firstName + user.lastName +"?")) {
-			var index = this.users.indexOf(user)
-			// Here, with the splice method, we remove 1 object
-            // at the given index.
+        if (confirm("Are you sure you want to delete " + user.firstName + user.lastName + "?")) {
+            var index = this.users.indexOf(user)
             this.users.splice(index, 1);
-
-			this._service.deleteUser(user.id)
-				.subscribe(null, 
-					err => {
-						alert("Could not delete the user.");
-                        // Revert the view back to its original state
-                        // by putting the user object at the index
-                        // it used to be.
-						this.users.splice(index, 0, user);
-					});
-		}
+            this._userService.deleteUser(user.id)
+                .subscribe(
+                data => this.handleData('deleteUser',data),
+                error => this.handleError('deleteUser',error, index, user),
+                () => this.handleSuccess('deleteUser')
+            );
+        }
     }
 
-
-    handleError(error: any) {
+    handleError(process,error: any, index, user) {
         console.log("handle error");
-        //this._errorService.handleError(error);
+        if (process == 'deleteUser') {
+            this.users.splice(index, 0, user);
+        }
+        this._errorService.handleError(error);
     }
 
-    handleData(data: any) {
+    handleData(process,data: any) {
         console.log("handle data");
         console.log(data);
         this.users = data;
  
     }
 
-    handleSuccess() {
+    handleSuccess(process) {
         console.log("handle success");
     }
 

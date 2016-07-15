@@ -22,6 +22,7 @@ export class AuthService {
     } 
 
     signin(login: Login) {
+        debugger;
         const body = JSON.stringify(login);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         return this._http.post(this._url + '/users/login', body, { headers: headers })
@@ -30,7 +31,8 @@ export class AuthService {
     } 
        
     logout() {
-        return this._http.delete(this._url + '/users/login', { search: this._commonService.getToken()} )
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        return this._http.delete(this._url + '/users/login', { headers: headers, search: this._commonService.getToken()} )
            .map(response => response.json())
            .catch(error => Observable.throw(error.json()))
     }

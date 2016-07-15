@@ -23,7 +23,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 	form: ControlGroup;
     title: string;
  
-    user = new User("", "","", "", "", "", "", "", "");
+    user = new User(null,"", "","", "", "", "", "", "", "");
  
 	constructor(
         fb: FormBuilder,
@@ -47,6 +47,12 @@ export class UserFormComponent implements OnInit, CanDeactivate {
                 ClientValidators.outOfRange50,
                 ClientValidators.containsSpace,
                 ClientValidators.invalidEmailAddress
+            ])],
+             password: ['', Validators.compose([
+                Validators.required,
+                ClientValidators.isEmpty,
+                ClientValidators.containsSpace,
+                ClientValidators.invalidPassword
             ])],
             phone: ['', Validators.compose([
                 ClientValidators.outOfRange50
@@ -80,7 +86,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             .subscribe(
                 data => this.handleData(data),
                 error => this.handleError(error),
-                () => this.handleSuccess()
+                () => this.handleSuccess('getUser')
             );
     }
     
@@ -92,18 +98,20 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 	}
     
     save(){
-        var result;
-        
-         //if (this.user.id) 
-            result = this._userService.updateUser(this.user);
-       //  else
-       //     result = this._userService.addUser(this.user)
-            
-		result.subscribe(x => {
-            // Ideally, here we'd want:
-            // this.form.markAsPristine();
-            this._router.navigate(['Users']);
-        });
+        if (this.user.id) 
+              this._userService.updateUser(this.user)
+                    .subscribe(
+                    data => this.handleData(data),
+                    error => this.handleError(error),
+                    () => this.handleSuccess('updateUser')
+         );
+         else
+              this._userService.addUser(this.user)
+                    .subscribe(
+                    data => this.handleData(data),
+                    error => this.handleError(error),
+                    () => this.handleSuccess('addUser')
+              );
     } 
 
 
@@ -118,8 +126,13 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         this.user = data;
     }
 
-    handleSuccess() {
+    handleSuccess(process) {
         console.log("handle success");
+        // Ideally, here we'd want:
+        // this.form.markAsPristine();
+        if (process != 'getUser') {
+            this._router.navigate(['Users']);
+        }
     }
 
 

@@ -26,17 +26,30 @@ export class SignupComponent implements OnInit {
     constructor(private _fb: FormBuilder, private _authService: AuthService, private _cs: ConstantsService, private _commonService: CommonService,private _errorService: ErrorService )  {
 
         this.form = _fb.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            email: ['', Validators.compose([
-                        Validators.required,
-                        ClientValidators.containsSpace,
-                        ClientValidators.invalidEmailAddress
+            firstName: ['', Validators.compose([
+                Validators.required,
+                ClientValidators.isEmpty,
+                ClientValidators.outOfRange50
             ])],
-            password: ['',  Validators.compose([
-                            Validators.required,
-                            ClientValidators.invalidPassword
-                            ])],
+            lastName: ['', Validators.compose([
+                Validators.required,
+                ClientValidators.isEmpty,
+                ClientValidators.outOfRange50
+            ])],
+            email: ['', Validators.compose([
+                Validators.required,
+                ClientValidators.isEmpty,
+                ClientValidators.containsSpace,
+                ClientValidators.invalidEmailAddress,
+                ClientValidators.outOfRange50
+            ])],
+            password: ['', Validators.compose([
+                Validators.required,
+                ClientValidators.isEmpty,
+                ClientValidators.outOfRange50,
+                ClientValidators.containsSpace,
+                ClientValidators.invalidPassword
+            ])],
         });
     } 
 
@@ -46,7 +59,7 @@ export class SignupComponent implements OnInit {
 
     onSubmit() {
         this.signingUp = true; 
-        const user = new User(this.form.value.email, this.form.value.password, this.form.value.firstName, this.form.value.lastName);
+        const user = new User(null,this.form.value.email, this.form.value.password, this.form.value.firstName, this.form.value.lastName);
         console.log(user);
         this._authService.signup(user)
             .subscribe(
