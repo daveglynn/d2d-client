@@ -4,7 +4,7 @@
     <form [ngFormModel]="form" (ngSubmit)="onSubmit()">
         <br />
         <div class="form-group">
-            <label for="firstName">First name</label>
+            <label>First name</label>
             <input id="firstName" type="text" class="form-control"  placeholder="Required" ngControl="firstName" #firstName="ngForm"   focus  >
                 <div *ngIf="(firstName.touched || firstName.dirty  || !firstName.pristine ) && firstName.errors">
                     <div *ngIf="firstName.errors.required || firstName.errors.isEmpty" class="alert alert-danger">
@@ -17,7 +17,7 @@
         </div> 
 
         <div class="form-group">
-            <label for="lastName">Last name</label>
+            <label>Last name</label>
             <input id="lastName" type="text" class="form-control" placeholder="Required" ngControl="lastName" #lastName="ngForm"    focus>
             <div *ngIf="(lastName.touched || lastName.dirty  || !lastName.pristine ) && lastName.errors">
                 <div *ngIf="lastName.errors.required  || lastName.errors.isEmpty" class="alert alert-danger">
@@ -30,7 +30,7 @@
         </div>
 
         <div class="form-group">
-            <label for="email">Email</label>
+            <label>Email</label>
             <input id="email" type="text" class="form-control" placeholder="Required" ngControl="email" #email="ngForm"   focus>
             <div *ngIf="email.control.pending">Checking for Uniqueness...</div>
             <div *ngIf="(email.touched || email.dirty  || !email.pristine ) && email.errors">
@@ -50,7 +50,7 @@
         </div>
 
         <div class="form-group">
-            <label for="password">Password</label>
+            <label>Password</label>
             <input id="password"  type="password"  class="form-control" placeholder="Required" ngControl="password" #password="ngForm"  focus>
             <div *ngIf="(password.touched || password.dirty  || !password.pristine ) && password.errors">
                 <div *ngIf="password.errors.required || password.errors.isEmpty" class="alert alert-danger">

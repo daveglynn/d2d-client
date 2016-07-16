@@ -8,6 +8,8 @@ import { ErrorService } from ".././errors/error.service";
 import { SpinnerComponent } from '../shared/helpers/spinner.component';
 import { CommonService } from   '../shared/helpers/common.service';
 
+import { Control } from "@angular/common";
+
 
 // required for this component
 import { ClientValidators } from '../shared/validators/client.validators';
@@ -22,9 +24,12 @@ import { User } from './user';
 export class UserFormComponent implements OnInit, CanDeactivate {
 	form: ControlGroup;
     title: string;
- 
+    mode: string;
+
+    password: Control;
+
     user = new User(null,"", "","", "", "", "", "", "", "");
- 
+    
 	constructor(
         fb: FormBuilder,
         private _router: Router,
@@ -32,28 +37,42 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         private _userService: UserService,
         private _errorService: ErrorService
     ) {
+
+        if (_router.root.currentInstruction.component.urlPath === "users/new") {
+            this.password = new Control('', Validators.compose([
+                Validators.required,
+                ClientValidators.isEmpty,
+                ClientValidators.outOfRange50,
+                ClientValidators.containsSpace,
+                ClientValidators.invalidPassword
+            ]))
+            this.mode =   "new";
+        } else {
+            this.password = new Control('');
+            this.mode = "edit";
+        }
+ 
+
 		this.form = fb.group({
 
             firstName: ['', Validators.compose([
+                Validators.required,
                 ClientValidators.isEmpty,
                 ClientValidators.outOfRange50
             ])],
             lastName: ['', Validators.compose([
+                Validators.required,
                 ClientValidators.isEmpty,
                 ClientValidators.outOfRange50
             ])],
             email: ['', Validators.compose([
-                ClientValidators.isEmpty,
-                ClientValidators.outOfRange50,
-                ClientValidators.containsSpace,
-                ClientValidators.invalidEmailAddress
-            ])],
-             password: ['', Validators.compose([
                 Validators.required,
                 ClientValidators.isEmpty,
                 ClientValidators.containsSpace,
-                ClientValidators.invalidPassword
+                ClientValidators.invalidEmailAddress,
+                ClientValidators.outOfRange50
             ])],
+            password: this.password,
             phone: ['', Validators.compose([
                 ClientValidators.outOfRange50
             ])],
@@ -74,13 +93,14 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 		});
 	}
     
-    ngOnInit(){
+    ngOnInit() {
+
         var id = this._routeParams.get("id");
-        
         this.title = id ? "Edit User" : "New User";
-        
+
+   
         if (!id)
-			return;
+            return;
 
         this._userService.getUser(id)
             .subscribe(
