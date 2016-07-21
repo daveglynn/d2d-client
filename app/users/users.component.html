@@ -1,31 +1,48 @@
+
 <h1>Users</h1>
 <p>
     <a [routerLink]="['NewUser']" class="btn btn-primary">Add User</a>
 </p>
-<table class="table table-bordered">
-	<thead>
-		<tr>
-			<th>First Name</th>
-            <th>Last Name</th>
-			<th>Email</th>
-			<th>Address</th>
-			<th>Delete</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let user of users">
-			<td>{{ user.firstName }}</td>
-            <td>{{ user.lastName }}</td>
-			<td>{{ user.email }}</td>
-            <td>{{ user.addressLine1 }}</td>
-			<td>
-                <a [routerLink]="['EditUser', { id: user.id }]">
-                    <i class="glyphicon glyphicon-edit"></i>
-                </a>
-			</td>
-			<td>
-                <i (click)="deleteUser(user)" class="glyphicon glyphicon-remove clickable"></i>
-            </td>
-		</tr>
-	</tbody>
-</table>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <select class="form-control" (change)="reloadUsers({ profileId: p.value })" #p>
+            <option value="">Select a profile...</option>
+            <option *ngFor="let profile of profiles" value="{{ profile.id }}">
+                {{ profile.name }}
+            </option>
+        </select>
+        <spinner [visible]="usersLoading"></spinner>
+    </div>
+
+    <p></p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.addressLine1 }}</td>
+                <td>
+                    <a [routerLink]="['EditUser', { id: user.id }]">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                </td>
+                <td>
+                    <i (click)="deleteUser(user)" class="glyphicon glyphicon-remove clickable"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

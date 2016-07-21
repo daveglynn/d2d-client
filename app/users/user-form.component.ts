@@ -1,3 +1,4 @@
+ 
 // standard for all components
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ControlGroup, Validators } from '@angular/common';
@@ -22,15 +23,25 @@ import { User } from './user';
     directives: [SpinnerComponent, FocusDirective]
 })
 export class UserFormComponent implements OnInit, CanDeactivate {
-	form: ControlGroup;
+    form: ControlGroup;
     title: string;
     mode: string;
 
+    // create the controls
+    firstName: Control;
+    lastName: Control;
+    email: Control;
     password: Control;
+    phone: Control;
+    addressLine1: Control;
+    addressLine2: Control;
+    addressLine3: Control;
+    addressLine4: Control;
 
-    user = new User(null,"", "","", "", "", "", "", "", "");
-    
-	constructor(
+    // create a new instance 
+    user = new User(null, "", "", "", "", "", "", "", "", "");
+
+    constructor(
         fb: FormBuilder,
         private _router: Router,
         private _routeParams: RouteParams,
@@ -38,101 +49,142 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         private _errorService: ErrorService
     ) {
 
+        // determine what mode the form is in
         if (_router.root.currentInstruction.component.urlPath === "users/new") {
-            this.password = new Control('', Validators.compose([
-                Validators.required,
-                ClientValidators.isEmpty,
-                ClientValidators.outOfRange50,
-                ClientValidators.containsSpace,
-                ClientValidators.invalidPassword
-            ]))
-            this.mode =   "new";
+            this.mode = "new";
         } else {
-            this.password = new Control('');
             this.mode = "edit";
         }
- 
 
-		this.form = fb.group({
+        // set up the field validators
+        if (this.mode === "new") {
 
-            firstName: ['', Validators.compose([
-                Validators.required,
-                ClientValidators.isEmpty,
-                ClientValidators.outOfRange50
-            ])],
-            lastName: ['', Validators.compose([
-                Validators.required,
-                ClientValidators.isEmpty,
-                ClientValidators.outOfRange50
-            ])],
-            email: ['', Validators.compose([
-                Validators.required,
-                ClientValidators.isEmpty,
-                ClientValidators.containsSpace,
-                ClientValidators.invalidEmailAddress,
-                ClientValidators.outOfRange50
-            ])],
+            this.firstName = new Control('',
+                Validators.compose([
+                    Validators.required,
+                    ClientValidators.isEmpty,
+                    ClientValidators.outOfRange50
+                ])),
+                this.lastName = new Control('',
+                    Validators.compose([
+                        Validators.required,
+                        ClientValidators.isEmpty,
+                        ClientValidators.outOfRange50
+                    ])),
+                this.email = new Control('',
+                    Validators.compose([
+                        Validators.required,
+                        ClientValidators.isEmpty,
+                        ClientValidators.containsSpace,
+                        ClientValidators.invalidEmailAddress,
+                        ClientValidators.outOfRange50
+                    ])),
+                this.password = new Control('',
+                    Validators.compose([
+                        Validators.required,
+                        ClientValidators.isEmpty,
+                        ClientValidators.outOfRange50,
+                        ClientValidators.containsSpace,
+                        ClientValidators.invalidPassword
+                    ])),
+                this.phone = new Control('',
+                    Validators.compose([
+                        ClientValidators.outOfRange50
+                    ])),
+                this.addressLine1 = new Control('',
+                    Validators.compose([
+                        ClientValidators.outOfRange50
+                    ])),
+                this.addressLine2 = new Control('',
+                    Validators.compose([
+                        ClientValidators.outOfRange50
+                    ])),
+                this.addressLine3 = new Control('',
+                    Validators.compose([
+                        ClientValidators.outOfRange50
+                    ])),
+                this.addressLine4 = new Control('',
+                    Validators.compose([
+                        ClientValidators.outOfRange50
+                    ]))
+        } else {
+
+            this.password = new Control('');
+            this.firstName = new Control('');
+            this.lastName = new Control('');
+            this.email = new Control('');
+            this.password = new Control('');
+            this.phone = new Control('');
+            this.addressLine1 = new Control('');
+            this.addressLine2 = new Control('');
+            this.addressLine3 = new Control('');
+            this.addressLine4 = new Control('');
+
+        }
+
+        // set up the form design
+        this.form = fb.group({
+
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
             password: this.password,
-            phone: ['', Validators.compose([
-                ClientValidators.outOfRange50
-            ])],
-			address: fb.group({
-                addressLine1: ['', Validators.compose([
-                    ClientValidators.outOfRange50
-                ])],
-                addressLine2: ['', Validators.compose([
-                    ClientValidators.outOfRange50
-                ])],
-                addressLine3: ['', Validators.compose([
-                    ClientValidators.outOfRange50
-                ])],
-                addressLine4: ['', Validators.compose([
-                    ClientValidators.outOfRange50
-                ])],
-			})
-		});
-	}
-    
+            phone: this.phone,
+            addressLine1: this.addressLine1,
+            addressLine2: this.addressLine2,
+            addressLine3: this.addressLine3,
+            addressLine4: this.addressLine4,
+            address: fb.group({
+                addressLine1: this.addressLine1,
+                addressLine2: this.addressLine2,
+                addressLine3: this.addressLine3,
+                addressLine4: this.addressLine4
+            })
+        });
+    }
+
     ngOnInit() {
 
         var id = this._routeParams.get("id");
         this.title = id ? "Edit User" : "New User";
 
-   
         if (!id)
             return;
 
         this._userService.getUser(id)
             .subscribe(
-                data => this.handleData(data),
-                error => this.handleError(error),
-                () => this.handleSuccess('getUser')
+            data => this.handleData(data),
+            error => this.handleError(error),
+            () => this.handleSuccess('getUser')
             );
     }
-    
-    routerCanDeactivate(){
-		if (this.form.dirty)
-			return confirm('You have unsaved changes. Are you sure you want to navigate away?');
 
-		return true; 
-	}
-    
-    save(){
-        if (this.user.id) 
-              this._userService.updateUser(this.user)
-                    .subscribe(
-                    data => this.handleData(data),
-                    error => this.handleError(error),
-                    () => this.handleSuccess('updateUser')
-         );
-         else
-              this._userService.addUser(this.user)
-                    .subscribe(
-                    data => this.handleData(data),
-                    error => this.handleError(error),
-                    () => this.handleSuccess('addUser')
-              );
-    } 
+    routerCanDeactivate() {
+
+        if (this.form.dirty)
+            return confirm('You have unsaved changes. Are you sure you want to navigate away?');
+
+        return true;
+    }
+
+    save() {
+
+        if (this.user.id)
+            this._userService.updateUser(this.user)
+                .subscribe(
+                data => this.handleData(data),
+                error => this.handleError(error),
+                () => this.handleSuccess('updateUser')
+                );
+        else
+            this._userService.addUser(this.user)
+                .subscribe(
+                data => this.handleData(data),
+                error => this.handleError(error),
+                () => this.handleSuccess('addUser')
+                );
+
+    }
 
 
     handleError(error: any) {
@@ -154,6 +206,5 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             this._router.navigate(['Users']);
         }
     }
-
-
+    
 }
