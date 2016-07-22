@@ -34,3 +34,5 @@ import { ErrorComponent } from "./errors/error.component";
     directives: [NavBarComponent, ROUTER_DIRECTIVES,ErrorComponent]
 })
 export class AppComponent { }
+
+

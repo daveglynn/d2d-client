@@ -5,7 +5,7 @@ import {OnChanges} from '@angular/core';
 	selector: 'pagination',
     template: `
     <nav *ngIf="items.length > pageSize">
-        <ul class="pagination">
+        <ul class="pagination ">
             <li [class.disabled]="currentPage == 1">
                 <a (click)="previous()" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>

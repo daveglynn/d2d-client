@@ -3,6 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ErrorService } from ".././errors/error.service";
 import { SpinnerComponent} from '../shared/helpers/spinner.component';
+import { PaginationComponent } from '../shared/helpers/pagination.component';
 
 // required for this component
 import { RouterLink } from '@angular/router-deprecated';
@@ -12,13 +13,17 @@ import { ProfileService } from '../profiles/profile.service';
 @Component({
     templateUrl: 'app/users/users.component.html',
     providers: [UserService, ProfileService],
-    directives: [RouterLink, SpinnerComponent]
+    directives: [RouterLink, SpinnerComponent, PaginationComponent]
 })
 export class UsersComponent implements OnInit {
 
-    users: any[];
-    profiles: any[];
+ 
+    users = [];
+    pagedUsers = [];
+    profiles = [];
     usersLoading;
+    pageSize = 10;
+
 
     constructor(
         private _userService: UserService,
@@ -61,15 +66,20 @@ export class UsersComponent implements OnInit {
             data => this.handleData('getUsers', data),
             error => this.handleError('getUsers', error, 0, null),
             () => this.handleSuccess('getUsers')
-            )
+        )
+
     }
 
     reloadUsers(filter) {
         this.loadUsers(filter);
     }
 
+    onPageChanged(page) {
+       var startIndex = (page - 1) * this.pageSize;
+       this.pagedUsers = _.take(_.rest(this.users, startIndex), this.pageSize);
+    }
+
     private handleError(process, error: any, index, user) {
-        debugger;
         console.log("handle error");
         if (process == 'deleteUser') {
             this.users.splice(index, 0, user);
@@ -78,12 +88,12 @@ export class UsersComponent implements OnInit {
     }
 
     private handleData(process, data: any) {
-        debugger;
         console.log("handle data");
         console.log(data);
 
         if (process === 'getUsers') {
             this.users = data;
+            this.pagedUsers = _.take(this.users, this.pageSize);
         }
         if (process === 'loadProfiles') {
             this.profiles = data;
@@ -92,7 +102,6 @@ export class UsersComponent implements OnInit {
     }
 
     private handleSuccess(process) {
-        debugger;
         this.usersLoading = false
         console.log("handle success");
     }
