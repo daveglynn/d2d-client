@@ -4,9 +4,9 @@
             <th *ngFor="let column of columns" [class]="selectedClass(column.variable)" (click)="changeSorting(column.variable)">
                 {{column.display}}
             </th>
-            <th style="width: 3%" *ngFor="let button of buttons">
+            <td style="width: 3%; font-weight: bold;" *ngFor="let button of buttons" >
                 {{button.display}}
-            </th>
+            </td>
         </tr>
     </thead>
     <tbody>

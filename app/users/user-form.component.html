@@ -149,12 +149,12 @@
                 <spinner [visible]="userLoading"></spinner>
             </div>
             <div *ngIf="(mode === 'view')">
-                <button type="submit" class="btn btn-primary">
+                <button type="button" class="btn btn-primary"
+                        (click)="cancel()">
                     <span class="glyphicon glyphicon-remove-circle"></span> Cancel
                 </button>
                 <spinner [visible]="userLoading"></spinner>
             </div>
-
 
         </form>
     </div>

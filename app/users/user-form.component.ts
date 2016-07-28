@@ -210,7 +210,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     }
 
     save() {
-
+  
         this.userLoading = true;
 
         if (this.user.id) {
@@ -241,6 +241,10 @@ export class UserFormComponent implements OnInit, CanDeactivate {
                 );
         }
 
+    }
+
+    cancel() {
+        this._router.navigate(['Users']);
     }
 
     handleError(process, error: any) {

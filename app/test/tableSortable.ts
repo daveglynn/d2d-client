@@ -15,8 +15,21 @@ export class TableSortable {
     @Input() data: any[];
     @Input() sort: any;
 
+//    selectedClass(columnName): string {
+//        
+//          return columnName == this.sort.column ? 'sort-' + this.sort.descending : false;
+//    }
+
+  //  selectedClass(column): string {
+        //debugger;
+        //if (!column.sortable) return '';
+
+   //     return column == this.sort.column ? 'sort-' + (this.sort.descending ? 'desc' : 'asc') : '';
+   // }
+
     selectedClass(columnName): string {
-         return columnName == this.sort.column ? 'sort-' + this.sort.descending : false;
+        debugger;
+        return columnName == this.sort.column ? 'sort-' + this.sort.descending : "false";
     }
 
     changeSorting(columnName): void {

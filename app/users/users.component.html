@@ -33,12 +33,12 @@
                                     <pagination [items]="users"   (page-changed)="onPageChanged($event)"></pagination>
                                 </div>
                                 <div class="table-responsive ">
-                                    <table-sortable [columns]="columns"
-                                                    [buttons]="buttons"
-                                                    [data]="pagedUsers"
-                                                    [sort]="sorting">
+                                    <table-simple [columns]="columns"
+                                                  [buttons]="buttons"
+                                                  [data]="pagedUsers"
+                                                  [sort]="sorting">
                                         Loading table...
-                                    </table-sortable>
+                                    </table-simple>
                                 </div>
                             </div>
                         </div>
