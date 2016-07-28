@@ -5,14 +5,18 @@
     'rxjs':                       'node_modules/rxjs',
     'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
     '@angular': 'node_modules/@angular',
-    'underscore': 'node_modules/underscore/underscore.js'
+    'underscore': 'node_modules/underscore/underscore.js',
+    'angular2-datatable': 'node_modules/angular2-datatable',
+    'lodash': 'node_modules/lodash/lodash.js'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app':                        { main: 'boot.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { defaultExtension: 'js' },
-    'underscore': { defaultExtension: 'js' }
+    'underscore': { defaultExtension: 'js' },
+    'angular2-datatable': { defaultExtension: 'js' },
+    'lodash': { defaultExtension: 'js' }
   };
   var packageNames = [
     '@angular/common',

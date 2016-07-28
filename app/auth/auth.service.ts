@@ -22,7 +22,6 @@ export class AuthService {
     } 
 
     signin(login: Login) {
-        debugger;
         const body = JSON.stringify(login);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         return this._http.post(this._url + '/users/login', body, { headers: headers })

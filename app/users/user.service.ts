@@ -19,12 +19,13 @@ export class UserService {
 	}
 
     getUsers(filter?) {
-   
         var parms = {};
         if (filter && filter.profileId) {
             parms['profileId'] = filter.profileId  ;
         }
-
+        if (filter && filter.q) {
+            parms['q'] = filter.q;
+        }
         const headers = new Headers({ 'Content-Type': 'application/json' });
         return this._http.get(this._url + "/users/all", { search: this._commonService.setParms(parms) })
             .map(res => res.json())

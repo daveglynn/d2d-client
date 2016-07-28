@@ -1,6 +1,8 @@
 "use strict";
 // standard for all components
 import { Component, OnInit } from '@angular/core';
+ 
+import {CORE_DIRECTIVES} from '@angular/common'
 import { ErrorService } from ".././errors/error.service";
 import { SpinnerComponent} from '../shared/helpers/spinner.component';
 import { PaginationComponent } from '../shared/helpers/pagination.component';
@@ -9,21 +11,118 @@ import { PaginationComponent } from '../shared/helpers/pagination.component';
 import { RouterLink } from '@angular/router-deprecated';
 import { UserService } from './user.service';
 import { ProfileService } from '../profiles/profile.service';
+//import { AgGridNg2 } from 'ag-grid-ng2/main';
+//import { GridOptions } from 'ag-grid/main';
+import {TableSimpleComponent} from '../shared/helpers/tableSimple.component'
+ 
 
 @Component({
     templateUrl: 'app/users/users.component.html',
     providers: [UserService, ProfileService],
-    directives: [RouterLink, SpinnerComponent, PaginationComponent]
+    directives: [RouterLink, SpinnerComponent, PaginationComponent, TableSimpleComponent, CORE_DIRECTIVES,]
 })
 export class UsersComponent implements OnInit {
 
- 
+
     users = [];
     pagedUsers = [];
     profiles = [];
     usersLoading;
     pageSize = 10;
 
+    rows: any[] = [
+        {
+            Name: 'Data 1',
+            Amount: 100.23,
+            Date: 1433588216000
+        },
+        {
+            Name: 'Data 2',
+            Amount: 0.875623,
+            Date: 1432387616000
+        },
+        {
+            Name: 'Data 3',
+            Amount: .010123,
+            Date: 1461820116000
+        },
+        {
+            Name: 'Data 4',
+            Amount: 1873.02301,
+            Date: 1423128616000
+        },
+        {
+            Name: 'Data 5',
+            Amount: -93,
+            Date: 1439220116000
+        }
+    ];
+    columns: any[] = [
+        {
+            display: 'Name', //The text to display
+            variable: 'firstName', //The name of the key that's apart of the data array
+            filter: 'text' //The type data type of the column (number, text, date, etc.)
+        },
+        {
+            display: 'Email', //The text to display
+            variable: 'email', //The name of the key that's apart of the data array
+            filter: 'text' //The type data type of the column (number, text, date, etc.)
+        },
+        {
+            display: 'Address', //The text to display
+            variable: 'addressLine1', //The name of the key that's apart of the data array
+            filter: 'text' //The type data type of the column (number, text, date, etc.)
+        }
+    ];
+    buttons: any[] = [
+        {
+            display: 'View',
+            router: 'ViewUser'
+        },
+        {
+            display: 'Edit', 
+            router: 'EditUser'
+        },
+        {
+            display: 'Delete',
+            router: 'DeleteUser'
+        }  
+    ];
+    //variable: '<a  class=\"btn btn-primary\"' + 'href="/users/' + '{{object.id}} ' + '">' + ' <span class=\"glyphicon glyphicon-edit\"></span></a>', 
+    sorting: any = {
+        column: 'firstName', //to match the variable of one of the columns
+        descending: false
+    };
+ 
+
+// columnDefs = [
+//     { headerName: "Name", field: "firstName", sort: 'asc' },
+//     { headerName: "Email", field: "email" },
+//     { headerName: "Address", field: "addressLine1" },
+//     {
+//         headerName: "Actions",
+//         suppressMenu: true,
+//         suppressSorting: true,
+//         template:
+//         `<button type="button" data-action-type="view" class="btn btn-default">
+//            View
+//          </button>
+//
+//           <button type="button" data-action-type="remove" class="btn btn-default">
+//             Remove
+//          </button>`
+//      }
+//  ];
+//
+//
+//   gridOptions: GridOptions = {
+//        columnDefs: this.columnDefs,
+//        enableColResize: true,
+//        enableSorting: true,
+//        enableFilter: true,
+//        rowData: null,
+//        rowHeight: 40
+//    };
 
     constructor(
         private _userService: UserService,
@@ -34,19 +133,6 @@ export class UsersComponent implements OnInit {
     ngOnInit() {
         this.loadProfiles();
         this.loadUsers();
-    }
-
-    private deleteUser(user) {
-        if (confirm("Are you sure you want to delete " + user.firstName + user.lastName + "?")) {
-            var index = this.users.indexOf(user)
-            this.users.splice(index, 1);
-            this._userService.deleteUser(user.id)
-                .subscribe(
-                data => this.handleData('deleteUser', data),
-                error => this.handleError('deleteUser', error, index, user),
-                () => this.handleSuccess('deleteUser')
-                );
-        }
     }
 
     private loadProfiles() {
@@ -66,18 +152,48 @@ export class UsersComponent implements OnInit {
             data => this.handleData('getUsers', data),
             error => this.handleError('getUsers', error, 0, null),
             () => this.handleSuccess('getUsers')
-        )
+            )
 
     }
 
-    reloadUsers(filter) {
+    private reLoadPage(q, p) {
+
+        q.value = "";
+        p.value = "";
+        this.loadUsers();
+
+    }
+
+    private reloadUsers(filter) {
         this.loadUsers(filter);
     }
 
-    onPageChanged(page) {
-       var startIndex = (page - 1) * this.pageSize;
-       this.pagedUsers = _.take(_.rest(this.users, startIndex), this.pageSize);
+    private onPageChanged(page) {
+        var startIndex = (page - 1) * this.pageSize;
+        this.pagedUsers = _.take(_.rest(this.users, startIndex), this.pageSize);
     }
+
+//    public onRowClicked(e) {
+//        if (e.event.target !== undefined) {
+//            let data = e.data;
+//            let actionType = e.event.target.getAttribute("data-action-type");
+//
+//            switch (actionType) {
+//                case "view":
+//                    return this.onActionViewClick(data);
+//                case "remove":
+//                    return this.onActionRemoveClick(data);
+//            }
+//        }
+//    }
+
+//    public onActionViewClick(data: any) {
+//        console.log("View action clicked", data);
+//    }
+
+//    public onActionRemoveClick(data: any) {
+//        console.log("Remove action clicked", data);
+//    }
 
     private handleError(process, error: any, index, user) {
         console.log("handle error");

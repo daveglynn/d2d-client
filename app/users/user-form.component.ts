@@ -1,4 +1,4 @@
- 
+
 // standard for all components
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ControlGroup, Validators } from '@angular/common';
@@ -23,11 +23,25 @@ import { User } from './user';
     directives: [SpinnerComponent, FocusDirective]
 })
 export class UserFormComponent implements OnInit, CanDeactivate {
+
+    // form variables
     form: ControlGroup;
     title: string;
     mode: string;
+    userLoading;
 
-    // create the controls
+    // disablers
+    firstName_disabled: boolean = false;
+    lastName_disabled: boolean = false;
+    email_disabled: boolean = false;
+    password_disabled: boolean = false;
+    phone_disabled: boolean = false;
+    addressLine1_disabled: boolean = false;
+    addressLine2_disabled: boolean = false;
+    addressLine3_disabled: boolean = false;
+    addressLine4_disabled: boolean = false;
+
+    // controls
     firstName: Control;
     lastName: Control;
     email: Control;
@@ -48,16 +62,19 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         private _userService: UserService,
         private _errorService: ErrorService
     ) {
-
         // determine what mode the form is in
-        if (_router.root.currentInstruction.component.urlPath === "users/new") {
-            this.mode = "new";
-        } else {
+        if (_router.root.currentInstruction.component.routeName === "AddUser") {
+            this.mode = "add";
+        } else if (_router.root.currentInstruction.component.routeName === "ViewUser") {
+            this.mode = "view";
+        } else if (_router.root.currentInstruction.component.routeName === "EditUser") {
             this.mode = "edit";
-        }
+        } else if (_router.root.currentInstruction.component.routeName === "DeleteUser") {
+            this.mode = "delete";
+        } else this.mode = "";
 
         // set up the field validators
-        if (this.mode === "new") {
+        if (this.mode === "add") {
 
             this.firstName = new Control('',
                 Validators.compose([
@@ -122,6 +139,8 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 
         }
 
+
+
         // set up the form design
         this.form = fb.group({
 
@@ -140,65 +159,112 @@ export class UserFormComponent implements OnInit, CanDeactivate {
                 addressLine3: this.addressLine3,
                 addressLine4: this.addressLine4
             })
+
         });
+
+
     }
 
     ngOnInit() {
 
         var id = this._routeParams.get("id");
-        this.title = id ? "Edit User" : "New User";
+        if (this.mode === 'edit') {
+            this.title = 'Edit User'
+        } else if (this.mode === 'view') {
+            this.title = 'View User'
+        } else if (this.mode === 'add') {
+            this.title = 'Add User'
+        } else if (this.mode === 'delete') {
+            this.title = 'Delete User'
+        }
 
+        // set disablers as required
+        //this.firstName_disabled: boolean = false;
+        //this.lastName_disabled: boolean = false;
+        //this.email_disabled: boolean = false;
+        //this.password_disabled: boolean = false;
+        //this.phone_disabled: boolean = false;
+        //this.addressLine1_disabled: boolean = false;
+        //this.addressLine2_disabled: boolean = false;
+        //this.addressLine3_disabled: boolean = false;
+        //this. addressLine4_disabled: boolean = false;
+
+        //get data if requested
         if (!id)
             return;
-
+        this.userLoading = true;
         this._userService.getUser(id)
             .subscribe(
-            data => this.handleData(data),
-            error => this.handleError(error),
+            data => this.handleData('getUser', data),
+            error => this.handleError('getUser', error),
             () => this.handleSuccess('getUser')
-            );
+        );
+        
     }
 
     routerCanDeactivate() {
 
         if (this.form.dirty)
             return confirm('You have unsaved changes. Are you sure you want to navigate away?');
-
         return true;
     }
 
     save() {
 
-        if (this.user.id)
-            this._userService.updateUser(this.user)
-                .subscribe(
-                data => this.handleData(data),
-                error => this.handleError(error),
-                () => this.handleSuccess('updateUser')
-                );
-        else
+        this.userLoading = true;
+
+        if (this.user.id) {
+
+            if (this.mode === 'edit') {
+                this._userService.updateUser(this.user)
+                    .subscribe(
+                    data => this.handleData('updateUser', data),
+                    error => this.handleError('updateUser', error),
+                    () => this.handleSuccess('updateUser')
+                    );
+            }
+            if (this.mode === 'delete') {
+                this._userService.deleteUser(this.user.id)
+                    .subscribe(
+                    data => this.handleData('deleteUser', data),
+                    error => this.handleError('deleteUser', error),
+                    () => this.handleSuccess('deleteUser')
+                    );
+            }
+
+        } else {
             this._userService.addUser(this.user)
                 .subscribe(
-                data => this.handleData(data),
-                error => this.handleError(error),
+                data => this.handleData('addUser', data),
+                error => this.handleError('addUser', error),
                 () => this.handleSuccess('addUser')
                 );
+        }
 
     }
 
-
-    handleError(error: any) {
+    handleError(process, error: any) {
+        this.userLoading = false;
+        // this is not an error , but delete request is throwing it. Angular bug
+        // therefore treat it as a success
+        if (error.message != "error.json is not a function") {
+            this._errorService.handleError(error);
+        } else {
+            this.handleSuccess(process)
+        }
         console.log("handle error");
         this._errorService.handleError(error);
     }
 
-    handleData(data: any) {
+    handleData(process, data: any) {
+        this.userLoading = false;
         console.log("handle data");
         console.log(data);
         this.user = data;
     }
 
     handleSuccess(process) {
+        this.userLoading = false;
         console.log("handle success");
         // Ideally, here we'd want:
         // this.form.markAsPristine();
@@ -206,5 +272,5 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             this._router.navigate(['Users']);
         }
     }
-    
+
 }

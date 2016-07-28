@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router-deprecated', './navbar.component', './home.component', './users/users.component', './users/user-form.component', './posts/posts.component', './auth/auth.component', './not-found.component', "./errors/error.component"], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router-deprecated', './navbar.component', './home.component', './users/users.component', './users/user-form.component', './posts/posts.component', './auth/auth.component', './not-found.component', "./errors/error.component", './test/test.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router-deprecated', './navbar.compon
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_deprecated_1, navbar_component_1, home_component_1, users_component_1, user_form_component_1, posts_component_1, auth_component_1, not_found_component_1, error_component_1;
+    var core_1, router_deprecated_1, navbar_component_1, home_component_1, users_component_1, user_form_component_1, posts_component_1, auth_component_1, not_found_component_1, error_component_1, test_component_1;
     var AppComponent;
     return {
         setters:[
@@ -43,6 +43,9 @@ System.register(['@angular/core', '@angular/router-deprecated', './navbar.compon
             },
             function (error_component_1_1) {
                 error_component_1 = error_component_1_1;
+            },
+            function (test_component_1_1) {
+                test_component_1 = test_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -51,9 +54,12 @@ System.register(['@angular/core', '@angular/router-deprecated', './navbar.compon
                 AppComponent = __decorate([
                     router_deprecated_1.RouteConfig([
                         { path: '/', name: 'Home', component: home_component_1.HomeComponent },
+                        { path: '/test', name: 'Test', component: test_component_1.TestComponent },
                         { path: '/users', name: 'Users', component: users_component_1.UsersComponent },
+                        { path: '/users/view/:id', name: 'ViewUser', component: user_form_component_1.UserFormComponent },
                         { path: '/users/:id', name: 'EditUser', component: user_form_component_1.UserFormComponent },
-                        { path: '/users/new', name: 'NewUser', component: user_form_component_1.UserFormComponent },
+                        { path: '/users/add', name: 'AddUser', component: user_form_component_1.UserFormComponent },
+                        { path: '/users/delete/:id', name: 'DeleteUser', component: user_form_component_1.UserFormComponent },
                         { path: '/posts', name: 'Posts', component: posts_component_1.PostsComponent },
                         { path: '/auth/...', name: 'Auth', component: auth_component_1.AuthenticationComponent },
                         { path: '/not-found', name: 'NotFound', component: not_found_component_1.NotFoundComponent },

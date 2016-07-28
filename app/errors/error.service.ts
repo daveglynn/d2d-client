@@ -6,6 +6,9 @@ export class ErrorService {
         handleError(error: any) {
         var errorData = new Error("", "");
 
+        // this is not an error , but delete is throwing it. Angular bug
+        if (error.message === "error.json is not a function") return;
+
         if ((error.status != 'undefined') && (error.status != undefined)) {
             if (error.status == '401') {
                 errorData = new Error(error.status, "Authentication is required for this screen");
@@ -23,13 +26,18 @@ export class ErrorService {
         }
 
         // server validation errors
+        debugger;
         if (errorData.title === "") {
             if (typeof error === 'object') {
                 var parsedType = "";
                 var parsedMessage = "";
-                for (let item of error) {
-                    if (typeof item === 'object') {
-                    parsedMessage += item.message  + "\n";
+                if (typeof error.message === 'string') {
+                    parsedMessage = error.message;
+                } else {
+                    for (let item of error) {
+                        if (typeof item === 'object') {
+                            parsedMessage += item.message + "\n";
+                        }
                     }
                 }
                 if (parsedMessage != "") {

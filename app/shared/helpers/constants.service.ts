@@ -10,7 +10,7 @@ export class ConstantsService {
      serverUrl: string = this.transferProtocol + "d2d-demo.herokuapp.com";
 
      defaultInputBackColor: string = 'white';
-     onFocusInputBackColor: string = '#E4FFE0';
+     onFocusInputBackColor: string = '#efffea';
 
      redirectAfterSignup: string = "/auth/signin";
      redirectAfterSignin: string = "/"

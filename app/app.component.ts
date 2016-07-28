@@ -9,13 +9,16 @@ import { PostsComponent } from './posts/posts.component';
 import { AuthenticationComponent } from './auth/auth.component';
 import { NotFoundComponent } from './not-found.component';
 import { ErrorComponent } from "./errors/error.component";
-
+import { TestComponent } from './test/test.component';
 
 @RouteConfig([
     { path: '/', name: 'Home', component: HomeComponent },
+    { path: '/test', name: 'Test', component: TestComponent },
     { path: '/users', name: 'Users', component: UsersComponent },
+    { path: '/users/view/:id', name: 'ViewUser', component: UserFormComponent },
     { path: '/users/:id', name: 'EditUser', component: UserFormComponent },
-    { path: '/users/new', name: 'NewUser', component: UserFormComponent },
+    { path: '/users/add', name: 'AddUser', component: UserFormComponent },
+    { path: '/users/delete/:id', name: 'DeleteUser', component: UserFormComponent },
     { path: '/posts', name: 'Posts', component: PostsComponent },
     { path: '/auth/...', name: 'Auth', component: AuthenticationComponent },
     { path: '/not-found', name: 'NotFound', component: NotFoundComponent },
