@@ -2,7 +2,7 @@
 // standard for all components
 import { Component, OnInit } from '@angular/core';
  
-import {CORE_DIRECTIVES} from '@angular/common'
+ import {CORE_DIRECTIVES} from '@angular/common'
 import { ErrorService } from ".././errors/error.service";
 import { SpinnerComponent} from '../shared/helpers/spinner.component';
 import { PaginationComponent } from '../shared/helpers/pagination.component';
@@ -19,7 +19,7 @@ import {TableSimpleComponent} from '../shared/helpers/tableSimple.component'
 @Component({
     templateUrl: 'app/users/users.component.html',
     providers: [UserService, ProfileService],
-    directives: [RouterLink, SpinnerComponent, PaginationComponent, TableSimpleComponent, CORE_DIRECTIVES,]
+    directives: [RouterLink, SpinnerComponent, TableSimpleComponent, PaginationComponent, CORE_DIRECTIVES]
 })
 export class UsersComponent implements OnInit {
 
@@ -30,33 +30,7 @@ export class UsersComponent implements OnInit {
     usersLoading;
     pageSize = 10;
 
-    rows: any[] = [
-        {
-            Name: 'Data 1',
-            Amount: 100.23,
-            Date: 1433588216000
-        },
-        {
-            Name: 'Data 2',
-            Amount: 0.875623,
-            Date: 1432387616000
-        },
-        {
-            Name: 'Data 3',
-            Amount: .010123,
-            Date: 1461820116000
-        },
-        {
-            Name: 'Data 4',
-            Amount: 1873.02301,
-            Date: 1423128616000
-        },
-        {
-            Name: 'Data 5',
-            Amount: -93,
-            Date: 1439220116000
-        }
-    ];
+  
     columns: any[] = [
         {
             display: 'Name', //The text to display
@@ -197,16 +171,16 @@ export class UsersComponent implements OnInit {
 
     private handleError(process, error: any, index, user) {
         console.log("handle error");
-        if (process == 'deleteUser') {
-            this.users.splice(index, 0, user);
-        }
+        //if (process == 'deleteUser') {
+       //     this.users.splice(index, 0, user);
+        //}
         this._errorService.handleError(error);
     }
 
     private handleData(process, data: any) {
         console.log("handle data");
         console.log(data);
-
+        debugger;
         if (process === 'getUsers') {
             this.users = data;
             this.pagedUsers = _.take(this.users, this.pageSize);

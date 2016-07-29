@@ -4,6 +4,7 @@ import {OnChanges} from '@angular/core';
 @Component({
 	selector: 'pagination',
     template: `
+
     <nav *ngIf="items.length > pageSize">
         <ul class="pagination ">
             <li [class.disabled]="currentPage == 1">
@@ -33,7 +34,11 @@ export class PaginationComponent implements OnChanges {
 	ngOnChanges(){
         this.currentPage = 1;
         
-		var pagesCount = this.items.length / this.pageSize; 
+        
+        // dg - start - 29/07/2016 - always round the number to the nearest integer;
+        //var pagesCount = this.items.length / this.pageSize; 
+        var pagesCount = Math.ceil(this.items.length / this.pageSize) 
+        // dg - start - 29/07/2016 - always round the number to the nearest integer;
 		this.pages = [];
 		for (var i = 1; i <= pagesCount; i++)
 			this.pages.push(i);
