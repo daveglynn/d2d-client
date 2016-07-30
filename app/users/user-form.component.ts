@@ -35,7 +35,8 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     lastName_disabled: boolean = false;
     email_disabled: boolean = false;
     password_disabled: boolean = false;
-    //profileId_disabled: boolean = false;
+    profileId_disabled: boolean = false;
+    languageId_disabled: boolean = false;
     phone_disabled: boolean = false;
     addressLine1_disabled: boolean = false;
     addressLine2_disabled: boolean = false;
@@ -47,15 +48,16 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     lastName: Control;
     email: Control;
     password: Control;
+    profileId: Control;
+    languageId: Control;
     phone: Control;
-    //profileId: Control;
     addressLine1: Control;
     addressLine2: Control;
     addressLine3: Control;
     addressLine4: Control;
 
     // create a new instance 
-    user = new User(null, "", "", "", "", "", "", "", "", "");
+    user = new User(null, "", "", "", "", null, null, "", "", "", "");
 
     constructor(
         fb: FormBuilder,
@@ -110,6 +112,14 @@ export class UserFormComponent implements OnInit, CanDeactivate {
                     Validators.compose([
                         ClientValidators.outOfRange50
                     ])),
+                this.profileId = new Control('',
+                    Validators.compose([
+                        ClientValidators.outOfRange50
+                    ])),
+                this.languageId = new Control('',
+                    Validators.compose([
+                        ClientValidators.outOfRange50
+                    ])),
                 this.addressLine1 = new Control('',
                     Validators.compose([
                         ClientValidators.outOfRange50
@@ -133,6 +143,8 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             this.lastName = new Control('');
             this.email = new Control('');
             this.password = new Control('');
+            this.profileId = new Control('');
+            this.languageId = new Control('');
             this.phone = new Control('');
             this.addressLine1 = new Control('');
             this.addressLine2 = new Control('');
@@ -150,6 +162,8 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             lastName: this.lastName,
             email: this.email,
             password: this.password,
+            profileId: this.profileId,
+            languageId: this.languageId,
             phone: this.phone,
             addressLine1: this.addressLine1,
             addressLine2: this.addressLine2,

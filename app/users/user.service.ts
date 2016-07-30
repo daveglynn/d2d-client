@@ -23,6 +23,9 @@ export class UserService {
         if (filter && filter.profileId) {
             parms['profileId'] = filter.profileId  ;
         }
+        if (filter && filter.languageId) {
+            parms['languageId'] = filter.languageId;
+        }
         if (filter && filter.q) {
             parms['q'] = filter.q;
         }

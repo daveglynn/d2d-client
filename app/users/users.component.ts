@@ -11,6 +11,7 @@ import { PaginationComponent } from '../shared/helpers/pagination.component';
 import { RouterLink } from '@angular/router-deprecated';
 import { UserService } from './user.service';
 import { ProfileService } from '../profiles/profile.service';
+import { LanguageService } from '../languages/language.service';
 //import { AgGridNg2 } from 'ag-grid-ng2/main';
 //import { GridOptions } from 'ag-grid/main';
 import {TableSimpleComponent} from '../shared/helpers/tableSimple.component'
@@ -18,7 +19,7 @@ import {TableSimpleComponent} from '../shared/helpers/tableSimple.component'
 
 @Component({
     templateUrl: 'app/users/users.component.html',
-    providers: [UserService, ProfileService],
+    providers: [UserService, ProfileService, LanguageService],
     directives: [RouterLink, SpinnerComponent, TableSimpleComponent, PaginationComponent, CORE_DIRECTIVES]
 })
 export class UsersComponent implements OnInit {
@@ -27,6 +28,7 @@ export class UsersComponent implements OnInit {
     users = [];
     pagedUsers = [];
     profiles = [];
+    languages = [];
     usersLoading;
     pageSize = 10;
 
@@ -72,11 +74,13 @@ export class UsersComponent implements OnInit {
     constructor(
         private _userService: UserService,
         private _errorService: ErrorService,
-        private _profileService: ProfileService)
+        private _profileService: ProfileService,
+        private _languageService: LanguageService)
     { }
 
     ngOnInit() {
         this.loadProfiles();
+        this.loadLanguages();
         this.loadUsers();
     }
 
@@ -89,6 +93,14 @@ export class UsersComponent implements OnInit {
             );
     }
 
+    private loadLanguages() {
+        this._languageService.getLanguages()
+            .subscribe(
+            data => this.handleData('loadLanguages', data),
+            error => this.handleError('loadLanguages', error, 0, null),
+            () => this.handleSuccess('loadLanguages')
+            );
+    }
     private loadUsers(filter?) {
         this.usersLoading = true;
         this._userService.getUsers(filter)
@@ -101,10 +113,11 @@ export class UsersComponent implements OnInit {
 
     }
 
-    private reLoadPage(q, profile) {
+    private reLoadPage(profile, language, q) {
 
         q.value = "";
         profile.value = "";
+        language.value = "";
         this.loadUsers();
 
     }
@@ -157,6 +170,9 @@ export class UsersComponent implements OnInit {
         }
         if (process === 'loadProfiles') {
             this.profiles = data;
+        }
+        if (process === 'loadLanguages') {
+            this.languages = data;
         }
 
     }
