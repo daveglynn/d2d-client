@@ -35,6 +35,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     lastName_disabled: boolean = false;
     email_disabled: boolean = false;
     password_disabled: boolean = false;
+    //profileId_disabled: boolean = false;
     phone_disabled: boolean = false;
     addressLine1_disabled: boolean = false;
     addressLine2_disabled: boolean = false;
@@ -47,6 +48,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     email: Control;
     password: Control;
     phone: Control;
+    //profileId: Control;
     addressLine1: Control;
     addressLine2: Control;
     addressLine3: Control;

@@ -125,7 +125,8 @@
                 <button [disabled]="!form.valid" type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok-circle"></span> Create User
                 </button>
-                <button type="submit" class="btn btn-primary">
+                <button type="button" class="btn btn-primary"
+                        (click)="cancel()">
                     <span class="glyphicon glyphicon-remove-circle"></span> Cancel
                 </button>
                 <spinner [visible]="userLoading"></spinner>
@@ -134,7 +135,8 @@
                 <button [disabled]="!form.valid" type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok-circle"></span> Update User
                 </button>
-                <button type="submit" class="btn btn-primary">
+                <button type="button" class="btn btn-primary"
+                        (click)="cancel()">
                     <span class="glyphicon glyphicon-remove-circle"></span> Cancel
                 </button>
                 <spinner [visible]="userLoading"></spinner>
@@ -143,7 +145,8 @@
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok-circle"></span> Delete User
                 </button>
-                <button type="submit" class="btn btn-primary">
+                <button type="button" class="btn btn-primary"
+                        (click)="cancel()">
                     <span class="glyphicon glyphicon-remove-circle"></span> Cancel
                 </button>
                 <spinner [visible]="userLoading"></spinner>

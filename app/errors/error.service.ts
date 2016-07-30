@@ -26,7 +26,6 @@ export class ErrorService {
         }
 
         // server validation errors
-        debugger;
         if (errorData.title === "") {
             if (typeof error === 'object') {
                 var parsedType = "";

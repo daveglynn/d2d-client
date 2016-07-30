@@ -28,7 +28,6 @@ export class TableSortable {
    // }
 
     selectedClass(columnName): string {
-        debugger;
         return columnName == this.sort.column ? 'sort-' + this.sort.descending : "false";
     }
 

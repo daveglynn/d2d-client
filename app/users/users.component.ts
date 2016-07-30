@@ -68,36 +68,7 @@ export class UsersComponent implements OnInit {
         descending: false
     };
  
-
-// columnDefs = [
-//     { headerName: "Name", field: "firstName", sort: 'asc' },
-//     { headerName: "Email", field: "email" },
-//     { headerName: "Address", field: "addressLine1" },
-//     {
-//         headerName: "Actions",
-//         suppressMenu: true,
-//         suppressSorting: true,
-//         template:
-//         `<button type="button" data-action-type="view" class="btn btn-default">
-//            View
-//          </button>
-//
-//           <button type="button" data-action-type="remove" class="btn btn-default">
-//             Remove
-//          </button>`
-//      }
-//  ];
-//
-//
-//   gridOptions: GridOptions = {
-//        columnDefs: this.columnDefs,
-//        enableColResize: true,
-//        enableSorting: true,
-//        enableFilter: true,
-//        rowData: null,
-//        rowHeight: 40
-//    };
-
+    
     constructor(
         private _userService: UserService,
         private _errorService: ErrorService,
@@ -130,10 +101,10 @@ export class UsersComponent implements OnInit {
 
     }
 
-    private reLoadPage(q, p) {
+    private reLoadPage(q, profile) {
 
         q.value = "";
-        p.value = "";
+        profile.value = "";
         this.loadUsers();
 
     }
@@ -180,7 +151,6 @@ export class UsersComponent implements OnInit {
     private handleData(process, data: any) {
         console.log("handle data");
         console.log(data);
-        debugger;
         if (process === 'getUsers') {
             this.users = data;
             this.pagedUsers = _.take(this.users, this.pageSize);
