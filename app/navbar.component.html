@@ -15,7 +15,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
           <li [class.active]="isCurrentRoute(['Test'])"><a [routerLink]="['Test']" *ngIf="isLoggedIn()" >Test</a></li>
-        <li [class.active]="isCurrentRoute(['Users'])"><a [routerLink]="['Users']" *ngIf="isLoggedIn()" >Users</a></li>
+        <li [class.active]="isCurrentRoute(['Users'])"><a [routerLink]="['Users', { mode: 'workwith' }]" *ngIf="isLoggedIn()" >Work With Users</a></li>
+          <li [class.active]="isCurrentRoute(['Users'])"><a [routerLink]="['Users', { mode: 'display' }]" *ngIf="isLoggedIn()">Display Users</a></li>
+          <li [class.active]="isCurrentRoute(['Users'])"><a [routerLink]="['Users', { mode: 'select' }]" *ngIf="isLoggedIn()">Select Users</a></li>
         <li [class.active]="isCurrentRoute(['Posts'])"><a [routerLink]="['Posts']" *ngIf="isLoggedIn()" >Posts</a></li>
           <li [class.active]="isCurrentRoute(['Auth'])"><a [routerLink]="['Auth']">Authentication</a></li>
       </ul>

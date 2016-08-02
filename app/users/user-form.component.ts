@@ -1,6 +1,6 @@
 
 // standard for all components
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, ControlGroup, Validators } from '@angular/common';
 import { CanDeactivate, Router, RouteParams } from '@angular/router-deprecated';
 import { FocusDirective } from '../shared/directives/focus.directive';
@@ -24,10 +24,12 @@ import { User } from './user';
 })
 export class UserFormComponent implements OnInit, CanDeactivate {
 
+ 
+
     // form variables
     form: ControlGroup;
     title: string;
-    mode: string;
+    action: string;
     userLoading;
 
     // disablers
@@ -66,19 +68,20 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         private _userService: UserService,
         private _errorService: ErrorService
     ) {
-        // determine what mode the form is in
+
+        // determine what action the form is in
         if (_router.root.currentInstruction.component.routeName === "AddUser") {
-            this.mode = "add";
+            this.action = "add";
         } else if (_router.root.currentInstruction.component.routeName === "ViewUser") {
-            this.mode = "view";
+            this.action = "view";
         } else if (_router.root.currentInstruction.component.routeName === "EditUser") {
-            this.mode = "edit";
+            this.action = "edit";
         } else if (_router.root.currentInstruction.component.routeName === "DeleteUser") {
-            this.mode = "delete";
-        } else this.mode = "";
+            this.action = "delete";
+        } else this.action = "";
 
         // set up the field validators
-        if (this.mode === "add") {
+        if (this.action === "add") {
 
             this.firstName = new Control('',
                 Validators.compose([
@@ -184,13 +187,13 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     ngOnInit() {
 
         var id = this._routeParams.get("id");
-        if (this.mode === 'edit') {
+        if (this.action === 'edit') {
             this.title = 'Edit User'
-        } else if (this.mode === 'view') {
+        } else if (this.action === 'view') {
             this.title = 'View User'
-        } else if (this.mode === 'add') {
+        } else if (this.action === 'add') {
             this.title = 'Add User'
-        } else if (this.mode === 'delete') {
+        } else if (this.action === 'delete') {
             this.title = 'Delete User'
         }
 
@@ -231,7 +234,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 
         if (this.user.id) {
 
-            if (this.mode === 'edit') {
+            if (this.action === 'edit') {
                 this._userService.updateUser(this.user)
                     .subscribe(
                     data => this.handleData('updateUser', data),
@@ -239,7 +242,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
                     () => this.handleSuccess('updateUser')
                     );
             }
-            if (this.mode === 'delete') {
+            if (this.action === 'delete') {
                 this._userService.deleteUser(this.user.id)
                     .subscribe(
                     data => this.handleData('deleteUser', data),

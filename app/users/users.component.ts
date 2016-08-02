@@ -1,21 +1,19 @@
 "use strict";
 // standard for all components
 import { Component, OnInit } from '@angular/core';
- 
- import {CORE_DIRECTIVES} from '@angular/common'
+
+import {CORE_DIRECTIVES} from '@angular/common'
 import { ErrorService } from ".././errors/error.service";
 import { SpinnerComponent} from '../shared/helpers/spinner.component';
 import { PaginationComponent } from '../shared/helpers/pagination.component';
 
 // required for this component
 import { RouterLink } from '@angular/router-deprecated';
+import { Router, RouteParams } from '@angular/router-deprecated';
 import { UserService } from './user.service';
 import { ProfileService } from '../profiles/profile.service';
 import { LanguageService } from '../languages/language.service';
-//import { AgGridNg2 } from 'ag-grid-ng2/main';
-//import { GridOptions } from 'ag-grid/main';
-import {TableSimpleComponent} from '../shared/helpers/tableSimple.component'
- 
+import { TableSimpleComponent } from '../shared/helpers/tableSimple.component'
 
 @Component({
     templateUrl: 'app/users/users.component.html',
@@ -24,61 +22,92 @@ import {TableSimpleComponent} from '../shared/helpers/tableSimple.component'
 })
 export class UsersComponent implements OnInit {
 
-
+    title: string;
+    mode: string;
     users = [];
     pagedUsers = [];
     profiles = [];
     languages = [];
     usersLoading;
     pageSize = 10;
+    columns: any[] = [];
+    buttons: any[] = [];
 
-  
-    columns: any[] = [
-        {
-            display: 'Name', //The text to display
-            variable: 'firstName', //The name of the key that's apart of the data array
-            filter: 'text' //The type data type of the column (number, text, date, etc.)
-        },
-        {
-            display: 'Email', //The text to display
-            variable: 'email', //The name of the key that's apart of the data array
-            filter: 'text' //The type data type of the column (number, text, date, etc.)
-        },
-        {
-            display: 'Address', //The text to display
-            variable: 'addressLine1', //The name of the key that's apart of the data array
-            filter: 'text' //The type data type of the column (number, text, date, etc.)
-        }
-    ];
-    buttons: any[] = [
-        {
-            display: 'View',
-            router: 'ViewUser'
-        },
-        {
-            display: 'Edit', 
-            router: 'EditUser'
-        },
-        {
-            display: 'Delete',
-            router: 'DeleteUser'
-        }  
-    ];
-    //variable: '<a  class=\"btn btn-primary\"' + 'href="/users/' + '{{object.id}} ' + '">' + ' <span class=\"glyphicon glyphicon-edit\"></span></a>', 
+    //variable: '<a  class=\"btn btn-primary\"' + 'href="/users/' + '{{object.id}} ' + '">' + ' <span class=\"glyphicon glyphicon-edit\"></span></a>',
     sorting: any = {
-        column: 'firstName', //to match the variable of one of the columns
+        column: 'firstName',
         descending: false
     };
- 
-    
+
+
     constructor(
+        private _router: Router,
+        private _routeParams: RouteParams,
         private _userService: UserService,
         private _errorService: ErrorService,
         private _profileService: ProfileService,
-        private _languageService: LanguageService)
-    { }
+        private _languageService: LanguageService) {
 
+        // set up form
+        this.mode = _router.root.currentInstruction.component.params['mode'];
+        if (!_.contains(['workwith', 'display', 'select'], this.mode)) {
+            this.mode = 'display';
+        }
+
+        //set up table columns
+        this.columns.push(
+            {
+                display: 'Name',
+                variable: 'firstName',
+                filter: 'text'
+            },
+            {
+                display: 'Email',
+                variable: 'email',
+                filter: 'text'
+            },
+            {
+                display: 'Address',
+                variable: 'addressLine1',
+                filter: 'text'
+            }
+        );
+
+        //set up table buttone
+        this.buttons.push(
+            {
+                display: 'View',
+                router: 'ViewUser'
+            }
+        );
+
+        //set title
+        if (this.mode === 'select') {
+            this.title = "Select a User"
+        }
+        if (this.mode === 'display') {
+            this.title = "Display Users"
+        }
+        if (this.mode === 'workwith') {
+            this.title = "Work With Users"
+        }
+
+        //set buttons
+        if (this.mode === 'workwith') {
+            this.buttons.push({
+                display: 'Edit',
+                router: 'EditUser'
+            });
+            this.buttons.push({
+                display: 'Delete',
+                router: 'DeleteUser'
+            }
+            );
+        }
+
+    }
     ngOnInit() {
+
         this.loadProfiles();
         this.loadLanguages();
         this.loadUsers();
@@ -101,10 +130,10 @@ export class UsersComponent implements OnInit {
             () => this.handleSuccess('loadLanguages')
             );
     }
+
     private loadUsers(filter?) {
         this.usersLoading = true;
         this._userService.getUsers(filter)
-            //.subscribe(users => this.users = users);
             .subscribe(
             data => this.handleData('getUsers', data),
             error => this.handleError('getUsers', error, 0, null),
@@ -115,9 +144,10 @@ export class UsersComponent implements OnInit {
 
     private reLoadPage(profile, language, q) {
 
-        q.value = "";
         profile.value = "";
         language.value = "";
+        q.value = "";
+
         this.loadUsers();
 
     }
@@ -131,33 +161,8 @@ export class UsersComponent implements OnInit {
         this.pagedUsers = _.take(_.rest(this.users, startIndex), this.pageSize);
     }
 
-//    public onRowClicked(e) {
-//        if (e.event.target !== undefined) {
-//            let data = e.data;
-//            let actionType = e.event.target.getAttribute("data-action-type");
-//
-//            switch (actionType) {
-//                case "view":
-//                    return this.onActionViewClick(data);
-//                case "remove":
-//                    return this.onActionRemoveClick(data);
-//            }
-//        }
-//    }
-
-//    public onActionViewClick(data: any) {
-//        console.log("View action clicked", data);
-//    }
-
-//    public onActionRemoveClick(data: any) {
-//        console.log("Remove action clicked", data);
-//    }
-
     private handleError(process, error: any, index, user) {
         console.log("handle error");
-        //if (process == 'deleteUser') {
-       //     this.users.splice(index, 0, user);
-        //}
         this._errorService.handleError(error);
     }
 

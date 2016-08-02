@@ -3,7 +3,7 @@
     <div class="col-md-6 well">
         <form [ngFormModel]="form" (ngSubmit)="save()">
 
-            <fieldset [disabled]="(mode === 'view' || mode === 'delete')">
+            <fieldset [disabled]="(action === 'view' || action === 'delete')">
                 <legend>
                     User
                 </legend>
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="mode === 'add'">
+                <div *ngIf="action === 'add'">
                     <div class="form-group">
                         <label>Password</label>
                         <input [(ngModel)]="user.password" id="password" type="password" class="form-control" placeholder="Required" ngControl="password" #password="ngForm" focus>
@@ -98,7 +98,7 @@
                     </div>
                 </div>
             </fieldset>
-            <fieldset ngControlGroup="address" [disabled]="(mode === 'view' || mode === 'delete')">
+            <fieldset ngControlGroup="address" [disabled]="(action === 'view' || action === 'delete')">
                 <legend>Address</legend>
                 <div class="form-group">
                     <label>Address Line1</label>
@@ -139,7 +139,7 @@
 
             </fieldset>
 
-            <div *ngIf="(mode === 'add')">
+            <div *ngIf="(action === 'add')">
                 <button [disabled]="!form.valid" type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok-circle"></span> Create User
                 </button>
@@ -149,7 +149,7 @@
                 </button>
                 <spinner [visible]="userLoading"></spinner>
             </div>
-            <div *ngIf="(mode === 'edit')">
+            <div *ngIf="(action === 'edit')">
                 <button [disabled]="!form.valid" type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok-circle"></span> Update User
                 </button>
@@ -159,7 +159,7 @@
                 </button>
                 <spinner [visible]="userLoading"></spinner>
             </div>
-            <div *ngIf="(mode === 'delete')">
+            <div *ngIf="(action === 'delete')">
                 <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok-circle"></span> Delete User
                 </button>
@@ -169,7 +169,7 @@
                 </button>
                 <spinner [visible]="userLoading"></spinner>
             </div>
-            <div *ngIf="(mode === 'view')">
+            <div *ngIf="(action === 'view')">
                 <button type="button" class="btn btn-primary"
                         (click)="cancel()">
                     <span class="glyphicon glyphicon-remove-circle"></span> Cancel
