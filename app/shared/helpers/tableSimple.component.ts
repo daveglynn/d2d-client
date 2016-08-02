@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router-deprecated';
     directives: [RouterLink]
 })
 export class TableSimpleComponent {
+    @Input() preButtons: any[];
     @Input() columns: any[];
     @Input() buttons: any[];
     @Input() data: any[];

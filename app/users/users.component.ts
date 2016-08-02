@@ -30,6 +30,7 @@ export class UsersComponent implements OnInit {
     languages = [];
     usersLoading;
     pageSize = 10;
+    preButtons: any[] = [];
     columns: any[] = [];
     buttons: any[] = [];
 
@@ -73,7 +74,7 @@ export class UsersComponent implements OnInit {
             }
         );
 
-        //set up table buttone
+        //set up table buttons
         this.buttons.push(
             {
                 display: 'View',
@@ -81,18 +82,13 @@ export class UsersComponent implements OnInit {
             }
         );
 
-        //set title
         if (this.mode === 'select') {
-            this.title = "Select a User"
-        }
-        if (this.mode === 'display') {
-            this.title = "Display Users"
-        }
-        if (this.mode === 'workwith') {
-            this.title = "Work With Users"
+            this.preButtons.push({
+                display: 'Select',
+                router: 'SelectUser'
+            });
         }
 
-        //set buttons
         if (this.mode === 'workwith') {
             this.buttons.push({
                 display: 'Edit',
@@ -103,6 +99,17 @@ export class UsersComponent implements OnInit {
                 router: 'DeleteUser'
             }
             );
+        }
+
+        //set title
+        if (this.mode === 'select') {
+            this.title = "Select a User"
+        }
+        if (this.mode === 'display') {
+            this.title = "Display Users"
+        }
+        if (this.mode === 'workwith') {
+            this.title = "Work With Users"
         }
 
     }

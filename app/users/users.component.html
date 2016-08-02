@@ -39,7 +39,8 @@
                                     <pagination [items]="users"   (page-changed)="onPageChanged($event)"></pagination>
                                     </div>
                                 <div class="table-responsive ">
-                                    <table-simple [columns]="columns"
+                                    <table-simple [preButtons]="preButtons"
+                                                  [columns]="columns"
                                                   [buttons]="buttons"
                                                   [data]="pagedUsers"
                                                   [sort]="sorting">
