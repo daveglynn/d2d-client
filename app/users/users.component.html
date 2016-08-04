@@ -1,6 +1,6 @@
 <!-- these two lines are required for Select Modal view-->
 <div *ngIf="modal === 'true'" class="backdrop" [ngStyle]="{'display': modalDisplay}"></div>
-<div class={{modalClass}} tabindex="-1" role="dialog" [ngStyle]="{'display': allDisplay}">
+<div *ngIf="(modal === 'true') || (modal != 'true')" class={{modalClass}} tabindex="-1" role="dialog" [ngStyle]="{'display': allDisplay}">
 
     <div class="container">
         <div class="myaccordion">

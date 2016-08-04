@@ -27,6 +27,7 @@ export class UsersComponent implements OnInit {
     @Input() modeInput: string;
     @Input() modalInput: string;
 
+
     modalClass: string = "";
     modalDisplay: string = "";
     allDisplay: string = "";
@@ -215,6 +216,7 @@ export class UsersComponent implements OnInit {
             this.modalDisplay = 'none';
             this.allDisplay = 'none';
             this.modalClass = ""
+            this.modalInput = "false"
         } else {
             this._location.back();
         }
