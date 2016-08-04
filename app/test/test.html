@@ -11,20 +11,17 @@ This is my Table
         <div class="row">
             <div class="col-md-12">
                 <div class="panel-body">
-                        <button class="form-control btn btn-default" (click)="selectUser()">
-                            <span class="glyphicon glyphicon-search"></span> Search
-                        </button>
+                    <button class="form-control btn btn-default" (click)="selectUser()">
+                        <span class="glyphicon glyphicon-search"></span> Search
+                    </button>
                     <button class="form-control btn btn-default" (click)="unselectUser()">
                         <span class="glyphicon glyphicon-search"></span> Hide
                     </button>
-                        <input type="text" class="form-control" id="usr">
-
-                 
-                            <users *ngIf="selUser === 'true'" [modeInput]="'select'"
-                                   [modalInput]="'true'">
-                                Loading users...
-                            </users>
-                         
+                    <input type="text" class="form-control" id="usr">
+                    <users *ngIf="selUser === 'true'" [modeInput]="'select'"
+                           [modalInput]="'true'">
+                        Loading users...
+                    </users>
                 </div>
             </div>
         </div>

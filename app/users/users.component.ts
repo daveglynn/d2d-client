@@ -197,7 +197,7 @@ export class UsersComponent implements OnInit {
     }
 
     selectandClose(selection) {
- 
+
         if (_.contains(['true'], this.modalInput)) {
             this.modalClass = ""
             //this.modal === ""
@@ -205,12 +205,10 @@ export class UsersComponent implements OnInit {
         } else {
             this._location.back();
         }
-        // this.modalDisplay = 'none';
-        //this.mode = "";
     }
 
     close() {
-        debugger;
+     
 
         if (_.contains(['true'], this.modalInput)) {
             this.modal = "false"

@@ -66,7 +66,7 @@ export class TestComponent implements OnInit{
     };
 
     selectUser() {
- 
+        this.selUser = "false";
         this.selUser = "true";
     }
 
