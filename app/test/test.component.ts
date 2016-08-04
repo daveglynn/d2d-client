@@ -1,14 +1,20 @@
 ﻿//our root app component
 import {Component} from '@angular/core'
+import {Input, Output, EventEmitter, OnInit } from '@angular/core';
+
 import {CORE_DIRECTIVES} from '@angular/common'
 import {TableSortable} from './tableSortable'
-
+import { UsersComponent } from '../users/users.component'
 @Component({
     selector: 'my-app',
     templateUrl: 'app/test/test.html',
-    directives: [CORE_DIRECTIVES, TableSortable]
+    directives: [CORE_DIRECTIVES, TableSortable, UsersComponent]
 })
-export class TestComponent {
+export class TestComponent implements OnInit{
+    constructor(
+    ) { }
+
+    selUser: string = "false";
 
     rows: any[] = [
         {
@@ -58,4 +64,23 @@ export class TestComponent {
         column: 'Name', //to match the variable of one of the columns
         descending: false
     };
+
+    selectUser() {
+ 
+        this.selUser = "true";
+    }
+
+    unselectUser() {
+
+        this.selUser = "false";
+    }
+
+    
+    ngOnInit() {
+ 
+        this.selUser = "false";
+    }
+
 }
+
+

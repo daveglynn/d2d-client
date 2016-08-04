@@ -14,7 +14,7 @@ import { TestComponent } from './test/test.component';
 @RouteConfig([
     { path: '/', name: 'Home', component: HomeComponent },
     { path: '/test', name: 'Test', component: TestComponent },
-    { path: '/users', name: 'Users', component: UsersComponent },
+    { path: '/users', name: 'Users', component: UsersComponent},
     { path: '/users/view/:id', name: 'ViewUser', component: UserFormComponent },
     { path: '/users/edit/:id', name: 'EditUser', component: UserFormComponent,   },
     { path: '/users/add', name: 'AddUser', component: UserFormComponent },

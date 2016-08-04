@@ -15,8 +15,8 @@
     <tbody>
         <tr *ngFor="let object of data | orderBy : convertSorting()">
             <td *ngFor="let button of preButtons">
-                <div *ngIf="button.router == 'SelectUser'">
-                    <a class="btn btn-primary" >
+                <div *ngIf="button.action == 'select'">
+                    <a class="btn btn-primary" (click)="selectAndClose({ 'id' : object.id })" >
                         <span class="glyphicon glyphicon-ok"></span>
                     </a>
                 </div>
@@ -25,17 +25,17 @@
                 {{object[column.variable] | format : column.filter}}
             </td>
             <td *ngFor="let button of buttons">
-                <div *ngIf="button.router == 'ViewUser'">
+                <div *ngIf="button.action == 'view'">
                     <a class="btn btn-primary" [routerLink]="[button.router, { 'id' : object.id }]">
                         <span class="glyphicon glyphicon-eye-open"></span>
                     </a>
                 </div>
-                <div *ngIf="button.router == 'EditUser'">
+                <div *ngIf="button.action == 'edit'">
                     <a class="btn btn-primary" [routerLink]="[button.router, { 'id' : object.id }]">
                         <span class="glyphicon glyphicon-edit"></span>
                     </a>
                 </div>
-                <div *ngIf="button.router == 'DeleteUser'">
+                <div *ngIf="button.action == 'delete'">
                     <button class="btn btn-danger" [routerLink]="[button.router, { 'id' : object.id }]">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>

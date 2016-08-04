@@ -1,4 +1,4 @@
-﻿import {Component, Input} from '@angular/core'
+﻿import {Component, Input, Output, EventEmitter} from '@angular/core'
 import {OrderBy} from ".././pipes/orderBy.pipe"
 import {Format} from ".././pipes/format.pipe"
 import { RouterLink } from '@angular/router-deprecated';
@@ -15,6 +15,8 @@ export class TableSimpleComponent {
     @Input() buttons: any[];
     @Input() data: any[];
     @Input() sort: any;
+
+    @Output() buttonSelectClick = new EventEmitter();
 
     selectedClass(columnName): string {
 
@@ -34,4 +36,9 @@ export class TableSimpleComponent {
     convertSorting(): string {
         return this.sort.descending ? '-' + this.sort.column : this.sort.column;
     }
+
+    selectAndClose(selection) {
+        this.buttonSelectClick.next(selection);
+    }
+
 }

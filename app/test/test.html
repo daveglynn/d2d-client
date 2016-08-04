@@ -1,8 +1,32 @@
-﻿This is my Table
+﻿<!--
+This is my Table
 <table-sortable [columns]="columns"
                 [data]="rows"
                 [sort]="sorting">
     Loading table...
 </table-sortable>
+-->
+<div id="collapseOne" class="panel-collapse collapse in">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel-body">
+                        <button class="form-control btn btn-default" (click)="selectUser()">
+                            <span class="glyphicon glyphicon-search"></span> Search
+                        </button>
+                    <button class="form-control btn btn-default" (click)="unselectUser()">
+                        <span class="glyphicon glyphicon-search"></span> Hide
+                    </button>
+                        <input type="text" class="form-control" id="usr">
 
- 
+                 
+                            <users *ngIf="selUser === 'true'" [modeInput]="'select'"
+                                   [modalInput]="'true'">
+                                Loading users...
+                            </users>
+                         
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

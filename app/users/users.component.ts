@@ -1,11 +1,12 @@
 "use strict";
 // standard for all components
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import {CORE_DIRECTIVES} from '@angular/common'
 import { ErrorService } from ".././errors/error.service";
 import { SpinnerComponent} from '../shared/helpers/spinner.component';
 import { PaginationComponent } from '../shared/helpers/pagination.component';
+import { Location } from '@angular/common';
 
 // required for this component
 import { RouterLink } from '@angular/router-deprecated';
@@ -16,14 +17,23 @@ import { LanguageService } from '../languages/language.service';
 import { TableSimpleComponent } from '../shared/helpers/tableSimple.component'
 
 @Component({
+    selector: 'users',
     templateUrl: 'app/users/users.component.html',
     providers: [UserService, ProfileService, LanguageService],
     directives: [RouterLink, SpinnerComponent, TableSimpleComponent, PaginationComponent, CORE_DIRECTIVES]
 })
 export class UsersComponent implements OnInit {
 
+    @Input() modeInput: string;
+    @Input() modalInput: string;
+
+    modalClass: string = "";
+    modalDisplay: string = "";
+    allDisplay: string = "";
+
     title: string;
     mode: string;
+    modal: string;
     users = [];
     pagedUsers = [];
     profiles = [];
@@ -47,12 +57,48 @@ export class UsersComponent implements OnInit {
         private _userService: UserService,
         private _errorService: ErrorService,
         private _profileService: ProfileService,
-        private _languageService: LanguageService) {
+        private _languageService: LanguageService,
+        private _location: Location) {
+
+
+    }
+    ngOnInit() {
+        this.setupForm();
+        this.loadProfiles();
+        this.loadLanguages();
+        this.loadUsers();
+    }
+
+
+    private setupForm() {
 
         // set up form
-        this.mode = _router.root.currentInstruction.component.params['mode'];
-        if (!_.contains(['workwith', 'display', 'select'], this.mode)) {
-            this.mode = 'display';
+
+        //check mode not passed from calling component @input
+        if (_.contains(['workwith', 'display', 'select'], this.modeInput)) {
+            this.mode = this.modeInput;
+        } else {
+            this.mode = this._router.root.currentInstruction.component.params['mode'];
+            if (!_.contains(['workwith', 'display', 'select'], this.mode)) {
+                this.mode = 'display';
+            }
+        }
+
+        //check modal not passed from calling component @input
+        if (_.contains(['true', 'false'], this.modalInput)) {
+            this.modal = this.modalInput
+        } else {
+            this.modal = this._router.root.currentInstruction.component.params['modal'];
+        }
+ 
+        if (this.modal === "true") {
+            this.modalClass = "modal"
+            this.modalDisplay = 'block'
+            this.allDisplay = 'block'
+        } else {
+            this.modalClass = ""
+            this.modalDisplay = 'none'
+            this.allDisplay = 'block'
         }
 
         //set up table columns
@@ -66,17 +112,21 @@ export class UsersComponent implements OnInit {
                 display: 'Email',
                 variable: 'email',
                 filter: 'text'
-            },
-            {
+            }
+        );
+
+        if (this.mode != 'select') {
+            this.columns.push({
                 display: 'Address',
                 variable: 'addressLine1',
                 filter: 'text'
-            }
-        );
+            });
+        }
 
         //set up table buttons
         this.buttons.push(
             {
+                action: 'view',
                 display: 'View',
                 router: 'ViewUser'
             }
@@ -84,6 +134,7 @@ export class UsersComponent implements OnInit {
 
         if (this.mode === 'select') {
             this.preButtons.push({
+                action: 'select',
                 display: 'Select',
                 router: 'SelectUser'
             });
@@ -91,10 +142,12 @@ export class UsersComponent implements OnInit {
 
         if (this.mode === 'workwith') {
             this.buttons.push({
+                action: 'edit',
                 display: 'Edit',
                 router: 'EditUser'
             });
             this.buttons.push({
+                action: 'delete',
                 display: 'Delete',
                 router: 'DeleteUser'
             }
@@ -112,12 +165,6 @@ export class UsersComponent implements OnInit {
             this.title = "Work With Users"
         }
 
-    }
-    ngOnInit() {
-
-        this.loadProfiles();
-        this.loadLanguages();
-        this.loadUsers();
     }
 
     private loadProfiles() {
@@ -149,6 +196,39 @@ export class UsersComponent implements OnInit {
 
     }
 
+    selectandClose(selection) {
+ 
+        if (_.contains(['true'], this.modalInput)) {
+            this.modalClass = ""
+            //this.modal === ""
+            this.modalDisplay = 'none';
+        } else {
+            this._location.back();
+        }
+        // this.modalDisplay = 'none';
+        //this.mode = "";
+    }
+
+    close() {
+        debugger;
+
+        if (_.contains(['true'], this.modalInput)) {
+            this.modal = "false"
+            this.modalDisplay = 'none';
+            this.allDisplay = 'none';
+            this.modalClass = ""
+        } else {
+            this._location.back();
+        }
+       // if (_.contains(['true', 'false'], this.modalInput)) {
+       //     this.modalClass = "container"
+       //     this.modalDisplay = 'none';
+       //     this.modal = "false"
+       // } else {
+       //     this._location.back();
+       // }
+   
+    }
     private reLoadPage(profile, language, q) {
 
         profile.value = "";
