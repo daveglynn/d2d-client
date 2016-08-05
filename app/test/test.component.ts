@@ -10,6 +10,7 @@ import { UsersComponent } from '../users/users.component'
     templateUrl: 'app/test/test.html',
     directives: [CORE_DIRECTIVES, TableSortable, UsersComponent]
 })
+
 export class TestComponent implements OnInit{
     constructor(
     ) { }
@@ -70,7 +71,7 @@ export class TestComponent implements OnInit{
     }
 
     unselectUser() {
-
+        debugger;
         this.selUser = "false";
     }
 

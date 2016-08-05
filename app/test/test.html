@@ -18,8 +18,11 @@ This is my Table
                         <span class="glyphicon glyphicon-search"></span> Hide
                     </button>
                     <input type="text" class="form-control" id="usr">
-                    <users *ngIf="selUser === 'true'" [modeInput]="'select'"
-                           [modalInput]="'true'">
+                    <users *ngIf="selUser === 'true'"
+                            (OutputButtonCloseClick)="unselectUser($event)" 
+                            [InputMode]="'select'"
+                            [InputModal]="'true'"
+                           >
                         Loading users...
                     </users>
                 </div>
@@ -27,3 +30,5 @@ This is my Table
         </div>
     </div>
 </div>
+
+ 

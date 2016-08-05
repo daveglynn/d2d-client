@@ -24,14 +24,17 @@ import { TableSimpleComponent } from '../shared/helpers/tableSimple.component'
 })
 export class UsersComponent implements OnInit {
 
-    @Input() modeInput: string;
-    @Input() modalInput: string;
+    // interface to other components
+    @Input() InputMode: string;
+    @Input() InputModal: string;
+    @Output() OutputButtonCloseClick = new EventEmitter();
 
-
+    // control template modal
     modalClass: string = "";
     modalDisplay: string = "";
     allDisplay: string = "";
 
+    // this control
     title: string;
     mode: string;
     modal: string;
@@ -44,13 +47,7 @@ export class UsersComponent implements OnInit {
     preButtons: any[] = [];
     columns: any[] = [];
     buttons: any[] = [];
-
-    //variable: '<a  class=\"btn btn-primary\"' + 'href="/users/' + '{{object.id}} ' + '">' + ' <span class=\"glyphicon glyphicon-edit\"></span></a>',
-    sorting: any = {
-        column: 'firstName',
-        descending: false
-    };
-
+    sorting:  {};
 
     constructor(
         private _router: Router,
@@ -60,9 +57,8 @@ export class UsersComponent implements OnInit {
         private _profileService: ProfileService,
         private _languageService: LanguageService,
         private _location: Location) {
-
-
     }
+
     ngOnInit() {
         this.setupForm();
         this.loadProfiles();
@@ -70,14 +66,12 @@ export class UsersComponent implements OnInit {
         this.loadUsers();
     }
 
-
     private setupForm() {
 
-        // set up form
-
         //check mode not passed from calling component @input
-        if (_.contains(['workwith', 'display', 'select'], this.modeInput)) {
-            this.mode = this.modeInput;
+        this.mode = 'display';
+        if (_.contains(['workwith', 'display', 'select'], this.InputMode)) {
+            this.mode = this.InputMode;
         } else {
             this.mode = this._router.root.currentInstruction.component.params['mode'];
             if (!_.contains(['workwith', 'display', 'select'], this.mode)) {
@@ -86,8 +80,9 @@ export class UsersComponent implements OnInit {
         }
 
         //check modal not passed from calling component @input
-        if (_.contains(['true', 'false'], this.modalInput)) {
-            this.modal = this.modalInput
+        this.modal = "false";
+        if (_.contains(['true', 'false'], this.InputModal)) {
+            this.modal = this.InputModal
         } else {
             this.modal = this._router.root.currentInstruction.component.params['modal'];
         }
@@ -102,7 +97,13 @@ export class UsersComponent implements OnInit {
             this.allDisplay = 'block'
         }
 
-        //set up table columns
+        //set default table sort
+        this.sorting = {
+            column: 'firstName',
+            descending: false
+        };
+
+        // setup columns - all modes
         this.columns.push(
             {
                 display: 'Name',
@@ -116,6 +117,7 @@ export class UsersComponent implements OnInit {
             }
         );
 
+        //  setup columns - all modes except select
         if (this.mode != 'select') {
             this.columns.push({
                 display: 'Address',
@@ -124,15 +126,7 @@ export class UsersComponent implements OnInit {
             });
         }
 
-        //set up table buttons
-        this.buttons.push(
-            {
-                action: 'view',
-                display: 'View',
-                router: 'ViewUser'
-            }
-        );
-
+        //  setup left buttons - select mode
         if (this.mode === 'select') {
             this.preButtons.push({
                 action: 'select',
@@ -141,6 +135,16 @@ export class UsersComponent implements OnInit {
             });
         }
 
+        // setup right buttons - all modes
+        this.buttons.push(
+            {
+                action: 'view',
+                display: 'View',
+                router: 'ViewUser'
+            }
+        );
+
+         // setup right buttons - workwith mode
         if (this.mode === 'workwith') {
             this.buttons.push({
                 action: 'edit',
@@ -199,7 +203,7 @@ export class UsersComponent implements OnInit {
 
     selectandClose(selection) {
 
-        if (_.contains(['true'], this.modalInput)) {
+        if (_.contains(['true'], this.InputModal)) {
             this.modalClass = ""
             //this.modal === ""
             this.modalDisplay = 'none';
@@ -208,25 +212,19 @@ export class UsersComponent implements OnInit {
         }
     }
 
-    close() {
+    close(selection) {
      
-
-        if (_.contains(['true'], this.modalInput)) {
-            this.modal = "false"
-            this.modalDisplay = 'none';
-            this.allDisplay = 'none';
-            this.modalClass = ""
-            this.modalInput = "false"
-        } else {
-            this._location.back();
-        }
-       // if (_.contains(['true', 'false'], this.modalInput)) {
-       //     this.modalClass = "container"
-       //     this.modalDisplay = 'none';
-       //     this.modal = "false"
-       // } else {
-       //     this._location.back();
-       // }
+        this.OutputButtonCloseClick.next(selection);
+   //     if (_.contains(['true'], this.InputModal)) {
+   //         this.modal = "false"
+   //         this.modalDisplay = 'none';
+   //         this.allDisplay = 'none';
+   //         this.modalClass = ""
+   //         this.InputModal = "false"
+   //     } else {
+   //         this._location.back();
+   //     }
+ 
    
     }
     private reLoadPage(profile, language, q) {
