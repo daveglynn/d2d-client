@@ -16,6 +16,7 @@ export class TestComponent implements OnInit{
     ) { }
 
     selUser: string = "false";
+    usr: string 
 
     rows: any[] = [
         {
@@ -70,8 +71,9 @@ export class TestComponent implements OnInit{
         this.selUser = "true";
     }
 
-    unselectUser() {
+    unselectUser(selection) {
         debugger;
+        this.usr = selection.id
         this.selUser = "false";
     }
 

@@ -202,7 +202,7 @@ export class UsersComponent implements OnInit {
     }
 
     selectandClose(selection) {
-
+        this.OutputButtonCloseClick.next(selection);
         if (_.contains(['true'], this.InputModal)) {
             this.modalClass = ""
             //this.modal === ""

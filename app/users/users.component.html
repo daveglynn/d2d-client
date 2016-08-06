@@ -47,7 +47,7 @@
                                             <pagination [items]="users" (page-changed)="onPageChanged($event)"></pagination>
                                         </div>
                                         <div class="table-responsive ">
-                                            <table-simple (buttonSelectClick)="selectandClose($event)"
+                                            <table-simple (OutputButtonSelectClick)="selectandClose($event)"
                                                           [preButtons]="preButtons"
                                                           [columns]="columns"
                                                           [buttons]="buttons"

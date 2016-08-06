@@ -16,7 +16,7 @@ export class TableSimpleComponent {
     @Input() data: any[];
     @Input() sort: any;
 
-    @Output() buttonSelectClick = new EventEmitter();
+    @Output() OutputButtonSelectClick = new EventEmitter();
 
     selectedClass(columnName): string {
 
@@ -38,7 +38,7 @@ export class TableSimpleComponent {
     }
 
     selectAndClose(selection) {
-        this.buttonSelectClick.next(selection);
+        this.OutputButtonSelectClick.next(selection);
     }
 
 }

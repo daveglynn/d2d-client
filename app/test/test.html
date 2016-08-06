@@ -17,7 +17,7 @@ This is my Table
                     <button class="form-control btn btn-default" (click)="unselectUser()">
                         <span class="glyphicon glyphicon-search"></span> Hide
                     </button>
-                    <input type="text" class="form-control" id="usr">
+                    <input type="text" [(ngModel)]='usr'>
                     <users *ngIf="selUser === 'true'"
                             (OutputButtonCloseClick)="unselectUser($event)" 
                             [InputMode]="'select'"
