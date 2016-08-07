@@ -24,7 +24,6 @@ import { User } from './user';
 })
 export class UserFormComponent implements OnInit, CanDeactivate {
 
- 
 
     // form variables
     form: ControlGroup;
@@ -69,6 +68,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         private _errorService: ErrorService
     ) {
 
+  
         // determine what action the form is in
         if (_router.root.currentInstruction.component.routeName === "AddUser") {
             this.action = "add";

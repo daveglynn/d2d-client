@@ -72,8 +72,11 @@ export class TestComponent implements OnInit{
     }
 
     unselectUser(selection) {
-        debugger;
-        this.usr = selection.id
+     
+        if (selection != null) {
+            this.usr = selection.id
+        }
+     
         this.selUser = "false";
     }
 

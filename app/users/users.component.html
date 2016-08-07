@@ -48,6 +48,7 @@
                                         </div>
                                         <div class="table-responsive ">
                                             <table-simple (OutputButtonSelectClick)="selectandClose($event)"
+                                                          [InputModal]="modal"
                                                           [preButtons]="preButtons"
                                                           [columns]="columns"
                                                           [buttons]="buttons"

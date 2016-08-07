@@ -1,7 +1,8 @@
-﻿import {Component, Input, Output, EventEmitter} from '@angular/core'
+﻿import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core'
 import {OrderBy} from ".././pipes/orderBy.pipe"
 import {Format} from ".././pipes/format.pipe"
 import { RouterLink } from '@angular/router-deprecated';
+import { Router, RouteParams } from '@angular/router-deprecated';
 
 @Component({
     selector: 'table-simple',
@@ -9,14 +10,27 @@ import { RouterLink } from '@angular/router-deprecated';
     pipes: [OrderBy, Format],
     directives: [RouterLink]
 })
-export class TableSimpleComponent {
+export class TableSimpleComponent implements OnInit {
+    @Input() InputModal: string;
     @Input() preButtons: any[];
     @Input() columns: any[];
     @Input() buttons: any[];
     @Input() data: any[];
     @Input() sort: any;
 
+    modal: string
     @Output() OutputButtonSelectClick = new EventEmitter();
+
+    constructor(
+        private _router: Router,
+        private _routeParams: RouteParams
+    ) {
+    
+    }
+
+    ngOnInit() {
+          this.modal = this.InputModal;
+    }
 
     selectedClass(columnName): string {
 

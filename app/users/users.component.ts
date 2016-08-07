@@ -91,6 +91,8 @@ export class UsersComponent implements OnInit {
             this.modalClass = "modal"
             this.modalDisplay = 'block'
             this.allDisplay = 'block'
+
+            this._location.go('&modal=true')
         } else {
             this.modalClass = ""
             this.modalDisplay = 'none'
@@ -212,9 +214,9 @@ export class UsersComponent implements OnInit {
         }
     }
 
-    close(selection) {
+    close() {
      
-        this.OutputButtonCloseClick.next(selection);
+        this.OutputButtonCloseClick.next(null);
    //     if (_.contains(['true'], this.InputModal)) {
    //         this.modal = "false"
    //         this.modalDisplay = 'none';

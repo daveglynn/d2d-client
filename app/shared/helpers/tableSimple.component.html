@@ -26,7 +26,7 @@
             </td>
             <td *ngFor="let button of buttons">
                 <div *ngIf="button.action == 'view'">
-                    <a class="btn btn-primary" [routerLink]="[button.router, { 'id' : object.id }]">
+                    <a class="btn btn-primary" [routerLink]="[button.router, { 'id' : object.id, 'modal' :  [modal] }]">
                         <span class="glyphicon glyphicon-eye-open"></span>
                     </a>
                 </div>
