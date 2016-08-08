@@ -12,13 +12,14 @@ import { Router, RouteParams } from '@angular/router-deprecated';
 })
 export class TableSimpleComponent implements OnInit {
     @Input() InputModal: string;
-    @Input() preButtons: any[];
-    @Input() columns: any[];
-    @Input() buttons: any[];
-    @Input() data: any[];
-    @Input() sort: any;
+    @Input() InputPreButtons: any[];
+    @Input() InputColumns: any[];
+    @Input() InputButtons: any[];
+    @Input() InputData: any[];
+    @Input() InputSort: any;
 
     modal: string
+
     @Output() OutputButtonSelectClick = new EventEmitter();
 
     constructor(
@@ -29,16 +30,17 @@ export class TableSimpleComponent implements OnInit {
     }
 
     ngOnInit() {
+
           this.modal = this.InputModal;
     }
 
     selectedClass(columnName): string {
 
-        return columnName == this.sort.column ? 'sort-' + this.sort.descending : "false";
+        return columnName == this.InputSort.column ? 'sort-' + this.InputSort.descending : "false";
     }
 
     changeSorting(columnName): void {
-        var sort = this.sort;
+        var sort = this.InputSort;
         if (sort.column == columnName) {
             sort.descending = !sort.descending;
         } else {
@@ -48,7 +50,7 @@ export class TableSimpleComponent implements OnInit {
     }
 
     convertSorting(): string {
-        return this.sort.descending ? '-' + this.sort.column : this.sort.column;
+        return this.InputSort.descending ? '-' + this.InputSort.column : this.InputSort.column;
     }
 
     selectAndClose(selection) {

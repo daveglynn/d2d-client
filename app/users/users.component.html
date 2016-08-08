@@ -49,11 +49,11 @@
                                         <div class="table-responsive ">
                                             <table-simple (OutputButtonSelectClick)="selectandClose($event)"
                                                           [InputModal]="modal"
-                                                          [preButtons]="preButtons"
-                                                          [columns]="columns"
-                                                          [buttons]="buttons"
-                                                          [data]="pagedUsers"
-                                                          [sort]="sorting">
+                                                          [InputPreButtons]="preButtons"
+                                                          [InputColumns]="columns"
+                                                          [InputButtons]="buttons"
+                                                          [InputData]="pagedUsers"
+                                                          [InputSort]="sorting">
                                                 Loading table...
                                             </table-simple>
                                         </div>

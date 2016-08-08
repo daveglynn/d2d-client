@@ -47,7 +47,7 @@ export class UsersComponent implements OnInit {
     preButtons: any[] = [];
     columns: any[] = [];
     buttons: any[] = [];
-    sorting:  {};
+    sorting: {};
 
     constructor(
         private _router: Router,
@@ -67,37 +67,8 @@ export class UsersComponent implements OnInit {
     }
 
     private setupForm() {
-
-        //check mode not passed from calling component @input
-        this.mode = 'display';
-        if (_.contains(['workwith', 'display', 'select'], this.InputMode)) {
-            this.mode = this.InputMode;
-        } else {
-            this.mode = this._router.root.currentInstruction.component.params['mode'];
-            if (!_.contains(['workwith', 'display', 'select'], this.mode)) {
-                this.mode = 'display';
-            }
-        }
-
-        //check modal not passed from calling component @input
-        this.modal = "false";
-        if (_.contains(['true', 'false'], this.InputModal)) {
-            this.modal = this.InputModal
-        } else {
-            this.modal = this._router.root.currentInstruction.component.params['modal'];
-        }
- 
-        if (this.modal === "true") {
-            this.modalClass = "modal"
-            this.modalDisplay = 'block'
-            this.allDisplay = 'block'
-
-            this._location.go('&modal=true')
-        } else {
-            this.modalClass = ""
-            this.modalDisplay = 'none'
-            this.allDisplay = 'block'
-        }
+        //set modal
+        this.modalProcessing()
 
         //set default table sort
         this.sorting = {
@@ -146,7 +117,7 @@ export class UsersComponent implements OnInit {
             }
         );
 
-         // setup right buttons - workwith mode
+        // setup right buttons - workwith mode
         if (this.mode === 'workwith') {
             this.buttons.push({
                 action: 'edit',
@@ -172,6 +143,37 @@ export class UsersComponent implements OnInit {
             this.title = "Work With Users"
         }
 
+    }
+
+    private modalProcessing() {
+        //check mode not passed from calling component @input
+        this.mode = 'display';
+        if (_.contains(['workwith', 'display', 'select'], this.InputMode)) {
+            this.mode = this.InputMode;
+        } else {
+            this.mode = this._router.root.currentInstruction.component.params['mode'];
+            if (!_.contains(['workwith', 'display', 'select'], this.mode)) {
+                this.mode = 'display';
+            }
+        }
+
+        //check modal not passed from calling component @input
+        this.modal = "false";
+        if (_.contains(['true', 'false'], this.InputModal)) {
+            this.modal = this.InputModal
+        } else {
+            this.modal = this._router.root.currentInstruction.component.params['modal'];
+        }
+
+        if (this.modal === "true") {
+            this.modalClass = "modal"
+            this.modalDisplay = 'block'
+            this.allDisplay = 'block'
+        } else {
+            this.modalClass = ""
+            this.modalDisplay = 'none'
+            this.allDisplay = 'block'
+        }
     }
 
     private loadProfiles() {
@@ -203,44 +205,27 @@ export class UsersComponent implements OnInit {
 
     }
 
-    selectandClose(selection) {
-        this.OutputButtonCloseClick.next(selection);
-        if (_.contains(['true'], this.InputModal)) {
-            this.modalClass = ""
-            //this.modal === ""
-            this.modalDisplay = 'none';
-        } else {
-            this._location.back();
-        }
-    }
-
-    close() {
-     
-        this.OutputButtonCloseClick.next(null);
-   //     if (_.contains(['true'], this.InputModal)) {
-   //         this.modal = "false"
-   //         this.modalDisplay = 'none';
-   //         this.allDisplay = 'none';
-   //         this.modalClass = ""
-   //         this.InputModal = "false"
-   //     } else {
-   //         this._location.back();
-   //     }
- 
-   
-    }
     private reLoadPage(profile, language, q) {
-
         profile.value = "";
         language.value = "";
         q.value = "";
-
-        this.loadUsers();
-
+       this.loadUsers();
     }
 
     private reloadUsers(filter) {
         this.loadUsers(filter);
+    }
+
+    private selectandClose(selection) {
+        this.OutputButtonCloseClick.next(selection);
+    }
+
+    private close() {
+        if (_.contains(['true'], this.modal)) {
+            this.OutputButtonCloseClick.next(null);
+        } else {
+            this._location.back();
+        }
     }
 
     private onPageChanged(page) {
@@ -266,7 +251,6 @@ export class UsersComponent implements OnInit {
         if (process === 'loadLanguages') {
             this.languages = data;
         }
-
     }
 
     private handleSuccess(process) {
