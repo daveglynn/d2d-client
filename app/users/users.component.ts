@@ -7,6 +7,7 @@ import { ErrorService } from ".././errors/error.service";
 import { SpinnerComponent} from '../shared/helpers/spinner.component';
 import { PaginationComponent } from '../shared/helpers/pagination.component';
 import { Location } from '@angular/common';
+import { CommonService } from   '../shared/helpers/common.service';
 
 // required for this component
 import { RouterLink } from '@angular/router-deprecated';
@@ -56,7 +57,8 @@ export class UsersComponent implements OnInit {
         private _errorService: ErrorService,
         private _profileService: ProfileService,
         private _languageService: LanguageService,
-        private _location: Location) {
+        private _location: Location,
+        private _commonService: CommonService) {
     }
 
     ngOnInit() {
@@ -67,6 +69,7 @@ export class UsersComponent implements OnInit {
     }
 
     private setupForm() {
+
         //set modal
         this.modalProcessing()
 
@@ -146,25 +149,11 @@ export class UsersComponent implements OnInit {
     }
 
     private modalProcessing() {
-        //check mode not passed from calling component @input
-        this.mode = 'display';
-        if (_.contains(['workwith', 'display', 'select'], this.InputMode)) {
-            this.mode = this.InputMode;
-        } else {
-            this.mode = this._router.root.currentInstruction.component.params['mode'];
-            if (!_.contains(['workwith', 'display', 'select'], this.mode)) {
-                this.mode = 'display';
-            }
-        }
 
-        //check modal not passed from calling component @input
-        this.modal = "false";
-        if (_.contains(['true', 'false'], this.InputModal)) {
-            this.modal = this.InputModal
-        } else {
-            this.modal = this._router.root.currentInstruction.component.params['modal'];
-        }
+        this.mode = this._commonService.setMode(this.InputMode, this._router.root.currentInstruction.component.params['mode'])
 
+        this.modal = this._commonService.setModal(this.InputModal, this._router.root.currentInstruction.component.params['modal'])
+        
         if (this.modal === "true") {
             this.modalClass = "modal"
             this.modalDisplay = 'block'
@@ -177,6 +166,7 @@ export class UsersComponent implements OnInit {
     }
 
     private loadProfiles() {
+
         this._profileService.getProfiles()
             .subscribe(
             data => this.handleData('loadProfiles', data),
@@ -186,6 +176,7 @@ export class UsersComponent implements OnInit {
     }
 
     private loadLanguages() {
+
         this._languageService.getLanguages()
             .subscribe(
             data => this.handleData('loadLanguages', data),
@@ -195,6 +186,7 @@ export class UsersComponent implements OnInit {
     }
 
     private loadUsers(filter?) {
+
         this.usersLoading = true;
         this._userService.getUsers(filter)
             .subscribe(
@@ -206,6 +198,7 @@ export class UsersComponent implements OnInit {
     }
 
     private reLoadPage(profile, language, q) {
+
         profile.value = "";
         language.value = "";
         q.value = "";
@@ -213,14 +206,17 @@ export class UsersComponent implements OnInit {
     }
 
     private reloadUsers(filter) {
+
         this.loadUsers(filter);
     }
 
     private selectandClose(selection) {
+
         this.OutputButtonCloseClick.next(selection);
     }
 
     private close() {
+
         if (_.contains(['true'], this.modal)) {
             this.OutputButtonCloseClick.next(null);
         } else {
@@ -229,16 +225,19 @@ export class UsersComponent implements OnInit {
     }
 
     private onPageChanged(page) {
+
         var startIndex = (page - 1) * this.pageSize;
         this.pagedUsers = _.take(_.rest(this.users, startIndex), this.pageSize);
     }
 
     private handleError(process, error: any, index, user) {
+
         console.log("handle error");
         this._errorService.handleError(error);
     }
 
     private handleData(process, data: any) {
+
         console.log("handle data");
         console.log(data);
         if (process === 'getUsers') {
@@ -254,6 +253,7 @@ export class UsersComponent implements OnInit {
     }
 
     private handleSuccess(process) {
+
         this.usersLoading = false
         console.log("handle success");
     }

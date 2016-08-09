@@ -7,8 +7,8 @@
             <th *ngFor="let column of InputColumns" [class]="selectedClass(column.variable)" (click)="changeSorting(column.variable)">
                 {{column.display}}
             </th>
-            <td style="width: 3%; font-weight: bold;" *ngFor="let button of InputButtons" >
-                   {{button.display}}
+            <td style="width: 3%; font-weight: bold;" *ngFor="let button of InputButtons">
+                {{button.display}}
             </td>
         </tr>
     </thead>
@@ -16,7 +16,7 @@
         <tr *ngFor="let object of InputData | orderBy : convertSorting()">
             <td *ngFor="let button of InputPreButtons">
                 <div *ngIf="button.action == 'select'">
-                    <a class="btn btn-primary" (click)="selectAndClose({ 'id' : object.id })" >
+                    <a class="btn btn-primary" (click)="selectAndClose({ 'id' : object.id })">
                         <span class="glyphicon glyphicon-ok"></span>
                     </a>
                 </div>
@@ -26,9 +26,16 @@
             </td>
             <td *ngFor="let button of InputButtons">
                 <div *ngIf="button.action == 'view'">
-                    <a class="btn btn-primary" [routerLink]="[button.router, { 'id' : object.id, 'modal' :  [modal] }]">
-                        <span class="glyphicon glyphicon-eye-open"></span>
-                    </a>
+                    <div *ngIf="modal === 'true'">
+                        <a class="btn btn-primary" (click)="selectUser({ 'id' : object.id, 'modal' :  [modal] })" >
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                    </div>
+                    <div *ngIf="modal != 'true'">
+                        <a class="btn btn-primary" [routerLink]="[button.router, { 'id' : object.id, 'modal' :  [modal] }]">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </a>
+                    </div>
                 </div>
                 <div *ngIf="button.action == 'edit'">
                     <a class="btn btn-primary" [routerLink]="[button.router, { 'id' : object.id }]">
@@ -44,3 +51,5 @@
         </tr>
     </tbody>
 </table>
+
+

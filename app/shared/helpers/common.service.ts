@@ -23,20 +23,20 @@ export class CommonService {
             params.append(String(index), String(element));
         });
 
-       // for (var key in urlParms) {
-       //     if (urlParms.hasOwnProperty(key)) {
-       //         var obj = urlParms[key];
-       //         for (var prop in obj) {
-       //             if (obj.hasOwnProperty(prop)) {
-       //                 console.log(key + " = " + obj[prop]);
-      //                  //params.append(prop, obj[prop]);
-       //             }
-      //          }
-       //     }
-      //  }
+        // for (var key in urlParms) {
+        //     if (urlParms.hasOwnProperty(key)) {
+        //         var obj = urlParms[key];
+        //         for (var prop in obj) {
+        //             if (obj.hasOwnProperty(prop)) {
+        //                 console.log(key + " = " + obj[prop]);
+        //                  //params.append(prop, obj[prop]);
+        //             }
+        //          }
+        //     }
+        //  }
 
-  
-       return params;
+
+        return params;
     }
 
     getToken() {
@@ -55,5 +55,34 @@ export class CommonService {
         localStorage.setItem('lastName', localData.lastName);
         localStorage.setItem('email', localData.email);
     }
+
+
+    setMode(componentMode: string, urlMode: string) {
+        var runMode = 'display';
+        if (_.contains(['workwith', 'display', 'select'], componentMode)) {
+            runMode = componentMode;
+        } else {
+            runMode = urlMode;
+            if (!_.contains(['workwith', 'display', 'select'], runMode)) {
+                runMode = 'display';
+            }
+        }
+        return runMode;
+    }
+
+    setModal(componentModal: string, urlModal: string) {
+        var runModal = 'false';
+        if (_.contains(['true', 'false'], componentModal)) {
+            runModal = componentModal;
+        } else {
+            runModal = urlModal;
+            if (!_.contains(['true', 'false'], runModal)) {
+                runModal = 'false';
+            }
+        }
+        return runModal;
+    }
+
+
 
 }

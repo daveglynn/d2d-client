@@ -18,14 +18,25 @@ import { UserService } from './user.service';
 import { User } from './user';
 
 @Component({
+    selector: 'user',
     templateUrl: 'app/users/user-form.component.html',
     providers: [UserService],
     directives: [SpinnerComponent, FocusDirective]
 })
 export class UserFormComponent implements OnInit, CanDeactivate {
 
+    // interface to other components
+    @Input() InputMode: string;
+    @Input() InputModal: string;
 
-    // form variables
+    // control template modal
+    modalClass: string = "";
+    modalDisplay: string = "";
+    allDisplay: string = "";
+
+    // this control
+    mode: string;
+    modal: string;
     form: ControlGroup;
     title: string;
     action: string;
@@ -65,7 +76,8 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         private _router: Router,
         private _routeParams: RouteParams,
         private _userService: UserService,
-        private _errorService: ErrorService
+        private _errorService: ErrorService,
+        private _commonService: CommonService
     ) {
 
   
@@ -185,6 +197,14 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     }
 
     ngOnInit() {
+        this.setupForm();
+      
+    }
+
+    private setupForm() {
+
+        //set modal
+        this.modalProcessing()
 
         var id = this._routeParams.get("id");
         if (this.action === 'edit') {
@@ -218,7 +238,24 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             error => this.handleError('getUser', error),
             () => this.handleSuccess('getUser')
         );
-        
+
+    }
+
+    private modalProcessing() {
+        debugger;
+        this.mode = this._commonService.setMode(this.InputMode, this._router.root.currentInstruction.component.params['mode'])
+
+        this.modal = this._commonService.setModal(this.InputModal, this._router.root.currentInstruction.component.params['modal'])
+
+        if (this.modal === "true") {
+            this.modalClass = "modal"
+            this.modalDisplay = 'block'
+            this.allDisplay = 'block'
+        } else {
+            this.modalClass = ""
+            this.modalDisplay = 'none'
+            this.allDisplay = 'block'
+        }
     }
 
     routerCanDeactivate() {

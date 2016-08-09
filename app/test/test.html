@@ -11,24 +11,36 @@ This is my Table
         <div class="row">
             <div class="col-md-12">
                 <div class="panel-body">
-                    <button class="form-control btn btn-default" (click)="selectUser()">
+                    <button class="form-control btn btn-default" (click)="openComponent('users')">
                         <span class="glyphicon glyphicon-search"></span> Search
                     </button>
-                    <button class="form-control btn btn-default" (click)="unselectUser()">
-                        <span class="glyphicon glyphicon-search"></span> Hide
-                    </button>
-                    <input type="text" [(ngModel)]='usr'>
-                    <users *ngIf="selUser === 'true'"
-                            (OutputButtonCloseClick)="unselectUser($event)" 
-                            [InputMode]="'select'"
-                            [InputModal]="'true'"
-                           >
+                    <input type="text" [(ngModel)]='selectedUserId'>
+                    <users *ngIf="componentOpenUsers === true"
+                           (OutputButtonCloseClick)="closeComponent($event,'users')"
+                           [InputMode]="'select'"
+                           [InputModal]="'true'">
                         Loading users...
                     </users>
                 </div>
             </div>
         </div>
+
+        <div class="col-md-12">
+            <div class="panel-body">
+                <button class="form-control btn btn-default" (click)="openComponent('tests')">
+                    <span class="glyphicon glyphicon-search"></span> Search
+                </button>
+                <input type="text" [(ngModel)]='selectedTestId'>
+                <users *ngIf="componentOpenTests === true"
+                       (OutputButtonCloseClick)="closeComponent($event,'tests')"
+                       [InputMode]="'select'"
+                       [InputModal]="'true'">
+                    Loading users...
+                </users>
+            </div>
+        </div>
     </div>
+
 </div>
 
  

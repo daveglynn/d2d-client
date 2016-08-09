@@ -1,6 +1,4 @@
-<!-- these two lines are required for Select Modal view-->
- 
- 
+    <!-- these two lines are required for Select Modal view-->
     <div *ngIf="modal === 'true'" class="backdrop" [ngStyle]="{'display': modalDisplay}"></div>
     <div class={{modalClass}} tabindex="-1" role="dialog" [ngStyle]="{'display': allDisplay}">
 
@@ -66,15 +64,4 @@
             </div>
         </div>
     </div>
- 
-<!--
-<div class="container">
-    <div class="myaccordion">
-        <div class="panel-group" id="grid">
-            <div class="panel panel-default">
-                <ag-grid-ng2 class="ag-fresh" style="height: 300px" [gridOptions]="gridOptions" [rowGroupPanelShow]="always" [columnDefs]="columnDefs" [rowData]="pagedUsers" (rowClicked)="onRowClicked($event)" ></ag-grid-ng2>
-            </div>
-        </div>
-    </div>
-</div>
--->
+

@@ -15,8 +15,13 @@ export class TestComponent implements OnInit{
     constructor(
     ) { }
 
-    selUser: string = "false";
-    usr: string 
+    componentToOpen: string = "";
+    componentSelectedValue: string = "";
+    componentOpenUsers: boolean = false;
+    componentOpenTests: boolean = false;
+
+    selectedUserId: string = "";
+    selectedTestId: string = "";
 
     rows: any[] = [
         {
@@ -67,24 +72,38 @@ export class TestComponent implements OnInit{
         descending: false
     };
 
-    selectUser() {
-        this.selUser = "true";
-    }
-
-    unselectUser(selection) {
-     
-        if (selection != null) {
-            this.usr = selection.id
-        }
-     
-        this.selUser = "false";
-    }
-
     
     ngOnInit() {
- 
-        this.selUser = "false";
+     }
+
+    openComponent(componentName) {
+        debugger;
+        if (componentName === "users") {
+            this.componentOpenUsers = true;
+        }
+        if (componentName === "tests") {
+            this.componentOpenTests = true;
+        }
     }
+
+ 
+    closeComponent(selection, componentName) {
+
+        if (componentName === "users") {
+            this.componentOpenUsers = false;
+            if (selection != null) {
+                this.selectedUserId = selection.id
+            }
+        }
+        if (componentName === "tests") {
+            this.componentOpenTests = false;
+            if (selection != null) {
+                this.selectedTestId = selection.id
+            }
+        }
+
+    }
+ 
 
 }
 
