@@ -15,6 +15,7 @@ This is my Table
                         <span class="glyphicon glyphicon-search"></span> Search
                     </button>
                     <input type="text" [(ngModel)]='selectedUserId'>
+                    <input type="text"  disabled  [(ngModel)]='selectedUserName'>
                     <users *ngIf="componentOpenUsers === true"
                            (OutputButtonCloseClick)="closeComponent($event,'users')"
                            [InputMode]="'select'"
@@ -31,6 +32,7 @@ This is my Table
                     <span class="glyphicon glyphicon-search"></span> Search
                 </button>
                 <input type="text" [(ngModel)]='selectedTestId'>
+                <input type="text" disabled  [(ngModel)]='selectedTestName'>
                 <users *ngIf="componentOpenTests === true"
                        (OutputButtonCloseClick)="closeComponent($event,'tests')"
                        [InputMode]="'select'"
@@ -40,6 +42,7 @@ This is my Table
             </div>
         </div>
     </div>
+    <my-country-list>Loading....</my-country-list>
 
 </div>
 

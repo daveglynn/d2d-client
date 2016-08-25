@@ -4,8 +4,8 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import {CORE_DIRECTIVES} from '@angular/common'
 import { ErrorService } from ".././errors/error.service";
-import { SpinnerComponent} from '../shared/helpers/spinner.component';
-import { PaginationComponent } from '../shared/helpers/pagination.component';
+import { SpinnerComponent} from '../shared/directives/spinner.component';
+import { PaginationComponent } from '../shared/directives/pagination.component';
 import { Location } from '@angular/common';
 import { CommonService } from   '../shared/helpers/common.service';
 
@@ -15,7 +15,7 @@ import { Router, RouteParams } from '@angular/router-deprecated';
 import { UserService } from './user.service';
 import { ProfileService } from '../profiles/profile.service';
 import { LanguageService } from '../languages/language.service';
-import { TableSimpleComponent } from '../shared/helpers/tableSimple.component'
+import { TableSimpleComponent } from '../shared/components/tableSimple.component'
 
 @Component({
     selector: 'users',
@@ -107,7 +107,7 @@ export class UsersComponent implements OnInit {
             this.preButtons.push({
                 action: 'select',
                 display: 'Select',
-                router: 'SelectUser'
+                router: "{ 'id' : object.id}"
             });
         }
 

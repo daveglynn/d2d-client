@@ -24,14 +24,14 @@ export class AuthService {
     signin(login: Login) {
         const body = JSON.stringify(login);
         const headers = new Headers({ 'Content-Type': 'application/json' });
-        return this._http.post(this._url + '/users/login', body, { headers: headers })
+        return this._http.post(this._url + '/user/login', body, { headers: headers })
             .map(response => response.json())
             .catch(error => Observable.throw(error.json()));
     } 
        
     logout() {
         const headers = new Headers({ 'Content-Type': 'application/json' });
-        return this._http.delete(this._url + '/users/login', { headers: headers, search: this._commonService.getTokenAsParm()} )
+        return this._http.delete(this._url + '/user/login', { headers: headers, search: this._commonService.getTokenAsParm()} )
            .map(response => response.json())
            .catch(error => Observable.throw(error.json()))
     }

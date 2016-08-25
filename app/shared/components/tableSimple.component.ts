@@ -6,7 +6,7 @@ import { Router, RouteParams } from '@angular/router-deprecated';
 
 @Component({
     selector: 'table-simple',
-    templateUrl: 'app/shared/helpers/tableSimple.component.html',
+    templateUrl: 'app/shared/components/tableSimple.component.html',
     pipes: [OrderBy, Format],
     directives: [RouterLink]
 })
@@ -54,6 +54,7 @@ export class TableSimpleComponent implements OnInit {
     }
 
     selectAndClose(selection) {
+  
         this.OutputButtonSelectClick.next(selection);
     }
 

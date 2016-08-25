@@ -16,7 +16,7 @@ export class ProfileService {
 
     getProfiles() {
         const headers = new Headers({ 'Content-Type': 'application/json' });
-        return this._http.get(this._url + "/profiles/all", { search: this._commonService.getTokenAsParm() })
+        return this._http.get(this._url + "/profile/all", { search: this._commonService.getTokenAsParm() })
             .map(res => res.json())
             .catch(error => Observable.throw(error.json()))
 
@@ -24,7 +24,7 @@ export class ProfileService {
 
     getProfile(profileId) {
         // return this._http.get(this._url + "/" + profileId
-        return this._http.get(this._url + "/profiles/" + profileId, { search: this._commonService.getTokenAsParm() })
+        return this._http.get(this._url + "/profile/" + profileId, { search: this._commonService.getTokenAsParm() })
             .map(res => res.json())
             .catch(error => Observable.throw(error.json()))
     }
@@ -32,7 +32,7 @@ export class ProfileService {
     addProfile(profile) {
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(profile);
-        return this._http.post(this._url + "/profiles/", body, { headers: headers, search: this._commonService.getTokenAsParm() })
+        return this._http.post(this._url + "/profile/", body, { headers: headers, search: this._commonService.getTokenAsParm() })
             .map(response => response.json())
             .catch(error => Observable.throw(error.json()))
     }
@@ -40,14 +40,14 @@ export class ProfileService {
     updateProfile(profile) {
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(profile);
-        return this._http.put(this._url + "/profiles/" + profile.id, body, { headers: headers, search: this._commonService.getTokenAsParm() })
+        return this._http.put(this._url + "/profile/" + profile.id, body, { headers: headers, search: this._commonService.getTokenAsParm() })
             .map(response => response.json())
             .catch(error => Observable.throw(error.json()))
     }
 
     deleteProfile(profileId) {
         const headers = new Headers({ 'Content-Type': 'application/json' });
-        return this._http.delete(this._url + "/profiles/" + profileId, { headers: headers, search: this._commonService.getTokenAsParm() })
+        return this._http.delete(this._url + "/profile/" + profileId, { headers: headers, search: this._commonService.getTokenAsParm() })
             .map(response => response.json())
             .catch(error => Observable.throw(error.json()))
 

@@ -5,7 +5,7 @@ import { ClientValidators } from '../shared/validators/client.validators';
 import { FocusDirective } from '../shared/directives/focus.directive';
 import { ConstantsService } from   '../shared/helpers/constants.service';
 import { ErrorService } from ".././errors/error.service";
-import { SpinnerComponent } from '../shared/helpers/spinner.component';
+import { SpinnerComponent } from '../shared/directives/spinner.component';
 import { CommonService } from   '../shared/helpers/common.service'; 
 
 // required for this component

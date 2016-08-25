@@ -1,6 +1,7 @@
 ﻿//our root app component
 import {Component} from '@angular/core'
 import {Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { CountryListComponent } from './countrylistcomponent';
 
 import {CORE_DIRECTIVES} from '@angular/common'
 import {TableSortable} from './tableSortable'
@@ -8,7 +9,7 @@ import { UsersComponent } from '../users/users.component'
 @Component({
     selector: 'my-app',
     templateUrl: 'app/test/test.html',
-    directives: [CORE_DIRECTIVES, TableSortable, UsersComponent]
+    directives: [CORE_DIRECTIVES, TableSortable, UsersComponent, CountryListComponent]
 })
 
 export class TestComponent implements OnInit{
@@ -21,7 +22,9 @@ export class TestComponent implements OnInit{
     componentOpenTests: boolean = false;
 
     selectedUserId: string = "";
+    selectedUserName: string = "";
     selectedTestId: string = "";
+    selectedTestName: string = "";
 
     rows: any[] = [
         {
@@ -93,12 +96,14 @@ export class TestComponent implements OnInit{
             this.componentOpenUsers = false;
             if (selection != null) {
                 this.selectedUserId = selection.id
+                this.selectedUserName = selection.firstName + " " + selection.lastName
             }
         }
         if (componentName === "tests") {
             this.componentOpenTests = false;
             if (selection != null) {
                 this.selectedTestId = selection.id
+                this.selectedTestName = selection.firstName + " " + selection.lastName
             }
         }
 

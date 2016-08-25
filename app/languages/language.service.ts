@@ -16,7 +16,7 @@ export class LanguageService {
 
     getLanguages() {
         const headers = new Headers({ 'Content-Type': 'application/json' });
-        return this._http.get(this._url + "/languages/all", { search: this._commonService.getTokenAsParm() })
+        return this._http.get(this._url + "/language/all", { search: this._commonService.getTokenAsParm() })
             .map(res => res.json())
             .catch(error => Observable.throw(error.json()))
 
@@ -24,7 +24,7 @@ export class LanguageService {
 
     getLanguage(languageId) {
         // return this._http.get(this._url + "/" + languageId
-        return this._http.get(this._url + "/languages/" + languageId, { search: this._commonService.getTokenAsParm() })
+        return this._http.get(this._url + "/language/" + languageId, { search: this._commonService.getTokenAsParm() })
             .map(res => res.json())
             .catch(error => Observable.throw(error.json()))
     }
@@ -32,7 +32,7 @@ export class LanguageService {
     addLanguage(language) {
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(language);
-        return this._http.post(this._url + "/languages/", body, { headers: headers, search: this._commonService.getTokenAsParm() })
+        return this._http.post(this._url + "/language/", body, { headers: headers, search: this._commonService.getTokenAsParm() })
             .map(response => response.json())
             .catch(error => Observable.throw(error.json()))
     }
@@ -40,14 +40,14 @@ export class LanguageService {
     updateLanguage(language) {
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const body = JSON.stringify(language);
-        return this._http.put(this._url + "/languages/" + language.id, body, { headers: headers, search: this._commonService.getTokenAsParm() })
+        return this._http.put(this._url + "/language/" + language.id, body, { headers: headers, search: this._commonService.getTokenAsParm() })
             .map(response => response.json())
             .catch(error => Observable.throw(error.json()))
     }
 
     deleteLanguage(languageId) {
         const headers = new Headers({ 'Content-Type': 'application/json' });
-        return this._http.delete(this._url + "/languages/" + languageId, { headers: headers, search: this._commonService.getTokenAsParm() })
+        return this._http.delete(this._url + "/language/" + languageId, { headers: headers, search: this._commonService.getTokenAsParm() })
             .map(response => response.json())
             .catch(error => Observable.throw(error.json()))
 

@@ -14,12 +14,12 @@ import { TestComponent } from './test/test.component';
 @RouteConfig([
     { path: '/', name: 'Home', component: HomeComponent },
     { path: '/test', name: 'Test', component: TestComponent },
-    { path: '/users', name: 'Users', component: UsersComponent},
-    { path: '/users/view/:id', name: 'ViewUser', component: UserFormComponent },
-    { path: '/users/edit/:id', name: 'EditUser', component: UserFormComponent,   },
-    { path: '/users/add', name: 'AddUser', component: UserFormComponent },
-    { path: '/users/delete/:id', name: 'DeleteUser', component: UserFormComponent },
-    { path: '/posts', name: 'Posts', component: PostsComponent },
+    { path: '/user', name: 'Users', component: UsersComponent},
+    { path: '/user/view/:id', name: 'ViewUser', component: UserFormComponent },
+    { path: '/user/edit/:id', name: 'EditUser', component: UserFormComponent,   },
+    { path: '/user/add', name: 'AddUser', component: UserFormComponent },
+    { path: '/user/delete/:id', name: 'DeleteUser', component: UserFormComponent },
+    { path: '/post', name: 'Posts', component: PostsComponent },
     { path: '/auth/...', name: 'Auth', component: AuthenticationComponent },
     { path: '/not-found', name: 'NotFound', component: NotFoundComponent },
     { path: '/*other', name: 'Other', redirectTo: ['Home'] }

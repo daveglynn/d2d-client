@@ -1,7 +1,7 @@
 ﻿// standard for all components
 import { Component, OnInit } from "@angular/core";
 import { ErrorService } from ".././errors/error.service";
-import { SpinnerComponent } from '../shared/helpers/spinner.component';
+import { SpinnerComponent } from '../shared/directives/spinner.component';
 import { CommonService } from   '../shared/helpers/common.service'; 
 
 // required for this component

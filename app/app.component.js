@@ -55,12 +55,12 @@ System.register(['@angular/core', '@angular/router-deprecated', './navbar.compon
                     router_deprecated_1.RouteConfig([
                         { path: '/', name: 'Home', component: home_component_1.HomeComponent },
                         { path: '/test', name: 'Test', component: test_component_1.TestComponent },
-                        { path: '/users', name: 'Users', component: users_component_1.UsersComponent },
-                        { path: '/users/view/:id', name: 'ViewUser', component: user_form_component_1.UserFormComponent },
-                        { path: '/users/edit/:id', name: 'EditUser', component: user_form_component_1.UserFormComponent, },
-                        { path: '/users/add', name: 'AddUser', component: user_form_component_1.UserFormComponent },
-                        { path: '/users/delete/:id', name: 'DeleteUser', component: user_form_component_1.UserFormComponent },
-                        { path: '/posts', name: 'Posts', component: posts_component_1.PostsComponent },
+                        { path: '/user', name: 'Users', component: users_component_1.UsersComponent },
+                        { path: '/user/view/:id', name: 'ViewUser', component: user_form_component_1.UserFormComponent },
+                        { path: '/user/edit/:id', name: 'EditUser', component: user_form_component_1.UserFormComponent, },
+                        { path: '/user/add', name: 'AddUser', component: user_form_component_1.UserFormComponent },
+                        { path: '/user/delete/:id', name: 'DeleteUser', component: user_form_component_1.UserFormComponent },
+                        { path: '/post', name: 'Posts', component: posts_component_1.PostsComponent },
                         { path: '/auth/...', name: 'Auth', component: auth_component_1.AuthenticationComponent },
                         { path: '/not-found', name: 'NotFound', component: not_found_component_1.NotFoundComponent },
                         { path: '/*other', name: 'Other', redirectTo: ['Home'] }
