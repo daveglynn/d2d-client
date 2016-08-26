@@ -3,11 +3,11 @@ import { Component, OnInit } from "@angular/core";
 
 // required for this component
 import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
-import { AuthService } from "./auth/auth.service";
+import { AuthService } from "../../auth/auth.service";
 
 @Component({
     selector: 'navbar',
-    templateUrl: 'app/navbar.component.html',
+    templateUrl: 'app/shared/components/navbar.component.html',
     directives: [ROUTER_DIRECTIVES]
 })
 

@@ -1,10 +1,12 @@
-﻿<label>Country:</label>
-<select [(ngModel)]="selectedCountry.id" (change)="onSelect($event.target.value)">
-    <option value="0">--Select--</option>
-    <option *ngFor="#country of countries" value={{country.id}}>{{country.name}}</option>
-</select>
-<br /><br />
-<div>
+﻿<div *ngIf="dependant > 0">
+    <label>Country:</label>
+    <select [(ngModel)]="selectedCountry.id" (change)="onSelect($event.target.value)">
+        <option value="0">--Select--</option>
+        <option *ngFor="#country of countries" value={{country.id}}>{{country.name}}</option>
+    </select>
+    <br /><br />
+</div>
+<div *ngIf="dependant > 1">
     <label>State:</label>
     <select>
         <option *ngIf='selectedCountry.id == 0' value="0">--Select--</option>
