@@ -1,15 +1,24 @@
+                      
+/******************************************************************************************************
+ 
+ Copyright 2016 Olympus Consultancy Limited - All Rights Reserved 
+ You may NOT use, copy, distribute or modify this code unless you have written 
+ consent from the author which may be obtained from emailing dave@ocl.ie 
+
+******************************************************************************************************/
+
+/******************************************************************************************************
+ service layer
+******************************************************************************************************/
 "use strict";
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Headers } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
-
-import { ConstantsService } from   '../shared/helpers/constants.service';
-import { CommonService } from   '../shared/helpers/common.service';
+import { ConstantsService } from   '../../shared/helpers/constants.service';
+import { CommonService } from   '../../shared/helpers/common.service';
 
 @Injectable()
-
- 
 
 export class UserService {
 
@@ -20,24 +29,29 @@ export class UserService {
 
     getUsers(filter?) {
         var parms = {};
-        if (filter && filter.profileId) {
-            parms['profileId'] = filter.profileId  ;
-        }
-        if (filter && filter.languageId) {
-            parms['languageId'] = filter.languageId;
-        }
         if (filter && filter.q) {
             parms['q'] = filter.q;
         }
+		if (filter && filter.languageId) {
+            parms['languageId'] = filter.languageId;
+		};
+    	if (filter && filter.roleId) {
+            parms['roleId'] = filter.roleId;
+		};
+    	if (filter && filter.profileId) {
+            parms['profileId'] = filter.profileId;
+		};
+      		if (filter && filter.active) {
+             parms['active'] = filter.active;
+		};
+    
         const headers = new Headers({ 'Content-Type': 'application/json' });
         return this._http.get(this._url + "/user/all", { search: this._commonService.setParms(parms) })
             .map(res => res.json())
             .catch(error => Observable.throw(error.json()))
-
 	}
     
     getUser(userId) {
-        //return this._http.get(this._url + "/" + userId
         return this._http.get(this._url + "/user/" + userId, { search: this._commonService.getTokenAsParm() })
             .map(res => res.json())
             .catch(error => Observable.throw(error.json()))
@@ -71,6 +85,6 @@ export class UserService {
         return this._http.get("/user/email/" + email)
            .map(res => res.json())
            .catch(error => Observable.throw(error.json()))
-    }
-   
+    }	
+	
 }

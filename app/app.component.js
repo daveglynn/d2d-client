@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router-deprecated', './shared/components/navbar.component', './home.component', './users/users.component', './users/user-form.component', './posts/posts.component', './auth/auth.component', './shared/components/not-found.component', "./errors/error.component", './test/test.component'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router-deprecated', './shared/components/navbar.component', './home.component', './security/users/users.component', './security/users/user-form.component', './posts/posts.component', './security/auth/auth.component', './shared/components/not-found.component', "./errors/error.component", './test/test.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {

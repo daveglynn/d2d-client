@@ -3,23 +3,23 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import {CORE_DIRECTIVES} from '@angular/common'
-import { ErrorService } from ".././errors/error.service";
-import { SpinnerComponent} from '../shared/directives/spinner.component';
-import { PaginationComponent } from '../shared/directives/pagination.component';
+import { ErrorService } from "../.././errors/error.service";
+import { SpinnerComponent} from '../../shared/directives/spinner.component';
+import { PaginationComponent } from '../../shared/directives/pagination.component';
 import { Location } from '@angular/common';
-import { CommonService } from   '../shared/helpers/common.service';
+import { CommonService } from   '../../shared/helpers/common.service';
 
 // required for this component
 import { RouterLink } from '@angular/router-deprecated';
 import { Router, RouteParams } from '@angular/router-deprecated';
 import { UserService } from './user.service';
-import { ProfileService } from '../profiles/profile.service';
-import { LanguageService } from '../languages/language.service';
-import { TableSimpleComponent } from '../shared/components/tableSimple.component'
+import { ProfileService } from '../../master/profiles/profile.service';
+import { LanguageService } from '../../master/languages/language.service';
+import { TableSimpleComponent } from '../../shared/components/tableSimple.component'
 
 @Component({
     selector: 'users',
-    templateUrl: 'app/users/users.component.html',
+    templateUrl: 'app/security/users/users.component.html',
     providers: [UserService, ProfileService, LanguageService],
     directives: [RouterLink, SpinnerComponent, TableSimpleComponent, PaginationComponent, CORE_DIRECTIVES]
 })

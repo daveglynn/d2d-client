@@ -12,7 +12,7 @@ export class ConstantsService {
      defaultInputBackColor: string = 'white';
      onFocusInputBackColor: string = '#efffea';
 
-     redirectAfterSignup: string = "/auth/signin";
+     redirectAfterSignup: string = "/security/auth/signin";
      redirectAfterSignin: string = "/"
 
 }

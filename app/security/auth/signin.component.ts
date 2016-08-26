@@ -1,21 +1,21 @@
 ﻿// standard for all components
 import { Component, OnInit } from "@angular/core";
 import { ControlGroup, FormBuilder, Validators, Control } from "@angular/common";
-import { ClientValidators } from '../shared/validators/client.validators';
-import { FocusDirective } from '../shared/directives/focus.directive';
-import { ConstantsService } from   '../shared/helpers/constants.service';
-import { ErrorService } from ".././errors/error.service";
-import { SpinnerComponent } from '../shared/directives/spinner.component';
-import { CommonService } from   '../shared/helpers/common.service';
+import { ClientValidators } from '../../shared/validators/client.validators';
+import { FocusDirective } from '../../shared/directives/focus.directive';
+import { ConstantsService } from   '../../shared/helpers/constants.service';
+import { ErrorService } from "../.././errors/error.service";
+import { SpinnerComponent } from '../../shared/directives/spinner.component';
+import { CommonService } from   '../../shared/helpers/common.service';
 
 // required for this component
 import { AuthService } from "./auth.service";
-import { User, Login } from '../users/user';
-import { LocalData } from '../shared/helpers/common';
+import { User, Login } from '../../security/users/user';
+import { LocalData } from '../../shared/helpers/common';
 
 @Component({
     selector: 'my-signin',
-    templateUrl: './app/auth/signin.component.html',
+    templateUrl: './app/security/auth/signin.component.html',
     directives: [SpinnerComponent,FocusDirective]
 })
 

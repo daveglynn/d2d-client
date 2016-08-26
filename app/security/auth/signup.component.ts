@@ -1,20 +1,20 @@
 ﻿// standard for all components
 import { Component, OnInit } from "@angular/core";
 import { ControlGroup, FormBuilder, Validators, Control } from "@angular/common";
-import { ClientValidators } from '../shared/validators/client.validators';
-import { FocusDirective } from '../shared/directives/focus.directive';
-import { ConstantsService } from   '../shared/helpers/constants.service';
-import { ErrorService } from ".././errors/error.service";
-import { SpinnerComponent } from '../shared/directives/spinner.component';
-import { CommonService } from   '../shared/helpers/common.service'; 
+import { ClientValidators } from '../../shared/validators/client.validators';
+import { FocusDirective } from '../../shared/directives/focus.directive';
+import { ConstantsService } from   '../../shared/helpers/constants.service';
+import { ErrorService } from "../.././errors/error.service";
+import { SpinnerComponent } from '../../shared/directives/spinner.component';
+import { CommonService } from   '../../shared/helpers/common.service'; 
 
 // required for this component
 import { AuthService } from "./auth.service";
-import { User } from "../users/user";
+import { User } from "../../security/users/user";
 
 @Component({
     selector: 'my-signup',
-    templateUrl: './app/auth/signup.component.html',
+    templateUrl: './app/security/auth/signup.component.html',
     directives: [SpinnerComponent,FocusDirective]
 })
 
@@ -83,7 +83,7 @@ export class SignupComponent implements OnInit {
         console.log("handle success");
         this.signingUp = false;
          this._commonService.clearLocalStorage();
-        window.location.href = "/auth/signin";
+         window.location.href = "/security/auth/signin";
    }
 
 }

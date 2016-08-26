@@ -3,23 +3,23 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, ControlGroup, Validators } from '@angular/common';
 import { CanDeactivate, Router, RouteParams } from '@angular/router-deprecated';
-import { FocusDirective } from '../shared/directives/focus.directive';
-import { ConstantsService } from   '../shared/helpers/constants.service';
-import { ErrorService } from ".././errors/error.service";
-import { SpinnerComponent } from '../shared/directives/spinner.component';
-import { CommonService } from   '../shared/helpers/common.service';
+import { FocusDirective } from '../../shared/directives/focus.directive';
+import { ConstantsService } from   '../../shared/helpers/constants.service';
+import { ErrorService } from "../.././errors/error.service";
+import { SpinnerComponent } from '../../shared/directives/spinner.component';
+import { CommonService } from   '../../shared/helpers/common.service';
 
 import { Control } from "@angular/common";
 
 
 // required for this component
-import { ClientValidators } from '../shared/validators/client.validators';
+import { ClientValidators } from '../../shared/validators/client.validators';
 import { UserService } from './user.service';
 import { User } from './user';
 
 @Component({
     selector: 'user',
-    templateUrl: 'app/users/user-form.component.html',
+    templateUrl: 'app/security/users/user-form.component.html',
     providers: [UserService],
     directives: [SpinnerComponent, FocusDirective]
 })

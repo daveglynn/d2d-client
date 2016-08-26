@@ -1,15 +1,15 @@
 ﻿// standard for all components
 import { Component, OnInit } from "@angular/core";
-import { ErrorService } from ".././errors/error.service";
-import { SpinnerComponent } from '../shared/directives/spinner.component';
-import { CommonService } from   '../shared/helpers/common.service'; 
+import { ErrorService } from "../.././errors/error.service";
+import { SpinnerComponent } from '../../shared/directives/spinner.component';
+import { CommonService } from   '../../shared/helpers/common.service'; 
 
 // required for this component
 import { AuthService } from "./auth.service";
 
 @Component({
     selector: 'my-logout',
-    templateUrl: './app/auth/logout.component.html',
+    templateUrl: './app/security/auth/logout.component.html',
     directives: [SpinnerComponent]
 })
 export class LogoutComponent implements OnInit{

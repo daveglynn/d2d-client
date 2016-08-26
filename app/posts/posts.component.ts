@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {PostService} from './post.service';
-import {UserService} from '../users/user.service';
+import {UserService} from '../security/users/user.service';
 import {SpinnerComponent} from '../shared/directives/spinner.component';
 import {PaginationComponent} from '../shared/directives/pagination.component';
 

@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 
 // required for this component
 import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
-import { AuthService } from "../../auth/auth.service";
+import { AuthService } from "../../security/auth/auth.service";
 
 @Component({
     selector: 'navbar',
