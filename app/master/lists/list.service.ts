@@ -27,7 +27,7 @@ export class ListService {
     constructor(private _cs: ConstantsService, private _commonService: CommonService,private _http: Http){
 	}
 
-    getLists(filter?) {
+    getListsAll(filter?) {
         var parms = {};
         if (filter && filter.q) {
             parms['q'] = filter.q;
@@ -45,7 +45,7 @@ export class ListService {
             .catch(error => Observable.throw(error.json()))
 	}
     
-    getList(listId) {
+    getListById(listId) {
         return this._http.get(this._url + "/list/" + listId, { search: this._commonService.getTokenAsParm() })
             .map(res => res.json())
             .catch(error => Observable.throw(error.json()))

@@ -27,7 +27,7 @@ export class RulebookService {
     constructor(private _cs: ConstantsService, private _commonService: CommonService,private _http: Http){
 	}
 
-    getRulebooks(filter?) {
+    getRulebooksAll(filter?) {
         var parms = {};
         if (filter && filter.q) {
             parms['q'] = filter.q;
@@ -42,7 +42,7 @@ export class RulebookService {
             .catch(error => Observable.throw(error.json()))
 	}
     
-    getRulebook(ruleBookId) {
+    getRulebookById(ruleBookId) {
         return this._http.get(this._url + "/ruleBook/" + ruleBookId, { search: this._commonService.getTokenAsParm() })
             .map(res => res.json())
             .catch(error => Observable.throw(error.json()))

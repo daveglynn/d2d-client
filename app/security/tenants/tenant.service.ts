@@ -27,7 +27,7 @@ export class TenantService {
     constructor(private _cs: ConstantsService, private _commonService: CommonService,private _http: Http){
 	}
 
-    getTenants(filter?) {
+    getTenantsAll(filter?) {
         var parms = {};
         if (filter && filter.q) {
             parms['q'] = filter.q;
@@ -42,7 +42,7 @@ export class TenantService {
             .catch(error => Observable.throw(error.json()))
 	}
     
-    getTenant(tenantId) {
+    getTenantById(tenantId) {
         return this._http.get(this._url + "/tenant/" + tenantId, { search: this._commonService.getTokenAsParm() })
             .map(res => res.json())
             .catch(error => Observable.throw(error.json()))

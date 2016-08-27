@@ -27,7 +27,7 @@ export class LanguageService {
     constructor(private _cs: ConstantsService, private _commonService: CommonService,private _http: Http){
 	}
 
-    getLanguages(filter?) {
+    getLanguagesAll(filter?) {
         var parms = {};
         if (filter && filter.q) {
             parms['q'] = filter.q;
@@ -42,7 +42,7 @@ export class LanguageService {
             .catch(error => Observable.throw(error.json()))
 	}
     
-    getLanguage(languageId) {
+    getLanguageById(languageId) {
         return this._http.get(this._url + "/language/" + languageId, { search: this._commonService.getTokenAsParm() })
             .map(res => res.json())
             .catch(error => Observable.throw(error.json()))

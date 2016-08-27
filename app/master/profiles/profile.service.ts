@@ -27,7 +27,7 @@ export class ProfileService {
     constructor(private _cs: ConstantsService, private _commonService: CommonService,private _http: Http){
 	}
 
-    getProfiles(filter?) {
+    getProfilesAll(filter?) {
         var parms = {};
         if (filter && filter.q) {
             parms['q'] = filter.q;
@@ -42,7 +42,7 @@ export class ProfileService {
             .catch(error => Observable.throw(error.json()))
 	}
     
-    getProfile(profileId) {
+    getProfileById(profileId) {
         return this._http.get(this._url + "/profile/" + profileId, { search: this._commonService.getTokenAsParm() })
             .map(res => res.json())
             .catch(error => Observable.throw(error.json()))

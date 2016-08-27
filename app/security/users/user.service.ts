@@ -27,7 +27,7 @@ export class UserService {
     constructor(private _cs: ConstantsService, private _commonService: CommonService,private _http: Http){
 	}
 
-    getUsers(filter?) {
+    getUsersAll(filter?) {
         var parms = {};
         if (filter && filter.q) {
             parms['q'] = filter.q;
@@ -51,7 +51,7 @@ export class UserService {
             .catch(error => Observable.throw(error.json()))
 	}
     
-    getUser(userId) {
+    getUserById(userId) {
         return this._http.get(this._url + "/user/" + userId, { search: this._commonService.getTokenAsParm() })
             .map(res => res.json())
             .catch(error => Observable.throw(error.json()))
