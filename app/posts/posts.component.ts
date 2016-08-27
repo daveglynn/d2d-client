@@ -41,7 +41,7 @@ export class PostsComponent implements OnInit {
 	}
     
     private loadUsers(){
-        this._userService.getUsers()
+        this._userService.getUsersAll()
             .subscribe(users => this.users = users);
     }
     

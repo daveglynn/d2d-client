@@ -232,11 +232,11 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         if (!id)
             return;
         this.userLoading = true;
-        this._userService.getUser(id)
+        this._userService.getUserById(id)
             .subscribe(
-            data => this.handleData('getUser', data),
-            error => this.handleError('getUser', error),
-            () => this.handleSuccess('getUser')
+            data => this.handleData('getUserById', data),
+            error => this.handleError('getUserById', error),
+            () => this.handleSuccess('getUserById')
         );
 
     }
@@ -328,7 +328,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         console.log("handle success");
         // Ideally, here we'd want:
         // this.form.markAsPristine();
-        if (process != 'getUser') {
+        if (process != 'getUserById') {
             this._router.navigate(['Users']);
         }
     }

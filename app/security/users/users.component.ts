@@ -188,11 +188,11 @@ export class UsersComponent implements OnInit {
     private loadUsers(filter?) {
 
         this.usersLoading = true;
-        this._userService.getUsers(filter)
+        this._userService.getUsersAll(filter)
             .subscribe(
-            data => this.handleData('getUsers', data),
-            error => this.handleError('getUsers', error, 0, null),
-            () => this.handleSuccess('getUsers')
+            data => this.handleData('getUsersAll', data),
+            error => this.handleError('getUsersAll', error, 0, null),
+            () => this.handleSuccess('getUsersAll')
             )
 
     }
@@ -240,7 +240,7 @@ export class UsersComponent implements OnInit {
 
         console.log("handle data");
         console.log(data);
-        if (process === 'getUsers') {
+        if (process === 'getUsersAll') {
             this.users = data;
             this.pagedUsers = _.take(this.users, this.pageSize);
         }
