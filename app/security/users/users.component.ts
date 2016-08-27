@@ -167,7 +167,7 @@ export class UsersComponent implements OnInit {
 
     private loadProfiles() {
 
-        this._profileService.getProfiles()
+        this._profileService.getProfilesAll()
             .subscribe(
             data => this.handleData('loadProfiles', data),
             error => this.handleError('loadProfiles', error, 0, null),
@@ -177,7 +177,7 @@ export class UsersComponent implements OnInit {
 
     private loadLanguages() {
 
-        this._languageService.getLanguages()
+        this._languageService.getLanguagesAll()
             .subscribe(
             data => this.handleData('loadLanguages', data),
             error => this.handleError('loadLanguages', error, 0, null),
