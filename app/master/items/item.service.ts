@@ -86,18 +86,61 @@ export class ItemService {
             .catch(error => Observable.throw(error.json()))
 
     }
+  	
+/******************************************************************************************************
+ Get Item records by ListId 
+******************************************************************************************************/
+	getItemsByListId = function (listId, filter?) {
 
-    getItemsByListId(listId,filter?) {
-        var parms = {};
-        if (filter && filter.view) {
-            parms['view'] = filter.view;
-        }
+		var parms = {};
+		if (filter && filter.view) {
+			parms['view'] = filter.view;
+		}
     
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        return this._http.get(this._url + "/item/list/" + listId, { search: this._commonService.setParms(parms) })
+		const headers = new Headers({ 'Content-Type': 'application/json' });
+		return this._http.get(this._url + "/item/list/" + listId, { search: this._commonService.setParms(parms) })
 
-            .map(res => res.json())
-            .catch(error => Observable.throw(error.json()))
-    }	
+			.map(res => res.json())
+			.catch(error => Observable.throw(error.json()))
+	}	
+     
+
+/******************************************************************************************************
+ Get Item records by RuleBookId 
+******************************************************************************************************/
+	getItemsByRuleBookId = function (ruleBookId, filter?) {
+
+		var parms = {};
+		if (filter && filter.view) {
+			parms['view'] = filter.view;
+		}
+    
+		const headers = new Headers({ 'Content-Type': 'application/json' });
+		return this._http.get(this._url + "/item/ruleBook/" + ruleBookId, { search: this._commonService.setParms(parms) })
+
+			.map(res => res.json())
+			.catch(error => Observable.throw(error.json()))
+	}	
+     
+
+/******************************************************************************************************
+ Get Item records by ParentListId 
+******************************************************************************************************/
+	getItemsByParentListId = function (parentListId, filter?) {
+
+		var parms = {};
+		if (filter && filter.view) {
+			parms['view'] = filter.view;
+		}
+    
+		const headers = new Headers({ 'Content-Type': 'application/json' });
+		return this._http.get(this._url + "/item/parentList/" + parentListId, { search: this._commonService.setParms(parms) })
+
+			.map(res => res.json())
+			.catch(error => Observable.throw(error.json()))
+	}	
+     
+
+	
 	
 }

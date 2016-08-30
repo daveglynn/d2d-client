@@ -80,6 +80,60 @@ export class UserService {
             .catch(error => Observable.throw(error.json()))
 
     }
+  	
+/******************************************************************************************************
+ Get User records by LanguageId 
+******************************************************************************************************/
+	getUsersByLanguageId = function (languageId, filter?) {
+
+		var parms = {};
+		if (filter && filter.view) {
+			parms['view'] = filter.view;
+		}
+    
+		const headers = new Headers({ 'Content-Type': 'application/json' });
+		return this._http.get(this._url + "/user/language/" + languageId, { search: this._commonService.setParms(parms) })
+
+			.map(res => res.json())
+			.catch(error => Observable.throw(error.json()))
+	}	
+     
+
+/******************************************************************************************************
+ Get User records by RoleId 
+******************************************************************************************************/
+	getUsersByRoleId = function (roleId, filter?) {
+
+		var parms = {};
+		if (filter && filter.view) {
+			parms['view'] = filter.view;
+		}
+    
+		const headers = new Headers({ 'Content-Type': 'application/json' });
+		return this._http.get(this._url + "/user/role/" + roleId, { search: this._commonService.setParms(parms) })
+
+			.map(res => res.json())
+			.catch(error => Observable.throw(error.json()))
+	}	
+     
+
+/******************************************************************************************************
+ Get User records by ProfileId 
+******************************************************************************************************/
+	getUsersByProfileId = function (profileId, filter?) {
+
+		var parms = {};
+		if (filter && filter.view) {
+			parms['view'] = filter.view;
+		}
+    
+		const headers = new Headers({ 'Content-Type': 'application/json' });
+		return this._http.get(this._url + "/user/profile/" + profileId, { search: this._commonService.setParms(parms) })
+
+			.map(res => res.json())
+			.catch(error => Observable.throw(error.json()))
+	}	
+     
 
     getUserEmail(email) {
         return this._http.get("/user/email/" + email)

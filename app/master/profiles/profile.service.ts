@@ -71,7 +71,7 @@ export class ProfileService {
             .catch(error => Observable.throw(error.json()))
 
     }
-
+  	
 	
 	
 }
