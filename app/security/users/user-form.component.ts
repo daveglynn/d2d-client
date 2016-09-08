@@ -13,6 +13,7 @@ import { Control } from "@angular/common";
 
 
 // required for this component
+import { DropDownComponent } from '../../shared/components/dropdown.component';
 import { ClientValidators } from '../../shared/validators/client.validators';
 import { UserService } from './user.service';
 import { User } from './user';
@@ -21,7 +22,7 @@ import { User } from './user';
     selector: 'user',
     templateUrl: 'app/security/users/user-form.component.html',
     providers: [UserService],
-    directives: [SpinnerComponent, FocusDirective]
+    directives: [SpinnerComponent, FocusDirective, DropDownComponent]
 })
 export class UserFormComponent implements OnInit, CanDeactivate {
 
@@ -69,7 +70,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     addressLine4: Control;
 
     // create a new instance 
-    user = new User(null, "", "", "", "", null, null, "", "", "", "");
+    user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null);
 
     constructor(
         fb: FormBuilder,
@@ -242,7 +243,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     }
 
     private modalProcessing() {
-        debugger;
+
         this.mode = this._commonService.setMode(this.InputMode, this._router.root.currentInstruction.component.params['mode'])
 
         this.modal = this._commonService.setModal(this.InputModal, this._router.root.currentInstruction.component.params['modal'])

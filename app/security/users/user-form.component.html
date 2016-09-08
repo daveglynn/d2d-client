@@ -1,7 +1,33 @@
     <!-- these two lines are required for Select Modal view-->
 <div *ngIf="modal === 'true'" class="backdrop" [ngStyle]="{'display': modalDisplay}"></div>
 <div class={{modalClass}} tabindex="-1" role="dialog" [ngStyle]="{'display': allDisplay}">
-
+    <div>
+        <dropdown [InputObject]="'item'"
+                  [InputDependant]=2
+                  [InputList]=1
+                  [InputParent]=17
+                  [InputParentName]="'Export'"
+                  [InputChild]=22
+                  [InputChildName]="'ExportC'">Loading....</dropdown>
+    </div>
+    <div>
+        <dropdown [InputObject]="'item'"
+                  [InputDependant]=1
+                  [InputList]=2
+                  [InputParent]=0
+                  [InputParentName]="''"
+                  [InputChild]=0
+                  [InputChildName]="">Loading....</dropdown>
+    </div>
+    <div>
+        <dropdown [InputObject]="'profile'"
+                  [InputDependant]=1
+                  [InputList]=0
+                  [InputParent]=0
+                  [InputParentName]="''"
+                  [InputChild]=0
+                  [InputChildName]="">Loading....</dropdown>
+    </div>
     <div class="container">
         <div class="myaccordion">
             <div class="panel-group" id="accordion">

@@ -11,26 +11,13 @@
  class layer
 ******************************************************************************************************/
 "use strict";
-export class User {
+export class Tenant {
 	constructor( 
 		public id?: number
-	 	,public languageId?: number
-	 	,public roleId?: number
-	 	,public profileId?: number
+	 	,public name?: string
 	 	,public active?: boolean
-	 	,public email?: string
-	 	,public firstName?: string
-	 	,public lastName?: string
-	 	,public phone?: string
-	 	,public addressLine1?: string
-	 	,public addressLine2?: string
-	 	,public addressLine3?: string
-	 	,public addressLine4?: string
 	  ) { }
 }
     
-export class Login {
-    constructor(public email: string, public password: string) { }
-}
 	
 	

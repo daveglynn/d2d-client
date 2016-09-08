@@ -80,7 +80,7 @@ export class TestComponent implements OnInit{
      }
 
     openComponent(componentName) {
-        debugger;
+
         if (componentName === "users") {
             this.componentOpenUsers = true;
         }

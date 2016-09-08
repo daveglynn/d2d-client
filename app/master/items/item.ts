@@ -11,26 +11,24 @@
  class layer
 ******************************************************************************************************/
 "use strict";
-export class User {
+export class Item {
 	constructor( 
 		public id?: number
-	 	,public languageId?: number
-	 	,public roleId?: number
-	 	,public profileId?: number
+	 	,public listId?: number
 	 	,public active?: boolean
-	 	,public email?: string
-	 	,public firstName?: string
-	 	,public lastName?: string
-	 	,public phone?: string
-	 	,public addressLine1?: string
-	 	,public addressLine2?: string
-	 	,public addressLine3?: string
-	 	,public addressLine4?: string
+	 	,public name?: string
+	 	,public code?: string
+	 	,public ruleBookId?: number
+	 	,public expired?: boolean
+	 	,public parent?: boolean
+	 	,public parentListId?: number
 	  ) { }
 }
     
-export class Login {
-    constructor(public email: string, public password: string) { }
+export class DropDownParent {
+    constructor(public parentId: number, public name: string) { }
 }
-	
+export class DropDownChild {
+    constructor(public childId: number, public parentId: number, public name: string) { }
+}	
 	
