@@ -8,12 +8,13 @@ import { ConstantsService } from   '../../shared/helpers/constants.service';
 import { ErrorService } from "../.././errors/error.service";
 import { SpinnerComponent } from '../../shared/directives/spinner.component';
 import { CommonService } from   '../../shared/helpers/common.service';
-
+import { Location } from '@angular/common';
+import { DropDown} from "../../shared/helpers/dropdown";
 import { Control } from "@angular/common";
-
+import { ProfileService } from '../../master/profiles/profile.service';
+import { LanguageService } from '../../master/languages/language.service';
 
 // required for this component
-import { DropDownComponent } from '../../shared/components/dropdown.component';
 import { ClientValidators } from '../../shared/validators/client.validators';
 import { UserService } from './user.service';
 import { User } from './user';
@@ -21,9 +22,11 @@ import { User } from './user';
 @Component({
     selector: 'user',
     templateUrl: 'app/security/users/user-form.component.html',
-    providers: [UserService],
-    directives: [SpinnerComponent, FocusDirective, DropDownComponent]
+    providers: [UserService, ProfileService, LanguageService],
+    directives: [SpinnerComponent, FocusDirective]
 })
+
+
 export class UserFormComponent implements OnInit, CanDeactivate {
 
     // interface to other components
@@ -35,12 +38,22 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     modalDisplay: string = "";
     allDisplay: string = "";
 
+    dropdownProfileId = 0;
+    dropdownProfileName = '';
+
     // this control
     mode: string;
     modal: string;
     form: ControlGroup;
     title: string;
     action: string;
+
+    profilesLoaded: boolean = false;
+    languagesLoaded: boolean = false;
+
+    profiles = [];
+    languages = [];
+
     userLoading;
 
     // disablers
@@ -51,7 +64,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     profileId_disabled: boolean = false;
     languageId_disabled: boolean = false;
     phone_disabled: boolean = false;
-    addressLine1_disabled: boolean = false;
+    addressLine1_disabled: boolean = true;
     addressLine2_disabled: boolean = false;
     addressLine3_disabled: boolean = false;
     addressLine4_disabled: boolean = false;
@@ -77,8 +90,11 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         private _router: Router,
         private _routeParams: RouteParams,
         private _userService: UserService,
+        private _profileService: ProfileService,
+        private _languageService: LanguageService,
         private _errorService: ErrorService,
-        private _commonService: CommonService
+        private _location: Location,
+        private _commonService: CommonService 
     ) {
 
   
@@ -95,7 +111,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 
         // set up the field validators
         if (this.action === "add") {
-
+         
             this.firstName = new Control('',
                 Validators.compose([
                     Validators.required,
@@ -217,7 +233,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         } else if (this.action === 'delete') {
             this.title = 'Delete User'
         }
-
+       
         // set disablers as required
         //this.firstName_disabled: boolean = false;
         //this.lastName_disabled: boolean = false;
@@ -239,6 +255,11 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             error => this.handleError('getUserById', error),
             () => this.handleSuccess('getUserById')
         );
+
+   
+      
+
+
 
     }
 
@@ -300,6 +321,31 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 
     }
 
+    private loadProfiles() {
+        if (this.profilesLoaded == false) {
+            this._profileService.getProfilesAll()
+                .subscribe(
+                data => this.handleData('loadProfiles', data),
+                error => this.handleError('loadProfiles', error),
+                () => this.handleSuccess('loadProfiles')
+                );
+            this.profilesLoaded = true;
+        }
+    }
+
+    private loadLanguages() {
+        if (this.languagesLoaded == false) {
+            this._languageService.getLanguagesAll()
+                .subscribe(
+                data => this.handleData('loadLanguages', data),
+                error => this.handleError('loadLanguages', error),
+                () => this.handleSuccess('loadLanguages')
+            );
+            this.languagesLoaded = true;
+        }
+    }
+
+
     cancel() {
         this._router.navigate(['Users']);
     }
@@ -321,16 +367,27 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         this.userLoading = false;
         console.log("handle data");
         console.log(data);
-        this.user = data;
-    }
+        if (process === 'getUserById') {
+            this.user = data;
+            this.languages.push(new DropDown(this.user.languageId, 'French'));
+        }
+        if (process === 'loadProfiles') {
+            this.profiles = data;
+        }
+        if (process === 'loadLanguages') {
+            this.languages = data;
+        }
+   }
 
     handleSuccess(process) {
         this.userLoading = false;
         console.log("handle success");
         // Ideally, here we'd want:
         // this.form.markAsPristine();
-        if (process != 'getUserById') {
-            this._router.navigate(['Users']);
+        debugger;
+        if ((process != 'getUserById') && (process != 'loadLanguages') && (process != 'loadProfiles')) {
+           // this._router.navigate(['Users']);
+            this._location.back();
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿<div class="dropdown" >
          <div *ngIf="dependant > 0">
-            <select  [(ngModel)]="selectedParent.parentId" (focus)="loadParent(list)" (change)="onSelect($event.target.value)">
+            <select class="form-control" [(ngModel)]="selectedParent.parentId" (focus)="loadParent(list)" (change)="onSelect($event.target.value)">
                 <option value="0">--Select--</option>
                 <option *ngFor="let parent of parents" value={{parent.parentId}}>{{parent.name}}</option>
             </select>
@@ -9,7 +9,7 @@
  </div>
 <div class="dropdown">
         <div *ngIf="dependant > 1">
-            <select>
+            <select class="form-control">
                 <option  [(ngModel)]="selectedChild.childId" *ngIf='selectedChild.childId == 0' value="0">--Select--</option>
                 <option *ngFor="let child of children " value={{child.childId}}>{{child.name}}</option>
             </select>

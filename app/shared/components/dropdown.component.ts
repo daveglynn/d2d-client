@@ -17,7 +17,7 @@ export class DropDownComponent implements OnInit {
     @Input() InputParentName: string;
     @Input() InputChild: number;
     @Input() InputChildName: string;
-    
+
     selectedParent: DropDownParent = new DropDownParent(0, '');
     selectedChild: DropDownChild = new DropDownChild(0, 0, '');
 
@@ -43,28 +43,27 @@ export class DropDownComponent implements OnInit {
         this.list = this.InputList;
         this.object = this.InputObject;
 
-        if (this.list != 0) {
 
-            if (this.InputParent != 0) {
-                this.selectedParent.parentId = this.InputParent;
-                this.selectedParent.name = this.InputParentName;
-                this.parents = [];
-                this.parents.push(new DropDownParent(this.selectedParent.parentId, this.selectedParent.name));
+        if (this.InputParent != 0) {
+            this.selectedParent.parentId = this.InputParent;
+            this.selectedParent.name = this.InputParentName;
+            this.parents = [];
+            this.parents.push(new DropDownParent(this.selectedParent.parentId, this.selectedParent.name));
 
-                this.selectedParent.name = this.InputParentName;
-                if (this.InputChild != 0) {
-                    this.selectedChild.parentId = this.InputParent;
-                    this.selectedChild.childId = this.InputChild;
-                    this.selectedChild.name= this.InputChildName;
-                    this.children = [];
-                    this.children.push(new DropDownChild(this.selectedChild.childId, this.selectedChild.parentId, this.selectedChild.name));
-                }
+            this.selectedParent.name = this.InputParentName;
+            if (this.InputChild != 0) {
+                this.selectedChild.parentId = this.InputParent;
+                this.selectedChild.childId = this.InputChild;
+                this.selectedChild.name = this.InputChildName;
+                this.children = [];
+                this.children.push(new DropDownChild(this.selectedChild.childId, this.selectedChild.parentId, this.selectedChild.name));
             }
+
         }
     }
 
     loadParent(list) {
-
+        debugger;
         this.getParent(list)
 
     }
@@ -84,7 +83,7 @@ export class DropDownComponent implements OnInit {
         } else {
             if (this.parentsLoaded == false) {
                 this.parentsLoaded == true
-                this._itemService.getItemsByObjectId(this.object,list)
+                this._itemService.getItemsByObjectId(this.object, list)
                     .subscribe(
                     data => this.handleData('getItemsByListId', data, null),
                     error => this.handleError('getItemsByListId', error),

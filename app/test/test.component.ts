@@ -6,6 +6,8 @@ import { CountryListComponent } from './countrylistcomponent';
 import {CORE_DIRECTIVES} from '@angular/common'
 import {TableSortable} from './tableSortable'
 import { UsersComponent } from '../security/users/users.component'
+
+
 @Component({
     selector: 'my-app',
     templateUrl: 'app/test/test.html',

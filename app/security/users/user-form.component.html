@@ -1,33 +1,6 @@
     <!-- these two lines are required for Select Modal view-->
 <div *ngIf="modal === 'true'" class="backdrop" [ngStyle]="{'display': modalDisplay}"></div>
 <div class={{modalClass}} tabindex="-1" role="dialog" [ngStyle]="{'display': allDisplay}">
-    <div>
-        <dropdown [InputObject]="'item'"
-                  [InputDependant]=2
-                  [InputList]=1
-                  [InputParent]=17
-                  [InputParentName]="'Export'"
-                  [InputChild]=22
-                  [InputChildName]="'ExportC'">Loading....</dropdown>
-    </div>
-    <div>
-        <dropdown [InputObject]="'item'"
-                  [InputDependant]=1
-                  [InputList]=2
-                  [InputParent]=0
-                  [InputParentName]="''"
-                  [InputChild]=0
-                  [InputChildName]="">Loading....</dropdown>
-    </div>
-    <div>
-        <dropdown [InputObject]="'profile'"
-                  [InputDependant]=1
-                  [InputList]=0
-                  [InputParent]=0
-                  [InputParentName]="''"
-                  [InputChild]=0
-                  [InputChildName]="">Loading....</dropdown>
-    </div>
     <div class="container">
         <div class="myaccordion">
             <div class="panel-group" id="accordion">
@@ -43,6 +16,7 @@
                                 <div class="col-md-6 well">
                                     <form [ngFormModel]="form" (ngSubmit)="save()">
                                         <fieldset [disabled]="(action === 'view' || action === 'delete')">
+
                                             <div class="form-group">
                                                 <label>First Name</label>
                                                 <input [(ngModel)]="user.firstName" id="firstName" type="text" class="form-control" placeholder="Required" ngControl="firstName" #firstName="ngForm" [disabled]="firstName_disabled" focus>
@@ -106,15 +80,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Profile</label>
-                                                <input [(ngModel)]="user.profileId" id="profileId" type="text" class="form-control" ngControl="profileId" #profileId="ngForm" focus>
-                                                <div *ngIf="(profileId.touched || profileId.dirty  || !profileId.pristine ) && profileId.errors">
-                                                    <div *ngIf="profileId.errors.outOfRange50" class="alert alert-danger">
-                                                        Last name must not be greater than 50 characters.
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div class="form-group">
                                                 <label>Language</label>
                                                 <input [(ngModel)]="user.languageId" id="languageId" type="text" class="form-control" ngControl="languageId" #languageId="ngForm" focus>
@@ -123,6 +89,12 @@
                                                         Last name must not be greater than 50 characters.
                                                     </div>
                                                 </div>
+                                                <select class="form-control"  [(ngModel)]="user.languageId" (focus)="loadLanguages()">
+                                                    // value is an object
+                                                    <option *ngFor="let language of languages" value="{{ language.id }}">
+                                                        {{ language.name }}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label>Phone</label>
