@@ -116,7 +116,7 @@ color: #c8c8c8;
 -ms-user-select: none;
 -o-user-select: none;
 user-select: none;
-}
+} 
 
 div[data-toggle="buttons"] label:hover {
 color: #7AA3CC;

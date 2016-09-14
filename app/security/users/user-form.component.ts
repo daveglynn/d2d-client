@@ -50,7 +50,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 
     profilesLoaded: boolean = false;
     languagesLoaded: boolean = false;
-
+     
     profiles = [];
     languages = [];
 
