@@ -57,6 +57,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     userLoading;
 
     // disablers
+    active_disabled: boolean = false;
     firstName_disabled: boolean = false;
     lastName_disabled: boolean = false;
     email_disabled: boolean = false;
@@ -70,6 +71,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     addressLine4_disabled: boolean = false;
 
     // controls
+    active: Control;
     firstName: Control;
     lastName: Control;
     email: Control;
@@ -83,7 +85,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     addressLine4: Control;
 
     // create a new instance 
-    user = new User(null, null, null, null, null, null, null, null, null, null, null, null, null);
+    user = new User(null, null, null, null,true, null, null, null, null, null, null, null, null);
 
     constructor(
         fb: FormBuilder,
@@ -110,14 +112,13 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         } else this.action = "";
 
         // set up the field validators
-        if (this.action === "add") {
-         
-            this.firstName = new Control('',
-                Validators.compose([
-                    Validators.required,
-                    ClientValidators.isEmpty,
-                    ClientValidators.outOfRange50
-                ])),
+        if ((this.action === "add") || (this.action === "edit")) {
+                this.firstName = new Control('',
+                    Validators.compose([
+                        Validators.required,
+                        ClientValidators.isEmpty,
+                        ClientValidators.outOfRange50
+                    ])),
                 this.lastName = new Control('',
                     Validators.compose([
                         Validators.required,
@@ -132,14 +133,6 @@ export class UserFormComponent implements OnInit, CanDeactivate {
                         ClientValidators.invalidEmailAddress,
                         ClientValidators.outOfRange50
                     ])),
-                this.password = new Control('',
-                    Validators.compose([
-                        Validators.required,
-                        ClientValidators.isEmpty,
-                        ClientValidators.outOfRange50,
-                        ClientValidators.containsSpace,
-                        ClientValidators.invalidPassword
-                    ])),
                 this.phone = new Control('',
                     Validators.compose([
                         ClientValidators.outOfRange50
@@ -149,8 +142,10 @@ export class UserFormComponent implements OnInit, CanDeactivate {
                         ClientValidators.outOfRange50
                     ])),
                 this.languageId = new Control('',
-                    Validators.compose([
-                        ClientValidators.outOfRange50
+                Validators.compose([
+                        Validators.required,
+                        ClientValidators.isEmpty,
+                        ClientValidators.dropDownNotSelected
                     ])),
                 this.addressLine1 = new Control('',
                     Validators.compose([
@@ -168,9 +163,22 @@ export class UserFormComponent implements OnInit, CanDeactivate {
                     Validators.compose([
                         ClientValidators.outOfRange50
                     ]))
-        } else {
+        }
 
-            this.password = new Control('');
+        if (this.action === "add") {
+            this.password = new Control('',
+                Validators.compose([
+                    Validators.required,
+                    ClientValidators.isEmpty,
+                    ClientValidators.outOfRange50,
+                    ClientValidators.containsSpace,
+                    ClientValidators.invalidPassword
+                ]))
+        }
+
+        if ((this.action === "view") || (this.action === "delete")) {
+
+            this.active = new Control('');
             this.firstName = new Control('');
             this.lastName = new Control('');
             this.email = new Control('');
@@ -182,14 +190,17 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             this.addressLine2 = new Control('');
             this.addressLine3 = new Control('');
             this.addressLine4 = new Control('');
-
-        }
-
+       }
 
 
+       // if (this.action === "add") {
+       //     this.languages.push(new DropDown(-1, "(None)"));
+       //     this.user.languageId = -1;
+       //  
+ 
         // set up the form design
         this.form = fb.group({
-
+            active: this.active,
             firstName: this.firstName,
             lastName: this.lastName,
             email: this.email,
@@ -365,11 +376,12 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 
     handleData(process, data: any) {
         this.userLoading = false;
-        console.log("handle data");
-        console.log(data);
+          console.log("handle data");
+          console.log(data);
+          debugger;
         if (process === 'getUserById') {
             this.user = data;
-            this.languages.push(new DropDown(this.user.languageId, 'French'));
+            this.languages.push(new DropDown(data.languageId, data.language.name));
         }
         if (process === 'loadProfiles') {
             this.profiles = data;
@@ -384,7 +396,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         console.log("handle success");
         // Ideally, here we'd want:
         // this.form.markAsPristine();
-        debugger;
+       
         if ((process != 'getUserById') && (process != 'loadLanguages') && (process != 'loadProfiles')) {
            // this._router.navigate(['Users']);
             this._location.back();

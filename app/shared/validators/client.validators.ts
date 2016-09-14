@@ -60,7 +60,7 @@ export class ClientValidators{
     }
 
     static outOfRange50(control: Control) {
-
+   
         if ((control.dirty == true)  || (control.touched  == true) || (control.pristine == false)) {
             if (control.value != "") {
                 if (control.value.length > 50) {
@@ -72,6 +72,18 @@ export class ClientValidators{
 
     }
 
+    static dropDownNotSelected(control: Control) {
+        debugger;
+        if ((control.dirty == true) || (control.touched == true) || (control.pristine == false)) {
+            if (control.value != "") {
+                if ((control.value == -1) || (control.value == null)) {
+                    return { 'dropDownNotSelected': true };
+                }
+            }
+        }
+        return null;
+
+    }
     static invalidNumberRange(control: Control)  {
 
         if ((control.dirty == true)  || (control.touched  == true) || (control.pristine == false)) {

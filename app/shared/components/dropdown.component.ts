@@ -38,7 +38,6 @@ export class DropDownComponent implements OnInit {
     }
 
     ngOnInit() {
-        debugger;
         this.dependant = this.InputDependant;
         this.list = this.InputList;
         this.object = this.InputObject;
@@ -63,13 +62,11 @@ export class DropDownComponent implements OnInit {
     }
 
     loadParent(list) {
-        debugger;
         this.getParent(list)
 
     }
 
     getParent(list) {
-        debugger;
         if (this.object == 'item') {
             if (this.parentsLoaded == false) {
                 this.parentsLoaded == true
@@ -123,7 +120,6 @@ export class DropDownComponent implements OnInit {
     }
 
     handleData(process, data: any, parentId) {
-        debugger;
         this.dropDownLoading = false;
         console.log("handle data");
         console.log(data);
