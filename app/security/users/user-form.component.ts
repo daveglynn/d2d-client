@@ -69,6 +69,8 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     addressLine2_disabled: boolean = false;
     addressLine3_disabled: boolean = false;
     addressLine4_disabled: boolean = false;
+    enabledFrom_disabled: boolean = false;
+    enabledTo_disabled: boolean = false;
 
     // controls
     active: Control;
@@ -83,9 +85,11 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     addressLine2: Control;
     addressLine3: Control;
     addressLine4: Control;
+    enabledFrom: Control;
+    enabledTo: Control;
 
     // create a new instance 
-    user = new User(null, null, null, null,true, null, null, null, null, null, null, null, null);
+    user = new User(null, null, null, null,true, null, null, null, null, null, null, null, null,null,null);
 
     constructor(
         fb: FormBuilder,
@@ -146,7 +150,9 @@ export class UserFormComponent implements OnInit, CanDeactivate {
                         Validators.required,
                         ClientValidators.isEmpty,
                         ClientValidators.dropDownNotSelected
-                    ])),
+                        ])),
+                this.enabledFrom = new Control(''),
+                this.enabledTo = new Control(''),
                 this.addressLine1 = new Control('',
                     Validators.compose([
                         ClientValidators.outOfRange50
@@ -190,6 +196,8 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             this.addressLine2 = new Control('');
             this.addressLine3 = new Control('');
             this.addressLine4 = new Control('');
+            this.enabledFrom = new Control('');
+            this.enabledTo = new Control('');
        }
 
 
@@ -212,6 +220,8 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             addressLine2: this.addressLine2,
             addressLine3: this.addressLine3,
             addressLine4: this.addressLine4,
+            enabledFrom: this.enabledFrom,
+            enabledTo: this.enabledTo,
             address: fb.group({
                 addressLine1: this.addressLine1,
                 addressLine2: this.addressLine2,
@@ -303,7 +313,6 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         this.userLoading = true;
 
         if (this.user.id) {
-
             if (this.action === 'edit') {
                 this._userService.updateUser(this.user)
                     .subscribe(
@@ -378,10 +387,14 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         this.userLoading = false;
           console.log("handle data");
           console.log(data);
-          debugger;
+
         if (process === 'getUserById') {
             this.user = data;
+            debugger;
+            this.user.enabledFrom = this._commonService.getLocalDate(this.user.enabledFrom.toString());
+            this.user.enabledTo = this._commonService.getLocalDate(this.user.enabledTo.toString());
             this.languages.push(new DropDown(data.languageId, data.language.name));
+
         }
         if (process === 'loadProfiles') {
             this.profiles = data;

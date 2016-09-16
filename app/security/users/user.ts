@@ -26,6 +26,8 @@ export class User {
 	 	,public addressLine2?: string
 	 	,public addressLine3?: string
 	 	,public addressLine4?: string
+        , public enabledFrom?: string
+        , public enabledTo?: string
 	  ) { }
 }
     

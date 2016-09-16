@@ -84,6 +84,10 @@ export class CommonService {
         return runModal;
     }
 
-
+    getLocalDate(date: string) {
+        var d = new Date(date);
+        return d.toISOString().split('.')[0].toString();
+    }
+   
 
 }

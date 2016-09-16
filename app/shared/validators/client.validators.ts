@@ -73,7 +73,6 @@ export class ClientValidators{
     }
 
     static dropDownNotSelected(control: Control) {
-        debugger;
         if ((control.dirty == true) || (control.touched == true) || (control.pristine == false)) {
             if (control.value != "") {
                 if ((control.value == -1) || (control.value == null)) {
