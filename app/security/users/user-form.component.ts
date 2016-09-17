@@ -391,8 +391,8 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         if (process === 'getUserById') {
             this.user = data;
             debugger;
-            this.user.enabledFrom = this._commonService.getLocalDate(this.user.enabledFrom.toString());
-            this.user.enabledTo = this._commonService.getLocalDate(this.user.enabledTo.toString());
+            this.user.enabledFrom = this._commonService.getLocalDate(this.user.enabledFrom);
+            this.user.enabledTo = this._commonService.getLocalDate(this.user.enabledTo);
             this.languages.push(new DropDown(data.languageId, data.language.name));
 
         }
