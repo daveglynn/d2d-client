@@ -277,11 +277,6 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             () => this.handleSuccess('getUserById')
         );
 
-   
-      
-
-
-
     }
 
     private modalProcessing() {
@@ -409,7 +404,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
         console.log("handle success");
         // Ideally, here we'd want:
         // this.form.markAsPristine();
-       
+        this.languages = this.languages;
         if ((process != 'getUserById') && (process != 'loadLanguages') && (process != 'loadProfiles')) {
            // this._router.navigate(['Users']);
             this._location.back();

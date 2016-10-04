@@ -30,7 +30,7 @@
 
                                             <div class="form-group">
                                                 <label>First Name</label>
-                                                <input [(ngModel)]="user.firstName" id="firstName" type="text" class="form-control" placeholder="Required" ngControl="firstName" #firstName="ngForm" [disabled]="firstName_disabled" focus>
+                                                <input [(ngModel)]="user.firstName" id="firstName" type="text" class="form-control" placeholder="Required"   #firstName="ngForm" [disabled]="firstName_disabled" focus>
                                                 <div *ngIf="(firstName.touched || firstName.dirty  || !firstName.pristine ) && firstName.errors">
                                                     <div *ngIf="firstName.errors.required || firstName.errors.isEmpty" class="alert alert-danger">
                                                         First name is required

@@ -2,7 +2,7 @@
 import {OrderBy} from ".././pipes/orderBy.pipe"
 import {Format} from ".././pipes/format.pipe"
 import { RouterLink } from '@angular/router-deprecated';
-import { Router, RouteParams } from '@angular/router-deprecated';
+
 
 @Component({
     selector: 'table-simple',
@@ -23,8 +23,8 @@ export class TableSimpleComponent implements OnInit {
     @Output() OutputButtonSelectClick = new EventEmitter();
 
     constructor(
-        private _router: Router,
-        private _routeParams: RouteParams
+ 
+  
     ) {
     
     }
